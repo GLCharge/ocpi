@@ -2,7 +2,7 @@
 openapi: "3.1.0"
 info:
   version: 1.0.0
-  title: OCPI version module
+  title: OCPI versions module
   description: Specification for OCPIs versions handlers
 paths:
   /ocpi/versions:
@@ -22,7 +22,7 @@ paths:
                 $ref: '#/components/schemas/errorGeneric'
           description: errorGeneric
       summary: Get supported versions
-  /ocpi/{version}/details:
+  /ocpi/2.2.1/details:
     get:
       description: "Fetch information about the supported endpoints for version."
       responses:
@@ -50,10 +50,10 @@ components:
             version:
               type: 
                 $ref: '#/components/schemas/versionNumberType'
-              example: "2.1.1"
+              example: "2.2.1"
             url:
               type: string
-              example: "https://www.server.com/ocpi/2.1.1/"
+              example: "https://www.server.com/ocpi/2.2.1/"
           required:
             - version
             - url
@@ -78,7 +78,7 @@ components:
             version:
               type: 
                 $ref: '#/components/schemas/versionNumberType'
-              example: "2.1.1"
+              example: "2.2.1"
             endpoints:
               type: object
               properties:
@@ -95,7 +95,7 @@ components:
                 url:
                   description: "URL to the endpoint."
                   type: string
-                  example: "https://example.com/ocpi/2.1.1/cdrs/"
+                  example: "https://example.com/ocpi/2.2.1/cdrs/"
               required:
                 - identifier
                 - role
