@@ -1,0 +1,162 @@
+---
+openapi: "3.1.0"
+info:
+  version: 1.0.0
+  title: OCPI version module
+  description: Specification for OCPIs versions handlers
+paths:
+  /ocpi/versions:
+    get:
+      description: "Fetch information about the supported versions."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/versions'
+          description: versions
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
+      summary: Get supported versions
+  /ocpi/{version}/details:
+    get:
+      description: "Fetch information about the supported endpoints for version."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/details'
+          description: details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
+      summary: Get version supported endpoints
+components:
+  schemas:
+    versions:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            version:
+              type: 
+                $ref: '#/components/schemas/versionNumberType'
+              example: "2.1.1"
+            url:
+              type: string
+              example: "https://www.server.com/ocpi/2.1.1/"
+          required:
+            - version
+            - url
+        status_code:
+          type: number
+          example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timestamp
+    details:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            version:
+              type: 
+                $ref: '#/components/schemas/versionNumberType'
+              example: "2.1.1"
+            endpoints:
+              type: object
+              properties:
+                identifier:
+                  descripion: "Endpoint identifier."
+                  type: 
+                    $ref: '#/components/schemas/moduleIDType'
+                  example: "cdrs"
+                role:
+                  description: "Interface role this endpoint implements."
+                  type: 
+                    $ref: '#/components/schemas/interfaceRoleType'
+                  example: "SENDER"
+                url:
+                  description: "URL to the endpoint."
+                  type: string
+                  example: "https://example.com/ocpi/2.1.1/cdrs/"
+              required:
+                - identifier
+                - role
+                - url
+          required:
+            - version
+        status_code:
+          type: number
+          example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timestamp
+    versionNumberType:
+      description: "Versions"
+      enum:
+      - "2.0"
+      - "2.1"
+      - "2.1.1"
+      - "2.2"
+      - "2.2.1"
+      type: string
+    moduleIDType:
+      description: "OCPI 2.2.1 modules"
+      enum:
+      - cdrs
+      - chargingprofiles
+      - commands
+      - credentials
+      - hubclientinfo
+      - locations
+      - sessions
+      - tariffs
+      - tokens
+      type: string
+    interfaceRoleType:
+      description: "Interface role endpoint implements."
+      enum:
+      - SENDER
+      - RECEIVER
+      type: string
+    errorGeneric:
+      type: object
+      properties:
+        status_code:
+          type: number
+          example: 2001
+        status_message:
+          type: string
+          example: "Missing required field: type"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timeStamp
+
+
+
