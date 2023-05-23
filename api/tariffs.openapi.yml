@@ -1,0 +1,430 @@
+---
+openapi: "3.1.0"
+info:
+  version: 1.0.0
+  title: OCPI tariffs module
+  description: Specification for OCPIs tariffs handlers
+paths:
+  /ocpi/tariffs:
+    get:
+      description: "Fetch tariffs from the CPO's system"
+      parameters:
+        - in: query
+          name: date_from
+          schema:
+            type: string
+          description: "Return Tariffs that have last_updated after or equal to Date/Time (inclusive)."
+        - in: query
+          name: date_to
+          schema:
+            type: string
+          description: "Return Tariffs that have last_updated up to Date/Time, but not including (exclusive)."
+        - in: query
+          name: offset
+          schema:
+            type: integer
+          description: "The offset of the first object returned. Default is 0."
+        - in: query
+          name: limit
+          schema:
+            type: integer
+          description: "Maximum number of objects to GET."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffsResponse'
+          description: tariffsResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
+      summary: Get tariffs
+  /ocpi/tariffs/{country_code}/{party_id}/{tariff_id}:
+    get:
+      description: "If the CPO wants to check the status of a Tariff in the \
+      \ eMSP's system, it might GET the object from the eMSP's system for \
+      \ validation purposes. After all, the CPO is the owner of the object, \
+      \ so it would be illogical if the eMSP's system had a different status \
+      \ or was missing the object entirely"
+      parameters:
+        - in: path
+          name: country_code
+          schema:
+            type: string
+          required: yes
+          description: "Country code of the CPO performing the GET on the eMSP's system"
+        - in: path
+          name: party_id
+          schema:
+            type: string
+          required: yes
+          description: "Party ID (Provider ID) of the CPO performing the GET on the eMSP's system."
+        - in: path
+          name: tariff_id
+          schema:
+            type: string
+          required: yes
+          description: "Tariff.id of the Tariff object to retrieve."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffResponse'
+          description: tariffResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
+      summary: Get tariff with tariff_id
+    put:
+      description: "New or updated Tariff objects are pushed from the CPO to the eMSP."
+      parameters:
+        - in: path
+          name: country_code
+          schema:
+            type: string
+          required: yes
+          description: "Country code of the CPO performing the PUT request on the eMSP's system. \
+          \ This SHALL be the same value as the country_code in the Tariff object being pushed."
+        - in: path
+          name: party_id
+          schema:
+            type: string
+          required: yes
+          description: "Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's \
+          system. This SHALL be the same value as the party_id in the Tariff object being pushed."
+        - in: path
+          name: tariff_id
+          schema:
+            type: string
+          required: yes
+          description: "Tariff.id of the Tariff object to create or replace."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              - $ref: '#/components/schemas/tariff'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffResponse'
+          description: tariffResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
+      summary: Update tariff
+    delete:
+      description: "Delete a Tariff object which is not used any more and will not be used in the future. \
+      \ Before deleting a Tariff object, it is RECOMMENDED to ensure that the Tariff object is not referenced \
+      \ by any Connector object within the tariff_ids."
+      parameters:
+        - in: path
+          name: country_code
+          schema:
+            type: string
+          required: yes
+          description: "Country code of the CPO performing the PUT request on the eMSP's system."
+        - in: path
+          name: party_id
+          schema:
+            type: string
+          required: yes
+          description: "Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system."
+        - in: path
+          name: tariff_id
+          schema:
+            type: string
+          required: yes
+          description: "Tariff.id of the Tariff object to delete."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffDeleteResponse'
+          description: tariffDeleteResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
+      summary: Delete tariff
+components:
+  schemas:
+    tariffsResponse:
+      type: object
+      properties:
+        tariffs:
+          schema:
+            $ref: '#/components/schemas/tariff'
+        status_code:
+            type: number
+            example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timestamp
+    tariffResponse:
+      type: object
+      properties:
+        tariff:
+          schema:
+            $ref: '#/components/schemas/tariff'
+        status_code:
+            type: number
+            example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - tariff
+        - status_code
+        - timestamp
+    tariff:
+      type: object
+      properties:
+        country_code:
+          type: string
+          example: "BE"
+        party_id:
+          type: string
+          example: "BEC"
+        id:
+          type: string
+          example: "12"
+        currency:
+          type: string
+          example: "EUR"
+        type:
+          type:
+            $ref: '#/components/schemas/tariffType'
+          example: "AD_HOC_PAYMENT"
+        tariff_alt_text:
+          type: object
+          properties:
+            language:
+              type: string
+              example: "en"
+            text:
+              type: string
+              example: "2.00 euro p/hour including VAT."
+          required:
+            - language
+            - text
+        tariff_alt_url:
+          type: string
+          example: "https://company.com/tariffs/14"
+        min_price:
+          schema:
+            $ref: '#/components/schemas/price'
+        max_price:
+          schema:
+            $ref: '#/components/schemas/price'
+        elements:
+          type: object
+          properties:
+            price_components:
+              type:
+                $ref: '#/components/schemas/tariffDimensionType'
+              example: "ENERGY"
+            restrictions:
+              type: object
+              properties:
+                start_time:
+                  type: string
+                  example: "09:00"
+                end_time:
+                  type: string
+                  example: "18:00"
+                start_date:
+                  type: string
+                  example: "2019-06-23T08:16:02Z"
+                end_date:
+                  type: string
+                  example: "2015-06-29T23:50:16Z"
+                min_kwh:
+                  type: number
+                  example: 1.0
+                max_kwh:
+                  type: number
+                  example: 1.0
+                min_current:
+                  type: number
+                  example: "32.00"
+                max_current:
+                  type: number
+                  example: "30"
+                min_power:
+                  type: number
+                  example: 32.00
+                max_power:
+                  type: number
+                  example: 32.00
+                min_duration:
+                  type: integer
+                  example: 0
+                max_duration:
+                  type: integer
+                  example: 3600
+                day_of_week:
+                  type:
+                    $ref: '#/components/schemas/dayOfWeekType'
+                  example: "MONDAY"
+                reservation:
+                  type:
+                    $ref: '#/components/schemas/reservationRestrictionType'
+                  example: "RESERVATION"
+        start_date_time:
+          type: string
+          example: "2019-06-23T08:16:02Z"
+        end_date_time:
+          type: string
+          example: "2019-06-23T08:16:02Z"
+        energy_mix:
+          type: object
+          properties:
+            is_green_energy:
+              type: boolean
+              example: true
+            energy_sources:
+              type: object
+              properties:
+                source:
+                  type:
+                    $ref: '#/components/schemas/energySourceCategoryType'
+                  example: "NUCLEAR"
+                percentage:
+                  type: number
+                  example: "21.7"
+              required:
+                - source
+                - percentage
+            environ_impact:
+              type: object
+              properties:
+                category:
+                  type:
+                    $ref: '#/components/schemas/environmentalImpactCategory'
+                  example: "NUCLEAR_WASTE"
+                amount:
+                  type: number
+                  example: 372
+              required:
+                - category
+                - amount
+            supplier_name:
+              type: string
+              example: "E.ON Energy Deutschland"
+            energy_product_name:
+              type: string
+              example: "E.ON DirektStrom eco"
+          required:
+            - is_green_energy
+        last_updated:
+          type: string
+          example: "2015-06-29T22:39:09Z"
+      required:
+        - country_code
+        - party_id
+        - id
+        - currency
+        - last_updated
+    tariffType:
+      enum:
+      - "AD_HOC_PAYMENT"
+      - "PROFILE_CHEAP"
+      - "PROFILE_FAST"
+      - "PROFILE_GREEN"
+      - "REGULAR"
+      type: string
+    tariffDimensionType:
+      enum:
+      - "ENERGY"
+      - "FLAT"
+      - "PARKING_TIME"
+      - "TIME"
+      type: string
+    dayOfWeekType:
+      enum:
+      - "MONDAY"
+      - "TUESDAY"
+      - "WEDNESDAY"
+      - "THURSDAY"
+      - "FRIDAY"
+      - "SATURDAY"
+      - "SUNDAY"
+      type: string
+    reservationRestrictionType:
+      enum:
+      - "RESERVATION"
+      - "RESERVATION_EXPIRES"
+      type: string
+    energySourceCategoryType:
+      description: "Categories of energy sources."
+      enum:
+      - "NUCLEAR"
+      - "GENERAL_FOSSIL"
+      - "COAL"
+      - "GAS"
+      - "GENERAL_GREEN"
+      - "SOLAR"
+      - "WIND"
+      - "WATER"
+      type: string
+    environmentalImpactCategoryType:
+      description: "Categories of environmental impact values"
+      enum:
+      - "NUCLEAR_WASTE"
+      - "CARBON_DIOXIDE"
+      type: string
+    tariffDeleteResponse:
+      type: object
+      properties:
+        status_code:
+          type: number
+          example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timeStamp
+    errorGeneric:
+      type: object
+      properties:
+        status_code:
+          type: number
+          example: 2001
+        status_message:
+          type: string
+          example: "Missing required field: type"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timeStamp

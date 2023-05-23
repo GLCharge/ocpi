@@ -23,7 +23,7 @@ paths:
           name: offset
           schema:
             type: integer
-          description: "no The offset of the first object returned. Default is 0."
+          description: "The offset of the first object returned. Default is 0."
         - in: query
           name: limit
           schema:

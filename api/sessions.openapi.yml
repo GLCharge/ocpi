@@ -123,19 +123,22 @@ paths:
           schema:
             type: string
           required: yes
-          description: "Country code of the CPO performing the GET on the eMSP's system"
+          description: "Country code of the CPO performing this PUT on the eMSP's system. \
+          \ This SHALL be the same value as the country_code in the Session object being pushed."
         - in: path
           name: party_id
           schema:
             type: string
           required: yes
-          description: "Party ID (Provider ID) of the CPO performing the GET on the eMSP's system."
+          description: "Party ID (Provider ID) of the CPO performing this PUT on the eMSP's \
+          \ system. This SHALL be the same value as the party_id in the Session object being \
+          \ pushed."
         - in: path
           name: session_id
           schema:
             type: string
           required: yes
-          description: "Id of the Session object to get from the eMSP's system."
+          description: "Id of the new or updated Session object."
       requestBody:
         content:
           application/json:
