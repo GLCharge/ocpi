@@ -35,8 +35,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/session'
-          description: session
+                $ref: '#/components/schemas/sessionsResponse'
+          description: sessionsResponse
         default:
           content:
             application/json:
@@ -106,8 +106,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/session'
-          description: session
+                $ref: '#/components/schemas/sessionResponse'
+          description: sessionResponse
         default:
           content:
             application/json:
@@ -146,8 +146,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/session'
-          description: session
+                $ref: '#/components/schemas/sessionResponse'
+          description: sessionResponse
         default:
           content:
             application/json:
@@ -170,6 +170,43 @@ paths:
       \ object (including all the charging_periods)."
 components:
   schemas:
+    sessionsResponse:
+      type: object
+      properties:
+        sessions:
+          schema:
+            $ref: '#/components/schemas/session'
+        status_code:
+            type: number
+            example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timestamp
+    sessionResponse:
+      type: object
+      properties:
+        session:
+          schema:
+            $ref: '#/components/schemas/session'
+        status_code:
+            type: number
+            example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - session
+        - status_code
+        - timestamp
     session:
       type: object
       properties:
@@ -222,6 +259,7 @@ components:
           example: "AUTH_REQUEST"
         authorization_reference:
           type: string
+          example: ""
         location_id:
           type: string
           example: "LOC1"
@@ -259,7 +297,7 @@ components:
               type: string
               example: "12"
           required:
-           - start_date_time
+          - start_date_time
         total_costs:
           type: object
           properties:
@@ -292,18 +330,6 @@ components:
         - currency
         - status
         - last_updated
-    status_code:
-        type: number
-        example: 1000
-      status_message:
-        type: string
-        example: "Success"
-      timeStamp:
-        type: string
-        example: "2015-06-30T21:59:59Z"
-    required:
-      - status_code
-      - timestamp
     tokenType:
       description: "Tokens"
       enum:
@@ -313,7 +339,7 @@ components:
       - "RFID"
       type: string
     authMetodType:
-      description: "Authentications  methods"
+      description: "Authentications methods"
       enum:
       - "AUTH_REQUEST"
       - "COMMAND"
@@ -369,6 +395,26 @@ components:
       - "REGULAR"
       type: string
     chargingPreferencesResponse:
+      type: object
+      properties:
+        charging_preferences:
+          type:
+            $ref: '#/components/schemas/chargingPreferencesResponseType'
+          example: "ACCEPTED"
+        status_code:
+          type: number
+          example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - charging_preferences
+        - status_code
+        - timestamp
+    chargingPreferencesResponseType:
       description: "Different smart charging profile types"
       enum:
       - "ACCEPTED"
