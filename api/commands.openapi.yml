@@ -7,6 +7,8 @@ info:
 paths:
   /ocpi/commands/{command}:
     post:
+      description: "Send a command to the CPO, requesting the CPO to send \
+      \ the command to the Charge Point"
       parameters:
         - in: query
           name: command
