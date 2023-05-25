@@ -1,5 +1,5 @@
 ---
-openapi: "3.1.0"
+openapi: "3.0.3"
 info:
   version: 1.0.0
   title: OCPI locations module
@@ -193,6 +193,7 @@ paths:
                   - $ref: '#/components/schemas/locations'
                   - $ref: '#/components/schemas/evse'
                   - $ref: '#/components/schemas/connector'
+          description: locations, evse, connector
         default:
           content:
             application/json:
@@ -209,6 +210,23 @@ paths:
       \ the Receiver SHALL also set the new last_updated value on the parent EVSE and \
       \ Location Objects. When the PATCH is on a EVSE Object, the Receiver SHALL also \
       \ set the new last_updated value on the parent Location Object."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                oneOf:
+                  - $ref: '#/components/schemas/locations'
+                  - $ref: '#/components/schemas/evse'
+                  - $ref: '#/components/schemas/connector'
+          description: locations, evse, connector
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
+      summary: Sends new location object
 components:
   schemas:
     locations:
@@ -236,9 +254,7 @@ components:
                   type: string
                   example: "012345678"
                 type:
-                  type: 
-                    $ref: '#/components/schemas/tokenType'
-                  example: "AD_HOC_USER"
+                  $ref: '#/components/schemas/tokenType'
                 visual_number:
                   type: string
                   example: "DF000-2001-8999"
@@ -303,12 +319,8 @@ components:
                 - latitude
                 - longitude
             parking_type:
-              type: object
                 $ref: '#/components/schemas/parkingType'
-              example:
-                "PARKING_LOT"
             evses:
-              schema:
                 $ref: '#/components/schemas/evse'
             directions:
               type: object
@@ -323,18 +335,13 @@ components:
                 - language
                 - text
             operator:
-              schema:
-                $ref: '#/components/schemas/businessDetails'
+              $ref: '#/components/schemas/businessDetails'
             suboperator:
-              schema:
-                $ref: '#/components/schemas/businessDetails'
+              $ref: '#/components/schemas/businessDetails'
             owner:
-              schema:
-                $ref: '#/components/schemas/businessDetails'
+              $ref: '#/components/schemas/businessDetails'
             facilities:
-              type:
-                $ref: '#/components/schemas/facilityType'
-              example: "HOTEL"
+              $ref: '#/components/schemas/facilityType'
             time_zone:
               type: string
               example: "Europe/Brussels"
@@ -390,8 +397,7 @@ components:
               type: boolean
               example: false
             images:
-              schema:
-                $ref: '#/components/schemas/image'
+              $ref: '#/components/schemas/image'
             energy_mix:
               type: object
               properties:
@@ -402,9 +408,7 @@ components:
                   type: object
                   properties:
                     source:
-                      type:
-                        $ref: '#/components/schemas/energySourceCategoryType'
-                      example: "NUCLEAR"
+                      $ref: '#/components/schemas/energySourceCategoryType'
                     percentage:
                       type: number
                       example: "21.7"
@@ -415,9 +419,7 @@ components:
                   type: object
                   properties:
                     category:
-                      type:
-                        $ref: '#/components/schemas/environmentalImpactCategory'
-                      example: "NUCLEAR_WASTE"
+                      $ref: '#/components/schemas/environmentalImpactCategoryType'
                     amount:
                       type: number
                       example: 372
@@ -464,9 +466,7 @@ components:
           type: string
           example: "https://example.com/img/logo_thumb.jpg"
         category:
-          type:
-            $ref: '#/components/schemas/imageCategoryType'
-          example: "OPERATOR"
+          $ref: '#/components/schemas/imageCategoryType'
         type:
           type: string
           example: "jpeg"
@@ -490,9 +490,7 @@ components:
           type: string
           example: "BE*BEC*E041503001"
         status:
-          type: object
-            $ref: '#/components/schemas/statusType'
-          example: "AVAILABLE"
+          $ref: '#/components/schemas/statusType'
         status_schedule:
           type: object
           properties:
@@ -503,19 +501,14 @@ components:
               type: string
               example: "18:00"
             status:
-              type: object
-                $ref: '#/components/schemas/statusType'
-              example: "AVAILABLE"
+              $ref: '#/components/schemas/statusType'
           required:
             - period_begin
             - status
         capabilities:
-          type:
-            $ref: '#/components/schemas/capabilityType'
-          example: "CHARGING_PROFILE_CAPABLE"
+          $ref: '#/components/schemas/capabilityType'
         connectors:
-          schema:
-            $ref: '#/components/schemas/connector'
+          $ref: '#/components/schemas/connector'
         floor_level:
           type: string
           example: "-1"
@@ -547,12 +540,9 @@ components:
             - language
             - text
         parking_restrictions:
-          type:
-            $ref: '#/components/schemas/parkingRestrictionType'
-          example: "EV_ONLY"
+          $ref: '#/components/schemas/parkingRestrictionType'
         images:
-          schema:
-            $ref: '#/components/schemas/image'
+          $ref: '#/components/schemas/image'
         last_updated:
           type: string
           example: "2015-03-18T08:12:01Z"
@@ -566,18 +556,12 @@ components:
         id:
           type: string
           example: "1"
-        standard: 
-          type:
-            $ref: '#/components/schemas/connectorType'
-          example: "CHADEMO"
+        standard:
+          $ref: '#/components/schemas/connectorType'
         format:
-          type:
-            $ref: '#/components/schemas/connectorFormatType'
-          example: "SOCKET"
+          $ref: '#/components/schemas/connectorFormatType'
         power_type:
-          type:
-            $ref: '#/components/schemas/powerType'
-          example: "AC_1_PHASE"
+          $ref: '#/components/schemas/powerType'
         max_voltage:
           type: integer
           example: 220
@@ -623,9 +607,7 @@ components:
               type: string
               example: "https://example.com/img/logo_thumb.jpg"
             category:
-              type:
-                $ref: '#/components/schemas/imageCategoryType'
-              example: "OPERATOR"
+              $ref: '#/components/schemas/imageCategoryType'
             type:
               type: string
               example: "jpeg"
@@ -689,6 +671,16 @@ components:
       - "TOKEN_GROUP_CAPABLE"
       - "UNLOCK_CAPABLE"
       type: string
+    imageCategoryType:
+      description: "The category of an image to obtain the correct usage in a user presentation."
+      enum:
+        - "CHARGER"
+        - "ENTRANCE"
+        - "LOCATION"
+        - "NETWORK"
+        - "OPERATOR"
+        - "OTHER"
+        - "OWNER"
     connectorType:
       description: "The socket or plug standard of the charging point."
       enum:

@@ -1,5 +1,5 @@
 ---
-openapi: "3.1.0"
+openapi: "3.0.3"
 info:
   version: 1.0.0
   title: OCPI versions module
@@ -48,9 +48,7 @@ components:
           type: object
           properties:
             version:
-              type: 
-                $ref: '#/components/schemas/versionNumberType'
-              example: "2.2.1"
+              $ref: '#/components/schemas/versionNumberType'
             url:
               type: string
               example: "https://www.server.com/ocpi/2.2.1/"
@@ -76,22 +74,14 @@ components:
           type: object
           properties:
             version:
-              type: 
-                $ref: '#/components/schemas/versionNumberType'
-              example: "2.2.1"
+              $ref: '#/components/schemas/versionNumberType'
             endpoints:
               type: object
               properties:
                 identifier:
-                  descripion: "Endpoint identifier."
-                  type: 
-                    $ref: '#/components/schemas/moduleIDType'
-                  example: "cdrs"
+                  $ref: '#/components/schemas/moduleIDType'
                 role:
-                  description: "Interface role this endpoint implements."
-                  type: 
-                    $ref: '#/components/schemas/interfaceRoleType'
-                  example: "SENDER"
+                  $ref: '#/components/schemas/interfaceRoleType'
                 url:
                   description: "URL to the endpoint."
                   type: string

@@ -1,5 +1,5 @@
 ---
-openapi: "3.1.0"
+openapi: "3.0.3"
 info:
   version: 1.0.0
   title: OCPI tariffs module
@@ -55,19 +55,19 @@ paths:
           name: country_code
           schema:
             type: string
-          required: yes
+          required: true
           description: "Country code of the CPO performing the GET on the eMSP's system"
         - in: path
           name: party_id
           schema:
             type: string
-          required: yes
+          required: true
           description: "Party ID (Provider ID) of the CPO performing the GET on the eMSP's system."
         - in: path
           name: tariff_id
           schema:
             type: string
-          required: yes
+          required: true
           description: "Tariff.id of the Tariff object to retrieve."
       responses:
         "200":
@@ -90,27 +90,27 @@ paths:
           name: country_code
           schema:
             type: string
-          required: yes
+          required: true
           description: "Country code of the CPO performing the PUT request on the eMSP's system. \
           \ This SHALL be the same value as the country_code in the Tariff object being pushed."
         - in: path
           name: party_id
           schema:
             type: string
-          required: yes
+          required: true
           description: "Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's \
           system. This SHALL be the same value as the party_id in the Tariff object being pushed."
         - in: path
           name: tariff_id
           schema:
             type: string
-          required: yes
+          required: true
           description: "Tariff.id of the Tariff object to create or replace."
       requestBody:
         content:
           application/json:
             schema:
-              - $ref: '#/components/schemas/tariff'
+              $ref: '#/components/schemas/tariff'
       responses:
         "200":
           content:
@@ -134,19 +134,19 @@ paths:
           name: country_code
           schema:
             type: string
-          required: yes
+          required: true
           description: "Country code of the CPO performing the PUT request on the eMSP's system."
         - in: path
           name: party_id
           schema:
             type: string
-          required: yes
+          required: true
           description: "Party ID (Provider ID) of the CPO performing the PUT request on the eMSP's system."
         - in: path
           name: tariff_id
           schema:
             type: string
-          required: yes
+          required: true
           description: "Tariff.id of the Tariff object to delete."
       responses:
         "200":
@@ -168,8 +168,7 @@ components:
       type: object
       properties:
         tariffs:
-          schema:
-            $ref: '#/components/schemas/tariff'
+          $ref: '#/components/schemas/tariff'
         status_code:
             type: number
             example: 1000
@@ -186,11 +185,10 @@ components:
       type: object
       properties:
         tariff:
-          schema:
-            $ref: '#/components/schemas/tariff'
+          $ref: '#/components/schemas/tariff'
         status_code:
-            type: number
-            example: 1000
+          type: number
+          example: 1000
         status_message:
           type: string
           example: "Success"
@@ -217,9 +215,7 @@ components:
           type: string
           example: "EUR"
         type:
-          type:
-            $ref: '#/components/schemas/tariffType'
-          example: "AD_HOC_PAYMENT"
+          $ref: '#/components/schemas/tariffType'
         tariff_alt_text:
           type: object
           properties:
@@ -236,18 +232,14 @@ components:
           type: string
           example: "https://company.com/tariffs/14"
         min_price:
-          schema:
-            $ref: '#/components/schemas/price'
+          $ref: '#/components/schemas/price'
         max_price:
-          schema:
-            $ref: '#/components/schemas/price'
+          $ref: '#/components/schemas/price'
         elements:
           type: object
           properties:
             price_components:
-              type:
-                $ref: '#/components/schemas/tariffDimensionType'
-              example: "ENERGY"
+              $ref: '#/components/schemas/tariffDimensionType'
             restrictions:
               type: object
               properties:
@@ -288,13 +280,9 @@ components:
                   type: integer
                   example: 3600
                 day_of_week:
-                  type:
-                    $ref: '#/components/schemas/dayOfWeekType'
-                  example: "MONDAY"
+                  $ref: '#/components/schemas/dayOfWeekType'
                 reservation:
-                  type:
-                    $ref: '#/components/schemas/reservationRestrictionType'
-                  example: "RESERVATION"
+                  $ref: '#/components/schemas/reservationRestrictionType'
         start_date_time:
           type: string
           example: "2019-06-23T08:16:02Z"
@@ -311,9 +299,7 @@ components:
               type: object
               properties:
                 source:
-                  type:
-                    $ref: '#/components/schemas/energySourceCategoryType'
-                  example: "NUCLEAR"
+                  $ref: '#/components/schemas/energySourceCategoryType'
                 percentage:
                   type: number
                   example: "21.7"
@@ -324,9 +310,7 @@ components:
               type: object
               properties:
                 category:
-                  type:
-                    $ref: '#/components/schemas/environmentalImpactCategory'
-                  example: "NUCLEAR_WASTE"
+                  $ref: '#/components/schemas/environmentalImpactCategoryType'
                 amount:
                   type: number
                   example: 372
@@ -350,6 +334,17 @@ components:
         - id
         - currency
         - last_updated
+    price:
+      type: object
+      properties:
+        excl_vat:
+          type: number
+          example: 2.5
+        incl_vat:
+          type: number
+          example: 0.66
+      required:
+        - excl_vat
     tariffType:
       enum:
       - "AD_HOC_PAYMENT"

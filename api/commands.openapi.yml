@@ -1,5 +1,5 @@
 ---
-openapi: "3.1.0"
+openapi: "3.0.3"
 info:
   version: 1.0.0
   title: OCPI commands module
@@ -13,8 +13,7 @@ paths:
         - in: query
           name: command
           schema:
-            type:
-              $ref: '#/components/schemas/commandType'
+            $ref: '#/components/schemas/commandType'
           description: "Type of command that is requested."
       requestBody:
         content:
@@ -53,7 +52,20 @@ paths:
         content:
           application/json:
             schema:
-              - $ref: '#/components/schemas/commandResult'
+              $ref: '#/components/schemas/commandResult'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commandResponse'
+          description: commandResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/errorGeneric'
+          description: errorGeneric
       summary: Receive the asynchronous response from the Charge Point.
 components:
   schemas:
@@ -82,8 +94,7 @@ components:
         response_url:
           type: string
         token:
-          schema:
-            '#/components/schemas/token'
+          $ref: '#/components/schemas/token'
         expiry_date:
           type: string
         reservation_id:
@@ -109,8 +120,7 @@ components:
         response_url:
           type: string
         token:
-          schema:
-            '#/components/schemas/token'
+          $ref: '#/components/schemas/token'
         location_id:
           type: string
         evse_uid:
@@ -166,10 +176,8 @@ components:
         uid:
           type: string
           example: "bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1"
-        type: 
-          type:
-            $ref: '#/components/schemas/tokenType'
-          example: "AD_HOC_USER"
+        type:
+          $ref: '#/components/schemas/tokenType'
         contract_id:
           type: string
           example: "DE8ACC12E46L89"
@@ -186,16 +194,12 @@ components:
           type: boolean
           example: true
         whitelist:
-          type:
-            $ref: '#/components/schemas/whitelistType'
-          example: "ALWAYS"
+          $ref: '#/components/schemas/whitelistType'
         language:
           type: string
           example: "en"
         default_profile_type:
-          type:
-            $ref: '#/components/schemas/profileType'
-          example: "FAST"
+          $ref: '#/components/schemas/profileType'
         energy_contract:
           type: object
           properties:
@@ -248,9 +252,7 @@ components:
       type: object
       properties:
         result:
-          type:
-            $ref: '#/components/schemas/commandResponseType'
-          example: "NOT_SUPPORTED"
+          $ref: '#/components/schemas/commandResponseType'
         timeout:
           type: integer
           example: 0
@@ -280,9 +282,7 @@ components:
       type: object
       properties:
         result:
-          type:
-            $ref: '#/components/schemas/commandResultType'
-          example: "ACCEPTED"
+          $ref: '#/components/schemas/commandResultType'
         message:
           type: object
           properties:
