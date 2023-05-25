@@ -45,8 +45,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get available locations
   /ocpi/locations/{location_id}/{evse_uid}/{connector_id}:
     get:
@@ -82,8 +82,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get location, EVSE or connector
   /ocpi/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}:
     get:
@@ -136,8 +136,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get location, EVSE or connector
     put:
       description: "The CPO pushes available Location, EVSE or Connector \
@@ -198,8 +198,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Sends new location object
     patch:
       description: "Same as the PUT method, but only the fields/objects that have \
@@ -224,8 +224,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Sends new location object
 components:
   schemas:
@@ -788,7 +788,7 @@ components:
       - "NUCLEAR_WASTE"
       - "CARBON_DIOXIDE"
       type: string
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

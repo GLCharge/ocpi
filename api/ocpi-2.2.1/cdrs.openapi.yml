@@ -40,8 +40,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get CDRs
     post:
       description: "Creates a new CDR. The POST method should contain the full and final CDR object. \
@@ -62,8 +62,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Create CDR object
 components:
   schemas:
@@ -587,7 +587,7 @@ components:
           example: 0.66
       required:
         - excl_vat
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

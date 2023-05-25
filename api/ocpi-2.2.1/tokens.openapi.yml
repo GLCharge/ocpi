@@ -40,8 +40,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get tokens
   /ocpi/{token_uid}/authorize:
     post:
@@ -75,8 +75,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Authorization
   /ocpi/tokens/{country_code}/{party_id}/{token_uid}:
     get:
@@ -119,8 +119,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get the token object
     put:
       description: "New or updated Token objects are pushed from the eMSP to the CPO."
@@ -167,8 +167,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Update token object
     patch:
       description: "Same as the PUT method, but only the fields/objects \
@@ -186,8 +186,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Update token object
 components:
   schemas:
@@ -354,7 +354,7 @@ components:
       - "NO_CREDIT"
       - "NOT_ALLOWED"
       type: string
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

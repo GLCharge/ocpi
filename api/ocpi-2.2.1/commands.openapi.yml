@@ -36,8 +36,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Send a command
   /ocpi/commands/{command}/{uid}:
     post:
@@ -64,8 +64,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Receive the asynchronous response from the Charge Point.
 components:
   schemas:
@@ -309,7 +309,7 @@ components:
       - "TIMEOUT"
       - "UNKNOWN_RESERVATION"
       type: string
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

@@ -40,8 +40,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get active charging profile
   /ocpi/chargingprofiles/{session_id}:
     put:
@@ -69,8 +69,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Create or update charging profile on session
   /ocpi/chargingprofiles/{session_id}/{response_url}:
     delete:
@@ -101,8 +101,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Delete charging profile on the session
   /ocpi/chargingprofile:
     post:
@@ -128,14 +128,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseGeneric'
-          description: responseGeneric
+                $ref: '#/components/schemas/genericResponse'
+          description: genericResponse
         default:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Send a result of the original request by the eMSP
   /ocpi/chargingprofile/{session_id}:
     put:
@@ -168,14 +168,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseGeneric'
-          description: responseGeneric
+                $ref: '#/components/schemas/genericResponse'
+          description: genericResponse
         default:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Update charging profile
 components:
   schemas:
@@ -297,7 +297,7 @@ components:
       - "REJECTED"
       - "UNKNOWN"
       type: string
-    responseGeneric:
+    genericResponse:
       type: object
       properties:
         status_code:
@@ -323,7 +323,7 @@ components:
       required:
         - start_date_time
         - charging_profile
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

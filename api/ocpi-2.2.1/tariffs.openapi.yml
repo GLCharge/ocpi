@@ -40,8 +40,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get tariffs
   /ocpi/tariffs/{country_code}/{party_id}/{tariff_id}:
     get:
@@ -80,8 +80,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get tariff with tariff_id
     put:
       description: "New or updated Tariff objects are pushed from the CPO to the eMSP."
@@ -122,8 +122,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Update tariff
     delete:
       description: "Delete a Tariff object which is not used any more and will not be used in the future. \
@@ -159,8 +159,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Delete tariff
 components:
   schemas:
@@ -408,7 +408,7 @@ components:
       required:
         - status_code
         - timeStamp
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

@@ -36,8 +36,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get a ClientInfo object as it is stored in the connected clients system.
     put:
       description: "New or updated ClientInfo objects are pushed from the Hub to a connected client."
@@ -70,8 +70,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Create or update client info
   /ocpi/hubclientinfo:
     get:
@@ -102,14 +102,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/responseClientsInfo'
-          description: responseClientsInfo
+                $ref: '#/components/schemas/clientInfoResponse'
+          description: clientInfoResponse
         default:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get hub connected clients
 components:
   schemas:
@@ -131,7 +131,7 @@ components:
         - client_info
         - status_code
         - timestamp
-    responseClientsInfo:
+    clientInfoResponse:
       type: object
       properties:
         clients_info:
@@ -187,7 +187,7 @@ components:
       - "PLANNED"
       - "SUSPENDED"
       type: string
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

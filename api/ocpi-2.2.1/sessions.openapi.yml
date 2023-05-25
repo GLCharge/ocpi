@@ -41,8 +41,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get charging sessions
   /ocpi/sessions/{session_id}/charging_preferences:
     put:
@@ -74,8 +74,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Update charging session
   /ocpi/sessions/{country_code}/{party_id}/{session_id}:
     get:
@@ -112,8 +112,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get session with session_id
     put:
       description: ""
@@ -155,8 +155,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Update session with session_id
     patch:
       description: "Same as the PUT method, but only the fields/objects that need to \
@@ -182,8 +182,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Update session with session_id
 components:
   schemas:
@@ -426,7 +426,7 @@ components:
       - "NOT_POSSIBLE"
       - "PROFILE_TYPE_NOT_SUPPORTED"
       type: string
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:

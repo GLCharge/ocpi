@@ -19,8 +19,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get supported versions
   /ocpi/2.2.1/details:
     get:
@@ -36,8 +36,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/errorGeneric'
-          description: errorGeneric
+                $ref: '#/components/schemas/genericError'
+          description: genericError
       summary: Get version supported endpoints
 components:
   schemas:
@@ -132,7 +132,7 @@ components:
       - SENDER
       - RECEIVER
       type: string
-    errorGeneric:
+    genericError:
       type: object
       properties:
         status_code:
