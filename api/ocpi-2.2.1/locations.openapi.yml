@@ -1,7 +1,7 @@
 ---
 openapi: "3.0.3"
 info:
-  version: 1.0.0
+  version: 2.2.1
   title: OCPI locations module
   description: Specification for OCPIs locations handlers
 paths:

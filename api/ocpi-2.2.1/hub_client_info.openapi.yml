@@ -1,7 +1,7 @@
 ---
 openapi: "3.0.3"
 info:
-  version: 1.0.0
+  version: 2.2.1
   title: OCPI hub client info module
   description: Specification for OCPIs hub client info handlers
 paths:
