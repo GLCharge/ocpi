@@ -1,0 +1,340 @@
+---
+openapi: "3.0.3"
+info:
+  version: 2.2.1
+  title: OCPI charging profiles module
+  description: Specification for OCPIs charging profiles handlers
+paths:
+  /ocpi/chargingprofiles/{session_id}/{duration}/{url}:
+    get:
+      description: "Retrieves the ActiveChargingProfile as it is currently planned for the the given session"
+      parameters:
+        - in: path
+          name: session_id
+          schema:
+            type: string
+          required: true
+          description: "The unique id that identifies the session in the CPO platform."
+        - in: path
+          name: duration
+          schema:
+            type: integer
+          required: true
+          description: "Length of the requested ActiveChargingProfile in seconds Duration in seconds."
+        - in: path
+          name: response_url
+          schema:
+            type: string
+          required: true
+          description: "URL that the ActiveChargingProfileResult POST should be send to. This URL \
+          \ might contain an unique ID to be able to distinguish between GET ActiveChargingProfile \
+          \ requests."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get active charging profile
+  /ocpi/chargingprofiles/{session_id}:
+    put:
+      description: "Creates a new ChargingProfile on a session, or replaces an existing ChargingProfile on the EVSE."
+      parameters:
+        - in: path
+          name: session_id
+          schema:
+            type: string
+          required: true
+          description: "The unique id that identifies the session in the CPO platform."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/setChargingProfile'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Create or update charging profile on session
+  /ocpi/chargingprofiles/{session_id}/{response_url}:
+    delete:
+      description: "Clears the ChargingProfile set by the eMSP on the given session."
+      parameters:
+        - in: path
+          name: session_id
+          schema:
+            type: string
+          required: true
+          description: "The unique id that identifies the session in the CPO platform."
+        - in: path
+          name: response_url
+          schema:
+            type: string
+          required: true
+          description: "URL that the ClearProfileResult POST should be send to. This URL \
+          \ might contain an unique ID to be able to distinguish between DELETE \
+          \ ChargingProfile requests."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/response'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Delete charging profile on the session
+  /ocpi/chargingprofile:
+    post:
+      description: "There are no URL segment parameters required by OCPI. \
+      \ As the Sender interface is called by the Receiver (typically CPO) on \
+      \ the URL given response_url in the Sender request to the Receiver interface. \
+      \ It is up to the implementation of the Sender (typically SCSP) to determine \
+      \ what parameters are put in the URL. The Sender sends a URL in the POST method \
+      \ body to the Receiver. The Receiver is required to use this URL for the asynchronous \
+      \ response by the Charge Point. It is advised to make this URL unique for every \
+      \ request to differentiate simultaneous commands, for example by adding a unique \
+      \ id as a URL segment."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              oneOf:
+                - $ref: '#/components/schemas/activeChargingProfileResult'
+                - $ref: '#/components/schemas/chargingProfileResult'
+                - $ref: '#/components/schemas/clearProfileResult'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponse'
+          description: genericResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Send a result of the original request by the eMSP
+  /ocpi/chargingprofile/{session_id}:
+    put:
+      description: "Updates the Sender (typically SCSP) when the Receiver (typically CPO) \
+      \ knows the ActiveChargingProfile has changed. The Receiver SHALL call this interface \
+      \ every time it knows changes have been made that influence the ActiveChargingProfile \
+      \ for an ongoing session AND the Sender has at least once successfully called the charging \
+      \ profile Receiver PUT interface for this session (SetChargingProfile). If the Receiver \
+      \ doesn't know the ActiveChargingProfile has changed (EVSE does not notify the Receiver \
+      \ (typically CPO) of the change) it is not required to call this interface. The Receiver \
+      \ SHALL NOT call this interface for any session where the Sender has never, successfully \
+      \ called the charging profile Receiver PUT interface for this session (SetChargingProfile). \
+      \ The Receiver SHALL send a useful relevant duration of ActiveChargingProfile to send to the \
+      \ Sender. As a guide: between 5 and 60 minutes. If the Sender wants a longer ActiveChargingProfile \
+      \ the Sender can always do a GET with a longer duration."
+      parameters:
+        - in: path
+          name: session_id
+          schema:
+            type: string
+          required: true
+          description: "The unique id that identifies the session in the CPO platform."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/activeChargingProfile'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponse'
+          description: genericResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update charging profile
+components:
+  schemas:
+    response:
+      type: object
+      properties:
+        chargingProfile:
+          $ref: '#/components/schemas/chargingProfileResponse'
+        status_code:
+            type: number
+            example: 1000
+        status_message:
+          type: string
+          example: "Success"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timestamp
+    chargingProfileResponse:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/chargingProfileResponseType'
+        timeout:
+          type: integer
+          example: 0
+      required:
+        - result
+        - timeout
+    chargingProfileResponseType:
+      description: "Response to the ChargingProfile request from the eMSP to the CPO."
+      enum:
+      - "ACCEPTED"
+      - "NOT_SUPPORTED"
+      - "REJECTED"
+      - "TOO_OFTEN"
+      - "UNKNOWN_SESSION"
+      type: string
+    setChargingProfile:
+      type: object
+      properties:
+        charging_profile:
+          $ref: '#/components/schemas/chargingProfile'
+        response_url:
+          type: string
+          example: "https://client.com/12345"
+      required:
+        - charging_profile
+        - response_url
+    chargingProfile:
+          type: object
+          properties:
+            start_date_time:
+              type: string
+              example: "2019-06-23T08:16:02Z"
+            duration:
+              type: integer
+              example: 900
+            charging_rate_unit:
+              $ref: '#/components/schemas/chargingRateUnitType'
+            min_charging_rate:
+              type: number
+            charging_profile_period:
+              type: object
+              properties:
+                start_period:
+                  type: integer
+                limit:
+                  type: number
+              required:
+                - start_period
+                - limit
+          required:
+            - charging_rate_unit
+    chargingRateUnitType:
+      description: "Unit in which a charging profile is defined."
+      enum:
+      - "W"
+      - "A"
+      type: string
+    activeChargingProfileResult:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/chargingProfileResultType'
+        profile:
+          type: object
+          properties:
+            start_date_time:
+              type: string
+              example: "2019-06-23T08:16:02Z"
+            charging_profile:
+              $ref: '#/components/schemas/chargingProfile'
+          required:
+            - start_date_time
+            - charging_profile
+      required:
+        - result
+    chargingProfileResult:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/chargingProfileResultType'
+      required:
+        - result
+    clearProfileResult:
+      type: object
+      properties:
+        result:
+          $ref: '#/components/schemas/chargingProfileResultType'
+      required:
+        - result
+    chargingProfileResultType:
+      description: "Result of a ChargingProfile request that the EVSE sends via the CPO to the eMSP"
+      enum:
+      - "ACCEPTED"
+      - "REJECTED"
+      - "UNKNOWN"
+      type: string
+    genericResponse:
+      type: object
+      properties:
+        status_code:
+          type: number
+          example: 2001
+        status_message:
+          type: string
+          example: "Missing required field: type"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timeStamp
+    activeChargingProfile:
+      type: object
+      properties:
+        start_date_time:
+          type: string
+          example: "2019-06-23T08:16:02Z"
+        charging_profile:
+          $ref: '#/components/schemas/chargingProfile'
+      required:
+        - start_date_time
+        - charging_profile
+    genericError:
+      type: object
+      properties:
+        status_code:
+          type: number
+          example: 2001
+        status_message:
+          type: string
+          example: "Missing required field: type"
+        timeStamp:
+          type: string
+          example: "2015-06-30T21:59:59Z"
+      required:
+        - status_code
+        - timeStamp
