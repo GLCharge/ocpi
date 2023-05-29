@@ -239,7 +239,8 @@ components:
           type: string
           example: "bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1"
         type:
-          $ref: '#/components/schemas/tokenType'
+          type: string
+          enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
         contract_id:
           type: string
           example: "DE8ACC12E46L89"
@@ -256,12 +257,14 @@ components:
           type: boolean
           example: true
         whitelist:
-          $ref: '#/components/schemas/whitelistType'
+          type: string
+          enum: ["ALWAYS", "ALLOWED", "ALLOWED_OFFLINE", "NEVER"]
         language:
           type: string
           example: "en"
         default_profile_type:
-          $ref: '#/components/schemas/profileType'
+          type: string
+          enum: ["CHEAP", "FAST", "GREEN", "REGULAR"]
         energy_contract:
           type: object
           properties:
@@ -286,30 +289,6 @@ components:
         - valid
         - whitelist
         - last_updated
-    tokenType:
-      description: "Tokens"
-      enum:
-      - "AD_HOC_USER"
-      - "APP_USER"
-      - "OTHER"
-      - "RFID"
-      type: string
-    whitelistType:
-      description: "Defines when authorization of a Token by the CPO is allowed."
-      enum:
-      - "ALWAYS"
-      - "ALLOWED"
-      - "ALLOWED_OFFLINE"
-      - "NEVER"
-      type: string
-    profileType:
-      description: "Different smart charging profile types"
-      enum:
-      - "CHEAP"
-      - "FAST"
-      - "GREEN"
-      - "REGULAR"
-      type: string
     locationReferences:
       type: object
       properties:
@@ -324,7 +303,8 @@ components:
       type: object
       properties:
         allowed:
-          $ref: '#/components/schemas/allowedType'
+          type: string
+          enum: ["ALLOWED", "BLOCKED", "EXPIRED", "NO_CREDIT", "NOT_ALLOWED"]
         token:
           $ref: '#/components/schemas/token'
         location:
@@ -346,14 +326,6 @@ components:
       required:
         - allowed
         - token
-    allowedType:
-      enum:
-      - "ALLOWED"
-      - "BLOCKED"
-      - "EXPIRED"
-      - "NO_CREDIT"
-      - "NOT_ALLOWED"
-      type: string
     genericError:
       type: object
       properties:

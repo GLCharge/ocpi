@@ -13,7 +13,8 @@ paths:
         - in: query
           name: command
           schema:
-            $ref: '#/components/schemas/commandType'
+            type: string
+            enum: ["CANCEL_RESERVATION", "RESERVE_NOW", "START_SESSION", "STOP_SESSION", "UNLOCK_CONNECTOR"]
           description: "Type of command that is requested."
       requestBody:
         content:
@@ -69,15 +70,6 @@ paths:
       summary: Receive the asynchronous response from the Charge Point.
 components:
   schemas:
-    commandType:
-      description: "The command requested."
-      enum:
-      - "CANCEL_RESERVATION"
-      - "RESERVE_NOW"
-      - "START_SESSION"
-      - "STOP_SESSION"
-      - "UNLOCK_CONNECTOR"
-      type: string
     cancelReservation:
       type: object
       properties:
@@ -177,7 +169,8 @@ components:
           type: string
           example: "bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1"
         type:
-          $ref: '#/components/schemas/tokenType'
+          type: string
+          enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
         contract_id:
           type: string
           example: "DE8ACC12E46L89"
@@ -194,12 +187,14 @@ components:
           type: boolean
           example: true
         whitelist:
-          $ref: '#/components/schemas/whitelistType'
+          type: string
+          enum: ["ALWAYS", "ALLOWED", "ALLOWED_OFFLINE", "NEVER"]
         language:
           type: string
           example: "en"
         default_profile_type:
-          $ref: '#/components/schemas/profileType'
+          type: string
+          enum: ["CHEAP", "FAST", "GREEN", "REGULAR"]
         energy_contract:
           type: object
           properties:
@@ -224,35 +219,12 @@ components:
         - valid
         - whitelist
         - last_updated
-    tokenType:
-      description: "Tokens"
-      enum:
-      - "AD_HOC_USER"
-      - "APP_USER"
-      - "OTHER"
-      - "RFID"
-      type: string
-    whitelistType:
-      description: "Defines when authorization of a Token by the CPO is allowed."
-      enum:
-      - "ALWAYS"
-      - "ALLOWED"
-      - "ALLOWED_OFFLINE"
-      - "NEVER"
-      type: string
-    profileType:
-      description: "Different smart charging profile types"
-      enum:
-      - "CHEAP"
-      - "FAST"
-      - "GREEN"
-      - "REGULAR"
-      type: string
     commandResponse:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/commandResponseType'
+          type: string
+          enum: ["NOT_SUPPORTED", "REJECTED", "ACCEPTED", "UNKNOWN_SESSION"]
         timeout:
           type: integer
           example: 0
@@ -270,19 +242,12 @@ components:
       required:
         - result
         - timeout
-    commandResponseType:
-      description: "Response to the command request from the eMSP to the CPO."
-      enum:
-      - "NOT_SUPPORTED"
-      - "REJECTED"
-      - "ACCEPTED"
-      - "UNKNOWN_SESSION"
-      type: string
     commandResult:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/commandResultType'
+          type: string
+          enum: ["ACCEPTED", "CANCELED_RESERVATION", "EVSE_OCCUPIED", "EVSE_INOPERATIVE", "FAILED", "NOT_SUPPORTED", "REJECTED", "TIMEOUT", "UNKNOWN_RESERVATION"]
         message:
           type: object
           properties:
@@ -296,19 +261,6 @@ components:
             - text
       required:
         - result
-    commandResultType:
-      description: "Result of the command that was send to the Charge Point"
-      enum:
-      - "ACCEPTED"
-      - "CANCELED_RESERVATION"
-      - "EVSE_OCCUPIED"
-      - "EVSE_INOPERATIVE"
-      - "FAILED"
-      - "NOT_SUPPORTED"
-      - "REJECTED"
-      - "TIMEOUT"
-      - "UNKNOWN_RESERVATION"
-      type: string
     genericError:
       type: object
       properties:

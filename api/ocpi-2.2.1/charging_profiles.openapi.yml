@@ -237,7 +237,8 @@ components:
               type: integer
               example: 900
             charging_rate_unit:
-              $ref: '#/components/schemas/chargingRateUnitType'
+              type: string
+              enum: ["W", "A"]
             min_charging_rate:
               type: number
             charging_profile_period:
@@ -252,17 +253,12 @@ components:
                 - limit
           required:
             - charging_rate_unit
-    chargingRateUnitType:
-      description: "Unit in which a charging profile is defined."
-      enum:
-      - "W"
-      - "A"
-      type: string
     activeChargingProfileResult:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/chargingProfileResultType'
+          type: string
+          enum: ["ACCEPTED", "REJECTED", "UNKNOWN"]
         profile:
           type: object
           properties:
@@ -280,23 +276,18 @@ components:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/chargingProfileResultType'
+          type: string
+          enum: ["ACCEPTED", "REJECTED", "UNKNOWN"]
       required:
         - result
     clearProfileResult:
       type: object
       properties:
         result:
-          $ref: '#/components/schemas/chargingProfileResultType'
+          type: string
+          enum: ["ACCEPTED", "REJECTED", "UNKNOWN"]
       required:
         - result
-    chargingProfileResultType:
-      description: "Result of a ChargingProfile request that the EVSE sends via the CPO to the eMSP"
-      enum:
-      - "ACCEPTED"
-      - "REJECTED"
-      - "UNKNOWN"
-      type: string
     genericResponse:
       type: object
       properties:

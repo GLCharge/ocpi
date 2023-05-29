@@ -48,7 +48,8 @@ components:
           type: object
           properties:
             version:
-              $ref: '#/components/schemas/versionNumberType'
+              type: string
+              enum: ["2.0", "2.1", "2.1.1", "2.2", "2.2.1"]
             url:
               type: string
               example: "https://www.server.com/ocpi/2.2.1/"
@@ -74,7 +75,8 @@ components:
           type: object
           properties:
             version:
-              $ref: '#/components/schemas/versionNumberType'
+              type: string
+              enum: ["2.0", "2.1", "2.1.1", "2.2", "2.2.1"]
             endpoints:
               type: object
               properties:
@@ -104,15 +106,6 @@ components:
       required:
         - status_code
         - timestamp
-    versionNumberType:
-      description: "Versions"
-      enum:
-      - "2.0"
-      - "2.1"
-      - "2.1.1"
-      - "2.2"
-      - "2.2.1"
-      type: string
     moduleIDType:
       description: "OCPI 2.2.1 modules"
       enum:

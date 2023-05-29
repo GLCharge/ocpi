@@ -158,9 +158,11 @@ components:
           type: string
           example: "DE"
         role:
-          $ref: '#/components/schemas/roleType'
+          type: string
+          enum: ["CPO", "EMSP", "HUB", "NAP", "NSP", "OTHER", "SCSP"]
         status:
-          $ref: '#/components/schemas/connectionStatusType'
+          type: string
+          enum: ["CONNECTED", "OFFLINE", "PLANNED", "SUSPENDED"]
         last_updated:
           type: string
           example: "2019-06-23T08:16:02Z"
@@ -170,23 +172,6 @@ components:
         - role
         - status
         - last_updated
-    roleType:
-      enum:
-      - "CPO"
-      - "EMSP"
-      - "HUB"
-      - "NAP"
-      - "NSP"
-      - "OTHER"
-      - "SCSP"
-      type: string
-    connectionStatusType:
-      enum:
-      - "CONNECTED"
-      - "OFFLINE"
-      - "PLANNED"
-      - "SUSPENDED"
-      type: string
     genericError:
       type: object
       properties:

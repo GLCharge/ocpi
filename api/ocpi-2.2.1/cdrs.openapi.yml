@@ -137,7 +137,8 @@ components:
               type: string
               example: "123abc"
             type:
-              $ref: '#/components/schemas/tokenType'
+              type: string
+              enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
             contract_id:
               type: string
               example: "NL-TST-C12345678-S"
@@ -148,7 +149,8 @@ components:
             - type
             - contract_id
         auth_method:
-          $ref: '#/components/schemas/authMethodType'
+          type: string
+          enum: ["AUTH_REQUEST", "COMMAND", "WHITELIST"]
         authorization_reference:
           type: string
         cdr_location:
@@ -196,11 +198,20 @@ components:
               type: string
               example: "1"
             connector_standard:
-              $ref: '#/components/schemas/connectorType'
+              type: string
+              enum: ["CHADEMO", "CHAOJI", "DOMESTIC_A", "DOMESTIC_B", "DOMESTIC_C", "DOMESTIC_D", "DOMESTIC_E",
+                "DOMESTIC_F", "DOMESTIC_G", "DOMESTIC_H", "DOMESTIC_J", "DOMESTIC_K", "DOMESTIC_L", "DOMESTIC_M",
+                "DOMESTIC_N", "DOMESTIC_O", "GBT_AC", "GBT_DC", "IEC_60309_2_single_16", "IEC_60309_2_three_16",
+                "IEC_60309_2_three_32", "IEC_60309_2_three_64", "IEC_62196_T1", "IEC_62196_T1_COMBO", "IEC_62196_T2",
+                "IEC_62196_T2_COMBO", "IEC_62196_T3A", "IEC_62196_T3C", "NEMA_5_20", "NEMA_6_30", "NEMA_6_50",
+                "NEMA_10_30",  "NEMA_10_50", "NEMA_14_30", "NEMA_14_50", "PANTOGRAPH_BOTTOM_UP", "PANTOGRAPH_TOP_DOWN",
+                "TESLA_R", "TESLA_S"]
             connector_format:
-              $ref: '#/components/schemas/connectorFormatType'
+              type: string
+              enum: ["SOCKET", "CABLE"]
             connector_power_type:
-              $ref: '#/components/schemas/powerType'
+              type: string
+              enum: ["AC_1_PHASE", "AC_2_PHASE", "AC_2_PHASE_SPLIT", "AC_3_PHASE", "DC"]
         meter_id:
           type: string
         currency:
@@ -222,7 +233,8 @@ components:
               type: string
               example: "EUR"
             type:
-              $ref: '#/components/schemas/tariffType'
+              type: string
+              enum: ["AD_HOC_PAYMENT", "PROFILE_CHEAP", "PROFILE_FAST", "PROFILE_GREEN", "REGULAR"]
             tariff_alt_text:
               type: object
               properties:
@@ -246,7 +258,8 @@ components:
               type: object
               properties:
                 price_components:
-                  $ref: '#/components/schemas/tariffDimensionType'
+                  type: string
+                  enum: ["ENERGY", "FLAT", "PARKING_TIME", "TIME"]
                 restrictions:
                   type: object
                   properties:
@@ -287,9 +300,11 @@ components:
                       type: integer
                       example: 3600
                     day_of_week:
-                      $ref: '#/components/schemas/dayOfWeekType'
+                      type: string
+                      enum: ["MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY", "SUNDAY"]
                     reservation:
-                      $ref: '#/components/schemas/reservationRestrictionType'
+                      type: string
+                      enum: ["RESERVATION", "RESERVATION_EXPIRES"]
             start_date_time:
               type: string
               example: "2019-06-23T08:16:02Z"
@@ -306,7 +321,8 @@ components:
                   type: object
                   properties:
                     source:
-                      $ref: '#/components/schemas/energySourceCategoryType'
+                      type: string
+                      enum: ["NUCLEAR", "GENERAL_FOSSIL", "COAL", "GAS", "GENERAL_GREEN", "SOLAR", "WIND", "WATER"]
                     percentage:
                       type: number
                       example: "21.7"
@@ -317,7 +333,8 @@ components:
                   type: object
                   properties:
                     category:
-                      $ref: '#/components/schemas/environmentalImpactCategoryType'
+                      type: string
+                      enum: ["NUCLEAR_WASTE", "CARBON_DIOXIDE"]
                     amount:
                       type: number
                       example: 372
@@ -351,7 +368,8 @@ components:
               type: object
               properties:
                 type:
-                  $ref: '#/components/schemas/cdrDimensionType'
+                  type: string
+                  enum: ["CURRENT", "ENERGY", "ENERGY_EXPORT", "ENERGY_IMPORT", "MAX_CURRENT", "MIN_CURRENT", "MAX_POWER", "MIN_POWER", "PARKING_TIME", "POWER", "RESERVATION_TIME", "STATE_OF_CHARGE", "TIME"]
                 volume:
                   type: number
                   example: 2200
@@ -439,143 +457,6 @@ components:
         - total_energy
         - total_time
         - last_updated
-    authMethodType:
-      description: "Authentications methods"
-      enum:
-      - "AUTH_REQUEST"
-      - "COMMAND"
-      - "WHITELIST"
-      type: string
-    connectorType:
-      description: "The socket or plug standard of the charging point."
-      enum:
-      - "CHADEMO"
-      - "CHAOJI"
-      - "DOMESTIC_A"
-      - "DOMESTIC_B"
-      - "DOMESTIC_C"
-      - "DOMESTIC_D"
-      - "DOMESTIC_E"
-      - "DOMESTIC_F"
-      - "DOMESTIC_G"
-      - "DOMESTIC_H"
-      - "DOMESTIC_J"
-      - "DOMESTIC_K"
-      - "DOMESTIC_L"
-      - "DOMESTIC_M"
-      - "DOMESTIC_N"
-      - "DOMESTIC_O"
-      - "GBT_AC"
-      - "GBT_DC"
-      - "IEC_60309_2_single_16"
-      - "IEC_60309_2_three_16"
-      - "IEC_60309_2_three_32"
-      - "IEC_60309_2_three_64"
-      - "IEC_62196_T1"
-      - "IEC_62196_T1_COMBO"
-      - "IEC_62196_T2"
-      - "IEC_62196_T2_COMBO"
-      - "IEC_62196_T3A"
-      - "IEC_62196_T3C"
-      - "NEMA_5_20"
-      - "NEMA_6_30"
-      - "NEMA_6_50"
-      - "NEMA_10_30"
-      - "NEMA_10_50"
-      - "NEMA_14_30"
-      - "NEMA_14_50"
-      - "PANTOGRAPH_BOTTOM_UP"
-      - "PANTOGRAPH_TOP_DOWN"
-      - "TESLA_R"
-      - "TESLA_S"
-      type: string
-    tokenType:
-      description: "Tokens"
-      enum:
-        - "AD_HOC_USER"
-        - "APP_USER"
-        - "OTHER"
-        - "RFID"
-      type: string
-    connectorFormatType:
-      description: "The format of the connector, whether it is a socket or a plug."
-      enum:
-      - "SOCKET"
-      - "CABLE"
-      type: string
-    powerType:
-      enum:
-      - "AC_1_PHASE"
-      - "AC_2_PHASE"
-      - "AC_2_PHASE_SPLIT"
-      - "AC_3_PHASE"
-      - "DC"
-      type: string
-    tariffType:
-      enum:
-      - "AD_HOC_PAYMENT"
-      - "PROFILE_CHEAP"
-      - "PROFILE_FAST"
-      - "PROFILE_GREEN"
-      - "REGULAR"
-      type: string
-    tariffDimensionType:
-      enum:
-      - "ENERGY"
-      - "FLAT"
-      - "PARKING_TIME"
-      - "TIME"
-      type: string
-    dayOfWeekType:
-      enum:
-      - "MONDAY"
-      - "TUESDAY"
-      - "WEDNESDAY"
-      - "THURSDAY"
-      - "FRIDAY"
-      - "SATURDAY"
-      - "SUNDAY"
-      type: string
-    reservationRestrictionType:
-      enum:
-      - "RESERVATION"
-      - "RESERVATION_EXPIRES"
-      type: string
-    energySourceCategoryType:
-      description: "Categories of energy sources."
-      enum:
-      - "NUCLEAR"
-      - "GENERAL_FOSSIL"
-      - "COAL"
-      - "GAS"
-      - "GENERAL_GREEN"
-      - "SOLAR"
-      - "WIND"
-      - "WATER"
-      type: string
-    environmentalImpactCategoryType:
-      description: "Categories of environmental impact values"
-      enum:
-      - "NUCLEAR_WASTE"
-      - "CARBON_DIOXIDE"
-      type: string
-    cdrDimensionType:
-      description: "Allowed values for cdr dimensions"
-      enum:
-      - "CURRENT"
-      - "ENERGY"
-      - "ENERGY_EXPORT"
-      - "ENERGY_IMPORT"
-      - "MAX_CURRENT"
-      - "MIN_CURRENT"
-      - "MAX_POWER"
-      - "MIN_POWER"
-      - "PARKING_TIME"
-      - "POWER"
-      - "RESERVATION_TIME"
-      - "STATE_OF_CHARGE"
-      - "TIME"
-      type: string
     price:
       type: object
       properties:

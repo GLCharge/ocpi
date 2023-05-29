@@ -256,7 +256,8 @@ components:
               type: string
               example: "123abc"
             type:
-              $ref: '#/components/schemas/tokenType'
+              type: string
+              enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
             contract_id:
               type: string
               example: "NL-TST-C12345678-S"
@@ -267,7 +268,8 @@ components:
             - type
             - contract_id
         auth_method:
-          $ref: '#/components/schemas/authMethodType'
+          type: string
+          enum: ["AUTH_REQUEST", "COMMAND", "WHITELIST"]
         authorization_reference:
           type: string
           example: ""
@@ -295,7 +297,8 @@ components:
               type: object
               properties:
                 type:
-                  $ref: '#/components/schemas/authMethodType'
+                  type: string
+                  enum: [ "AUTH_REQUEST", "COMMAND", "WHITELIST" ]
                 volume:
                   type: number
                   example: "120"
@@ -319,7 +322,8 @@ components:
           required:
             - excl_vat
         status:
-          $ref: '#/components/schemas/sessionStatusType'
+          type: string
+          enum: ["ACTIVE", "COMPLETED", "INVALID", "PENDING", "RESERVATION"]
         last_updated:
           type: string
           example: "2019-06-24T12:39:09Z"
@@ -337,52 +341,12 @@ components:
         - currency
         - status
         - last_updated
-    tokenType:
-      description: "Tokens"
-      enum:
-      - "AD_HOC_USER"
-      - "APP_USER"
-      - "OTHER"
-      - "RFID"
-      type: string
-    authMethodType:
-      description: "Authentications methods"
-      enum:
-      - "AUTH_REQUEST"
-      - "COMMAND"
-      - "WHITELIST"
-      type: string
-    cdrDimensionType:
-      description: "Allowed values for cdr dimensions"
-      enum:
-      - "CURRENT"
-      - "ENERGY"
-      - "ENERGY_EXPORT"
-      - "ENERGY_IMPORT"
-      - "MAX_CURRENT"
-      - "MIN_CURRENT"
-      - "MAX_POWER"
-      - "MIN_POWER"
-      - "PARKING_TIME"
-      - "POWER"
-      - "RESERVATION_TIME"
-      - "STATE_OF_CHARGE"
-      - "TIME"
-      type: string
-    sessionStatusType:
-      description: "State of session"
-      enum:
-      - "ACTIVE"
-      - "COMPLETED"
-      - "INVALID"
-      - "PENDING"
-      - "RESERVATION"
-      type: string
     chargingPreferences:
       type: object
       properties:
         profile_type:
-          $ref: '#/components/schemas/profileType'
+          type: string
+          enum: ["CHEAP", "FAST", "GREEN", "REGULAR"]
         departure_time:
           type: string
           example: 2015-06-30T21:59:59Z""
@@ -391,19 +355,12 @@ components:
           example: 1
       required:
         - profile_type
-    profileType:
-      description: "Different smart charging profile types."
-      enum:
-      - "CHEAP"
-      - "FAST"
-      - "GREEN"
-      - "REGULAR"
-      type: string
     chargingPreferencesResponse:
       type: object
       properties:
         charging_preferences:
-          $ref: '#/components/schemas/chargingPreferencesResponseType'
+          type: string
+          enum: ["ACCEPTED", "DEPARTURE_REQUIRED", "ENERGY_NEED_REQUIRED", "NOT_POSSIBLE", "PROFILE_TYPE_NOT_SUPPORTED"]
         status_code:
           type: number
           example: 1000
@@ -417,15 +374,6 @@ components:
         - charging_preferences
         - status_code
         - timestamp
-    chargingPreferencesResponseType:
-      description: "Different smart charging profile types"
-      enum:
-      - "ACCEPTED"
-      - "DEPARTURE_REQUIRED"
-      - "ENERGY_NEED_REQUIRED"
-      - "NOT_POSSIBLE"
-      - "PROFILE_TYPE_NOT_SUPPORTED"
-      type: string
     genericError:
       type: object
       properties:

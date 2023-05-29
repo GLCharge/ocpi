@@ -254,7 +254,8 @@ components:
                   type: string
                   example: "012345678"
                 type:
-                  $ref: '#/components/schemas/tokenType'
+                  type: string
+                  enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
                 visual_number:
                   type: string
                   example: "DF000-2001-8999"
@@ -319,7 +320,8 @@ components:
                 - latitude
                 - longitude
             parking_type:
-                $ref: '#/components/schemas/parkingType'
+              type: string
+              enum: ["ALONG_MOTORWAY", "PARKING_GARAGE", "PARKING_LOT", "ON_DRIVEWAY", "ON_STREET", "UNDERGROUND_GARAGE"]
             evses:
                 $ref: '#/components/schemas/evse'
             directions:
@@ -341,7 +343,10 @@ components:
             owner:
               $ref: '#/components/schemas/businessDetails'
             facilities:
-              $ref: '#/components/schemas/facilityType'
+              type: string
+              enum: ["HOTEL", "RESTAURANT", "CAFE", "MALL", "SUPERMARKET", "SPORT", "RECREATION_AREA", "NATURE",
+                "MUSEUM", "BIKE_SHARING", "BUS_STOP", "TAXI_STAND", "TRAM_STOP", "METRO_STATION", "TRAIN_STATION",
+                "AIRPORT", "PARKING_LOT", "CARPOOL_PARKING", "FUEL_STATION", "WIFI"]
             time_zone:
               type: string
               example: "Europe/Brussels"
@@ -408,7 +413,8 @@ components:
                   type: object
                   properties:
                     source:
-                      $ref: '#/components/schemas/energySourceCategoryType'
+                      type: string
+                      enum: ["NUCLEAR", "GENERAL_FOSSIL", "COAL", "GAS", "GENERAL_GREEN", "SOLAR", "WIND", "WATER"]
                     percentage:
                       type: number
                       example: "21.7"
@@ -419,7 +425,8 @@ components:
                   type: object
                   properties:
                     category:
-                      $ref: '#/components/schemas/environmentalImpactCategoryType'
+                      type: string
+                      enum: ["NUCLEAR_WASTE", "CARBON_DIOXIDE"]
                     amount:
                       type: number
                       example: 372
@@ -466,7 +473,8 @@ components:
           type: string
           example: "https://example.com/img/logo_thumb.jpg"
         category:
-          $ref: '#/components/schemas/imageCategoryType'
+          type: string
+          enum: ["CHARGER", "ENTRANCE", "LOCATION", "NETWORK", "OPERATOR", "OTHER", "OWNER"]
         type:
           type: string
           example: "jpeg"
@@ -490,7 +498,8 @@ components:
           type: string
           example: "BE*BEC*E041503001"
         status:
-          $ref: '#/components/schemas/statusType'
+          type: string
+          enum: ["AVAILABLE", "BLOCKED", "CHARGING", "INOPERATIVE", "OUTOFORDER", "PLANNED", "REMOVED", "RESERVED", "UNKNOWN"]
         status_schedule:
           type: object
           properties:
@@ -501,12 +510,16 @@ components:
               type: string
               example: "18:00"
             status:
-              $ref: '#/components/schemas/statusType'
+              type: string
+              enum: ["AVAILABLE", "BLOCKED", "CHARGING", "INOPERATIVE", "OUTOFORDER", "PLANNED", "REMOVED", "RESERVED", "UNKNOWN"]
           required:
             - period_begin
             - status
         capabilities:
-          $ref: '#/components/schemas/capabilityType'
+          type: string
+          enum: ["CHARGING_PROFILE_CAPABLE", "CHARGING_PREFERENCES_CAPABLE", "CHIP_CARD_SUPPORT", "CONTACTLESS_CARD_SUPPORT",
+            "CREDIT_CARD_PAYABLE", "DEBIT_CARD_PAYABLE", "PED_TERMINAL", "REMOTE_START_STOP_CAPABLE", "RESERVABLE",
+            "RFID_READER", "START_SESSION_CONNECTOR_REQUIRED", "TOKEN_GROUP_CAPABLE", "UNLOCK_CAPABLE"]
         connectors:
           $ref: '#/components/schemas/connector'
         floor_level:
@@ -540,7 +553,8 @@ components:
             - language
             - text
         parking_restrictions:
-          $ref: '#/components/schemas/parkingRestrictionType'
+          type: string
+          enum: ["EV_ONLY", "PLUGGED", "DISABLED", "CUSTOMERS", "MOTORCYCLES"]
         images:
           $ref: '#/components/schemas/image'
         last_updated:
@@ -557,11 +571,20 @@ components:
           type: string
           example: "1"
         standard:
-          $ref: '#/components/schemas/connectorType'
+          type: string
+          enum: ["CHADEMO", "CHAOJI", "DOMESTIC_A", "DOMESTIC_B", "DOMESTIC_C", "DOMESTIC_D", "DOMESTIC_E",
+            "DOMESTIC_F", "DOMESTIC_G", "DOMESTIC_H", "DOMESTIC_J", "DOMESTIC_K", "DOMESTIC_L", "DOMESTIC_M",
+            "DOMESTIC_N", "DOMESTIC_O", "GBT_AC", "GBT_DC", "IEC_60309_2_single_16", "IEC_60309_2_three_16",
+            "IEC_60309_2_three_32", "IEC_60309_2_three_64", "IEC_62196_T1", "IEC_62196_T1_COMBO", "IEC_62196_T2",
+            "IEC_62196_T2_COMBO", "IEC_62196_T3A", "IEC_62196_T3C", "NEMA_5_20", "NEMA_6_30", "NEMA_6_50",
+            "NEMA_10_30",  "NEMA_10_50", "NEMA_14_30", "NEMA_14_50", "PANTOGRAPH_BOTTOM_UP", "PANTOGRAPH_TOP_DOWN",
+            "TESLA_R", "TESLA_S"]
         format:
-          $ref: '#/components/schemas/connectorFormatType'
+          type: string
+          enum: ["SOCKET", "CABLE"]
         power_type:
-          $ref: '#/components/schemas/powerType'
+          type: string
+          enum: ["AC_1_PHASE", "AC_2_PHASE", "AC_2_PHASE_SPLIT", "AC_3_PHASE", "DC"]
         max_voltage:
           type: integer
           example: 220
@@ -607,7 +630,8 @@ components:
               type: string
               example: "https://example.com/img/logo_thumb.jpg"
             category:
-              $ref: '#/components/schemas/imageCategoryType'
+              type: string
+              enum: [ "CHARGER", "ENTRANCE", "LOCATION", "NETWORK", "OPERATOR", "OTHER", "OWNER" ]
             type:
               type: string
               example: "jpeg"
@@ -623,171 +647,6 @@ components:
             - type
       required:
         - name
-    tokenType:
-      description: "Tokens"
-      enum:
-      - "AD_HOC_USER"
-      - "APP_USER"
-      - "OTHER"
-      - "RFID"
-      type: string
-    parkingType:
-      description: "General type of the charge point's location."
-      enum:
-      - "ALONG_MOTORWAY"
-      - "PARKING_GARAGE"
-      - "PARKING_LOT"
-      - "ON_DRIVEWAY"
-      - "ON_STREET"
-      - "UNDERGROUND_GARAGE"
-      type: string
-    statusType:
-      description: "The status of an EVSE."
-      enum:
-      - "AVAILABLE"
-      - "BLOCKED"
-      - "CHARGING"
-      - "INOPERATIVE"
-      - "OUTOFORDER"
-      - "PLANNED"
-      - "REMOVED"
-      - "RESERVED"
-      - "UNKNOWN"
-      type: string
-    capabilityType:
-      description: "The capabilities of an EVSE."
-      enum:
-      - "CHARGING_PROFILE_CAPABLE"
-      - "CHARGING_PREFERENCES_CAPABLE"
-      - "CHIP_CARD_SUPPORT"
-      - "CONTACTLESS_CARD_SUPPORT"
-      - "CREDIT_CARD_PAYABLE"
-      - "DEBIT_CARD_PAYABLE"
-      - "PED_TERMINAL"
-      - "REMOTE_START_STOP_CAPABLE"
-      - "RESERVABLE"
-      - "RFID_READER"
-      - "START_SESSION_CONNECTOR_REQUIRED"
-      - "TOKEN_GROUP_CAPABLE"
-      - "UNLOCK_CAPABLE"
-      type: string
-    imageCategoryType:
-      description: "The category of an image to obtain the correct usage in a user presentation."
-      enum:
-        - "CHARGER"
-        - "ENTRANCE"
-        - "LOCATION"
-        - "NETWORK"
-        - "OPERATOR"
-        - "OTHER"
-        - "OWNER"
-    connectorType:
-      description: "The socket or plug standard of the charging point."
-      enum:
-      - "CHADEMO"
-      - "CHAOJI"
-      - "DOMESTIC_A"
-      - "DOMESTIC_B"
-      - "DOMESTIC_C"
-      - "DOMESTIC_D"
-      - "DOMESTIC_E"
-      - "DOMESTIC_F"
-      - "DOMESTIC_G"
-      - "DOMESTIC_H"
-      - "DOMESTIC_J"
-      - "DOMESTIC_K"
-      - "DOMESTIC_L"
-      - "DOMESTIC_M"
-      - "DOMESTIC_N"
-      - "DOMESTIC_O"
-      - "GBT_AC"
-      - "GBT_DC"
-      - "IEC_60309_2_single_16"
-      - "IEC_60309_2_three_16"
-      - "IEC_60309_2_three_32"
-      - "IEC_60309_2_three_64"
-      - "IEC_62196_T1"
-      - "IEC_62196_T1_COMBO"
-      - "IEC_62196_T2"
-      - "IEC_62196_T2_COMBO"
-      - "IEC_62196_T3A"
-      - "IEC_62196_T3C"
-      - "NEMA_5_20"
-      - "NEMA_6_30"
-      - "NEMA_6_50"
-      - "NEMA_10_30"
-      - "NEMA_10_50"
-      - "NEMA_14_30"
-      - "NEMA_14_50"
-      - "PANTOGRAPH_BOTTOM_UP"
-      - "PANTOGRAPH_TOP_DOWN"
-      - "TESLA_R"
-      - "TESLA_S"
-      type: string
-    connectorFormatType:
-      description: "The format of the connector, whether it is a socket or a plug."
-      enum:
-      - "SOCKET"
-      - "CABLE"
-      type: string
-    powerType:
-      enum:
-      - "AC_1_PHASE"
-      - "AC_2_PHASE"
-      - "AC_2_PHASE_SPLIT"
-      - "AC_3_PHASE"
-      - "DC"
-      type: string
-    parkingRestrictionType:
-      description: "This value, if provided, represents the restriction to the parking spot for different purposes."
-      enum:
-      - "EV_ONLY"
-      - "PLUGGED"
-      - "DISABLED"
-      - "CUSTOMERS"
-      - "MOTORCYCLES"
-      type: string
-    facilityType:
-      enum:
-      - "HOTEL"
-      - "RESTAURANT"
-      - "CAFE"
-      - "MALL"
-      - "SUPERMARKET"
-      - "SPORT"
-      - "RECREATION_AREA"
-      - "NATURE"
-      - "MUSEUM"
-      - "BIKE_SHARING"
-      - "BUS_STOP"
-      - "TAXI_STAND"
-      - "TRAM_STOP"
-      - "METRO_STATION"
-      - "TRAIN_STATION"
-      - "AIRPORT"
-      - "PARKING_LOT"
-      - "CARPOOL_PARKING"
-      - "FUEL_STATION"
-      - "WIFI"
-      type: string
-    energySourceCategoryType:
-      description: "Categories of energy sources."
-      enum:
-      - "NUCLEAR"
-      - "GENERAL_FOSSIL"
-      - "COAL"
-      - "GAS"
-      - "GENERAL_GREEN"
-      - "SOLAR"
-      - "WIND"
-      - "WATER"
-      type: string
-    environmentalImpactCategoryType:
-      description: "Categories of environmental impact values"
-      enum:
-      - "NUCLEAR_WASTE"
-      - "CARBON_DIOXIDE"
-      type: string
     genericError:
       type: object
       properties:
