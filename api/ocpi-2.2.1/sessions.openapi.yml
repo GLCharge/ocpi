@@ -171,6 +171,28 @@ paths:
       \ list of charging_periods. If existing ChargingPeriod objects in a Session need to be \ 
       \ replaced or removed, the Sender SHALL use the PUT method to replace the entire Session \
       \ object (including all the charging_periods)."
+      parameters:
+        - in: path
+          name: country_code
+          schema:
+            type: string
+          required: true
+          description: "Country code of the CPO performing this PATCH on the eMSP's system. \
+          \ This SHALL be the same value as the country_code in the Session object being pushed."
+        - in: path
+          name: party_id
+          schema:
+            type: string
+          required: true
+          description: "Party ID (Provider ID) of the CPO performing this PATCH on the eMSP's \
+          \ system. This SHALL be the same value as the party_id in the Session object being \
+          \ pushed."
+        - in: path
+          name: session_id
+          schema:
+            type: string
+          required: true
+          description: "Id of the new or updated Session object."
       responses:
         "200":
           content:

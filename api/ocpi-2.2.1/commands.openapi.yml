@@ -10,11 +10,12 @@ paths:
       description: "Send a command to the CPO, requesting the CPO to send \
       \ the command to the Charge Point"
       parameters:
-        - in: query
+        - in: path
           name: command
           schema:
             type: string
             enum: ["CANCEL_RESERVATION", "RESERVE_NOW", "START_SESSION", "STOP_SESSION", "UNLOCK_CONNECTOR"]
+          required: true
           description: "Type of command that is requested."
       requestBody:
         content:
@@ -48,6 +49,19 @@ paths:
       \ asynchronous response by the Charge Point. It is advised to make this \
       \ URL unique for every request to differentiate simultaneous commands, \
       \ for example by adding a unique id as a URL segment."
+      parameters:
+        - in: path
+          name: command
+          schema:
+            type: string
+            enum: ["CANCEL_RESERVATION", "RESERVE_NOW", "START_SESSION", "STOP_SESSION", "UNLOCK_CONNECTOR"]
+          required: true
+          description: "Type of command that is requested."
+        - in: path
+          name: uid
+          schema:
+            type: string
+          required: true
       requestBody:
         description: "Result of the command request, from the Charge Point."
         content:

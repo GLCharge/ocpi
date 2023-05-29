@@ -54,11 +54,12 @@ paths:
             type: string
           required: true
           description: "Token.uid of the Token for which authorization is requested."
-        - in: path
+        - in: query
           name: type
           schema:
             type: string
-          description: "Token.type of the Token for which this authorization is. Default if omitted: RFID"
+            enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
+          description: "Token.type of the Token to retrieve. Default if omitted: RFID"
       requestBody:
         content:
           application/json:
@@ -103,10 +104,11 @@ paths:
             type: string
           required: true
           description: "Token.uid of the Token object to retrieve."
-        - in: path
+        - in: query
           name: type
           schema:
             type: string
+            enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
           description: "Token.type of the Token to retrieve. Default if omitted: RFID"
       responses:
         "200":
@@ -144,13 +146,13 @@ paths:
           schema:
             type: string
           required: true
-          description: "s Token.uid of the (new) Token object (to replace)."
-        - in: path
+          description: "Token.uid of the Token object to retrieve."
+        - in: query
           name: type
           schema:
             type: string
-          description: "Token.type of the Token of the (new) Token object (to replace). \
-          \ Default if omitted: RFID"
+            enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
+          description: "Token.type of the Token to retrieve. Default if omitted: RFID"
       requestBody:
         content:
           application/json:
@@ -175,6 +177,33 @@ paths:
       \ that have to be updated have to be present, other fields/objects \
       \ that are not specified are considered unchanged. Any request to the \
       \ PATCH method SHALL contain the last_updated field."
+      parameters:
+        - in: path
+          name: country_code
+          schema:
+            type: string
+          required: true
+          description: "Country code of the eMSP sending this PATCH request to the CPO system. \
+          \ This SHALL be the same value as the country_code in the Token object being pushed."
+        - in: path
+          name: party_id
+          schema:
+            type: string
+          required: true
+          description: "Party ID (Provider ID) of the eMSP sending this PATCH request to the CPO \
+          \ system. This SHALL be the same value as the party_id in the Token object being pushed."
+        - in: path
+          name: token_uid
+          schema:
+            type: string
+          required: true
+          description: "Token.uid of the Token object to retrieve."
+        - in: query
+          name: type
+          schema:
+            type: string
+            enum: ["AD_HOC_USER", "APP_USER", "OTHER", "RFID"]
+          description: "Token.type of the Token to retrieve. Default if omitted: RFID"
       responses:
         "200":
           content:

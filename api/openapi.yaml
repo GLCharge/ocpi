@@ -1,0 +1,189 @@
+openapi: 3.0.3
+info:
+  description: Specification for OCPIs versions handlers
+  title: OCPI versions module
+  version: 2.2.1
+servers:
+- url: /
+paths:
+  /ocpi/versions:
+    get:
+      description: Fetch information about the supported versions.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/versions'
+          description: versions
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get supported versions
+  /ocpi/2.2.1/details:
+    get:
+      description: Fetch information about the supported endpoints for version.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/details'
+          description: details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get version supported endpoints
+components:
+  schemas:
+    versions:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        data:
+          version: "2.0"
+          url: https://www.server.com/ocpi/2.2.1/
+      properties:
+        data:
+          $ref: '#/components/schemas/versions_data'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    details:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        data:
+          endpoints:
+            identifier: null
+            role: null
+            url: https://example.com/ocpi/2.2.1/cdrs/
+          version: "2.0"
+      properties:
+        data:
+          $ref: '#/components/schemas/details_data'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    moduleIDType:
+      description: OCPI 2.2.1 modules
+      enum:
+      - cdrs
+      - chargingprofiles
+      - commands
+      - credentials
+      - hubclientinfo
+      - locations
+      - sessions
+      - tariffs
+      - tokens
+      type: string
+    interfaceRoleType:
+      description: Interface role endpoint implements.
+      enum:
+      - SENDER
+      - RECEIVER
+      type: string
+    genericError:
+      properties:
+        status_code:
+          example: 2001
+          type: number
+        status_message:
+          example: "Missing required field: type"
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timeStamp
+      type: object
+    versions_data:
+      example:
+        version: "2.0"
+        url: https://www.server.com/ocpi/2.2.1/
+      properties:
+        version:
+          enum:
+          - "2.0"
+          - "2.1"
+          - 2.1.1
+          - "2.2"
+          - 2.2.1
+          type: string
+        url:
+          example: https://www.server.com/ocpi/2.2.1/
+          type: string
+      required:
+      - url
+      - version
+      type: object
+    details_data_endpoints:
+      example:
+        identifier: null
+        role: null
+        url: https://example.com/ocpi/2.2.1/cdrs/
+      properties:
+        identifier:
+          $ref: '#/components/schemas/moduleIDType'
+        role:
+          $ref: '#/components/schemas/interfaceRoleType'
+        url:
+          description: URL to the endpoint.
+          example: https://example.com/ocpi/2.2.1/cdrs/
+          type: string
+      required:
+      - identifier
+      - role
+      - url
+      type: object
+    details_data:
+      example:
+        endpoints:
+          identifier: null
+          role: null
+          url: https://example.com/ocpi/2.2.1/cdrs/
+        version: "2.0"
+      properties:
+        version:
+          enum:
+          - "2.0"
+          - "2.1"
+          - 2.1.1
+          - "2.2"
+          - 2.2.1
+          type: string
+        endpoints:
+          $ref: '#/components/schemas/details_data_endpoints'
+      required:
+      - version
+      type: object

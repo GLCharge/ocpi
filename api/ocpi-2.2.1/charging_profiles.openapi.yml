@@ -22,7 +22,7 @@ paths:
           required: true
           description: "Length of the requested ActiveChargingProfile in seconds Duration in seconds."
         - in: path
-          name: response_url
+          name: url
           schema:
             type: string
           required: true

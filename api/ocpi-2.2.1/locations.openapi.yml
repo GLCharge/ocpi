@@ -48,7 +48,7 @@ paths:
                 $ref: '#/components/schemas/genericError'
           description: genericError
       summary: Get available locations
-  /ocpi/locations/{location_id}/{evse_uid}/{connector_id}:
+  /ocpi/locations/{location_id}:
     get:
       description: "Endpoint structure definition for retrieving a Location, EVSE or Connector:"
       parameters:
@@ -58,12 +58,12 @@ paths:
             type: string
           required: true
           description: "Location.id of the Location object to retrieve."
-        - in: path
+        - in: query
           name: evse_uid
           schema:
             type: string
           description: "Evse.uid, required when requesting an EVSE or Connector object."
-        - in: path
+        - in: query
           name: connector_id
           schema:
             type: string
@@ -85,7 +85,7 @@ paths:
                 $ref: '#/components/schemas/genericError'
           description: genericError
       summary: Get location, EVSE or connector
-  /ocpi/locations/{country_code}/{party_id}/{location_id}/{evse_uid}/{connector_id}:
+  /ocpi/locations/{country_code}/{party_id}/{location_id}:
     get:
       description: "If the CPO wants to check the status of a Location, EVSE \
       \ or Connector object in the eMSP system, it might GET the object from \
@@ -112,12 +112,12 @@ paths:
             type: string
           required: true
           description: "Location.id of the Location object to retrieve."
-        - in: path
+        - in: query
           name: evse_uid
           schema:
             type: string
           description: "Evse.uid, required when requesting an EVSE or Connector object."
-        - in: path
+        - in: query
           name: connector_id
           schema:
             type: string
@@ -166,12 +166,12 @@ paths:
             type: string
           required: true
           description: "Location.id of the Location object to retrieve."
-        - in: path
+        - in: query
           name: evse_uid
           schema:
             type: string
           description: "Evse.uid, required when requesting an EVSE or Connector object."
-        - in: path
+        - in: query
           name: connector_id
           schema:
             type: string
@@ -210,6 +210,35 @@ paths:
       \ the Receiver SHALL also set the new last_updated value on the parent EVSE and \
       \ Location Objects. When the PATCH is on a EVSE Object, the Receiver SHALL also \
       \ set the new last_updated value on the parent Location Object."
+      parameters:
+        - in: path
+          name: country_code
+          schema:
+            type: string
+          required: true
+          description: "Country code of the CPO requesting data from the eMSP system."
+        - in: path
+          name: party_id
+          schema:
+            type: string
+          required: true
+          description: "Party ID (Provider ID) of the CPO requesting data from the eMSP system."
+        - in: path
+          name: location_id
+          schema:
+            type: string
+          required: true
+          description: "Location.id of the Location object to retrieve."
+        - in: query
+          name: evse_uid
+          schema:
+            type: string
+          description: "Evse.uid, required when requesting an EVSE or Connector object."
+        - in: query
+          name: connector_id
+          schema:
+            type: string
+          description: "Connector.id, required when requesting a Connector object."
       responses:
         "200":
           content:
