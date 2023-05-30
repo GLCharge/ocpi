@@ -15,9 +15,9 @@ Name | Type | Description | Notes
 **Capabilities** | Pointer to **string** |  | [optional] 
 **Connectors** | Pointer to [**Connector**](Connector.md) |  | [optional] 
 **FloorLevel** | Pointer to **string** |  | [optional] 
-**Coordinates** | Pointer to [**CdrCdrLocationCoordinates**](CdrCdrLocationCoordinates.md) |  | [optional] 
+**Coordinates** | Pointer to [**CdrBodyCdrLocationCoordinates**](CdrBodyCdrLocationCoordinates.md) |  | [optional] 
 **PhysicalReference** | Pointer to **string** |  | [optional] 
-**Directions** | Pointer to [**CdrTariffsTariffAltText**](CdrTariffsTariffAltText.md) |  | [optional] 
+**Directions** | Pointer to [**CdrBodyTariffsTariffAltText**](CdrBodyTariffsTariffAltText.md) |  | [optional] 
 **ParkingRestrictions** | Pointer to **string** |  | [optional] 
 **Images** | Pointer to [**Image**](Image.md) |  | [optional] 
 **LastUpdated** | **string** |  | 
@@ -312,20 +312,20 @@ HasFloorLevel returns a boolean if a field has been set.
 
 ### GetCoordinates
 
-`func (o *OcpiLocationsLocationIdGet200Response) GetCoordinates() CdrCdrLocationCoordinates`
+`func (o *OcpiLocationsLocationIdGet200Response) GetCoordinates() CdrBodyCdrLocationCoordinates`
 
 GetCoordinates returns the Coordinates field if non-nil, zero value otherwise.
 
 ### GetCoordinatesOk
 
-`func (o *OcpiLocationsLocationIdGet200Response) GetCoordinatesOk() (*CdrCdrLocationCoordinates, bool)`
+`func (o *OcpiLocationsLocationIdGet200Response) GetCoordinatesOk() (*CdrBodyCdrLocationCoordinates, bool)`
 
 GetCoordinatesOk returns a tuple with the Coordinates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCoordinates
 
-`func (o *OcpiLocationsLocationIdGet200Response) SetCoordinates(v CdrCdrLocationCoordinates)`
+`func (o *OcpiLocationsLocationIdGet200Response) SetCoordinates(v CdrBodyCdrLocationCoordinates)`
 
 SetCoordinates sets Coordinates field to given value.
 
@@ -362,20 +362,20 @@ HasPhysicalReference returns a boolean if a field has been set.
 
 ### GetDirections
 
-`func (o *OcpiLocationsLocationIdGet200Response) GetDirections() CdrTariffsTariffAltText`
+`func (o *OcpiLocationsLocationIdGet200Response) GetDirections() CdrBodyTariffsTariffAltText`
 
 GetDirections returns the Directions field if non-nil, zero value otherwise.
 
 ### GetDirectionsOk
 
-`func (o *OcpiLocationsLocationIdGet200Response) GetDirectionsOk() (*CdrTariffsTariffAltText, bool)`
+`func (o *OcpiLocationsLocationIdGet200Response) GetDirectionsOk() (*CdrBodyTariffsTariffAltText, bool)`
 
 GetDirectionsOk returns a tuple with the Directions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDirections
 
-`func (o *OcpiLocationsLocationIdGet200Response) SetDirections(v CdrTariffsTariffAltText)`
+`func (o *OcpiLocationsLocationIdGet200Response) SetDirections(v CdrBodyTariffsTariffAltText)`
 
 SetDirections sets Directions field to given value.
 

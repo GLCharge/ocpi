@@ -14,38 +14,38 @@ import (
 	"encoding/json"
 )
 
-// checks if the TariffEnergyMix type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &TariffEnergyMix{}
+// checks if the CdrBodyTariffsEnergyMix type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CdrBodyTariffsEnergyMix{}
 
-// TariffEnergyMix struct for TariffEnergyMix
-type TariffEnergyMix struct {
+// CdrBodyTariffsEnergyMix struct for CdrBodyTariffsEnergyMix
+type CdrBodyTariffsEnergyMix struct {
 	IsGreenEnergy bool `json:"is_green_energy"`
 	EnergySources *CdrBodyTariffsEnergyMixEnergySources `json:"energy_sources,omitempty"`
-	EnvironImpact *TariffEnergyMixEnvironImpact `json:"environ_impact,omitempty"`
+	EnvironImpact *CdrBodyTariffsEnergyMixEnvironImpact `json:"environ_impact,omitempty"`
 	SupplierName *string `json:"supplier_name,omitempty"`
 	EnergyProductName *string `json:"energy_product_name,omitempty"`
 }
 
-// NewTariffEnergyMix instantiates a new TariffEnergyMix object
+// NewCdrBodyTariffsEnergyMix instantiates a new CdrBodyTariffsEnergyMix object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTariffEnergyMix(isGreenEnergy bool) *TariffEnergyMix {
-	this := TariffEnergyMix{}
+func NewCdrBodyTariffsEnergyMix(isGreenEnergy bool) *CdrBodyTariffsEnergyMix {
+	this := CdrBodyTariffsEnergyMix{}
 	this.IsGreenEnergy = isGreenEnergy
 	return &this
 }
 
-// NewTariffEnergyMixWithDefaults instantiates a new TariffEnergyMix object
+// NewCdrBodyTariffsEnergyMixWithDefaults instantiates a new CdrBodyTariffsEnergyMix object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewTariffEnergyMixWithDefaults() *TariffEnergyMix {
-	this := TariffEnergyMix{}
+func NewCdrBodyTariffsEnergyMixWithDefaults() *CdrBodyTariffsEnergyMix {
+	this := CdrBodyTariffsEnergyMix{}
 	return &this
 }
 
 // GetIsGreenEnergy returns the IsGreenEnergy field value
-func (o *TariffEnergyMix) GetIsGreenEnergy() bool {
+func (o *CdrBodyTariffsEnergyMix) GetIsGreenEnergy() bool {
 	if o == nil {
 		var ret bool
 		return ret
@@ -56,7 +56,7 @@ func (o *TariffEnergyMix) GetIsGreenEnergy() bool {
 
 // GetIsGreenEnergyOk returns a tuple with the IsGreenEnergy field value
 // and a boolean to check if the value has been set.
-func (o *TariffEnergyMix) GetIsGreenEnergyOk() (*bool, bool) {
+func (o *CdrBodyTariffsEnergyMix) GetIsGreenEnergyOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -64,12 +64,12 @@ func (o *TariffEnergyMix) GetIsGreenEnergyOk() (*bool, bool) {
 }
 
 // SetIsGreenEnergy sets field value
-func (o *TariffEnergyMix) SetIsGreenEnergy(v bool) {
+func (o *CdrBodyTariffsEnergyMix) SetIsGreenEnergy(v bool) {
 	o.IsGreenEnergy = v
 }
 
 // GetEnergySources returns the EnergySources field value if set, zero value otherwise.
-func (o *TariffEnergyMix) GetEnergySources() CdrBodyTariffsEnergyMixEnergySources {
+func (o *CdrBodyTariffsEnergyMix) GetEnergySources() CdrBodyTariffsEnergyMixEnergySources {
 	if o == nil || IsNil(o.EnergySources) {
 		var ret CdrBodyTariffsEnergyMixEnergySources
 		return ret
@@ -79,7 +79,7 @@ func (o *TariffEnergyMix) GetEnergySources() CdrBodyTariffsEnergyMixEnergySource
 
 // GetEnergySourcesOk returns a tuple with the EnergySources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TariffEnergyMix) GetEnergySourcesOk() (*CdrBodyTariffsEnergyMixEnergySources, bool) {
+func (o *CdrBodyTariffsEnergyMix) GetEnergySourcesOk() (*CdrBodyTariffsEnergyMixEnergySources, bool) {
 	if o == nil || IsNil(o.EnergySources) {
 		return nil, false
 	}
@@ -87,7 +87,7 @@ func (o *TariffEnergyMix) GetEnergySourcesOk() (*CdrBodyTariffsEnergyMixEnergySo
 }
 
 // HasEnergySources returns a boolean if a field has been set.
-func (o *TariffEnergyMix) HasEnergySources() bool {
+func (o *CdrBodyTariffsEnergyMix) HasEnergySources() bool {
 	if o != nil && !IsNil(o.EnergySources) {
 		return true
 	}
@@ -96,14 +96,14 @@ func (o *TariffEnergyMix) HasEnergySources() bool {
 }
 
 // SetEnergySources gets a reference to the given CdrBodyTariffsEnergyMixEnergySources and assigns it to the EnergySources field.
-func (o *TariffEnergyMix) SetEnergySources(v CdrBodyTariffsEnergyMixEnergySources) {
+func (o *CdrBodyTariffsEnergyMix) SetEnergySources(v CdrBodyTariffsEnergyMixEnergySources) {
 	o.EnergySources = &v
 }
 
 // GetEnvironImpact returns the EnvironImpact field value if set, zero value otherwise.
-func (o *TariffEnergyMix) GetEnvironImpact() TariffEnergyMixEnvironImpact {
+func (o *CdrBodyTariffsEnergyMix) GetEnvironImpact() CdrBodyTariffsEnergyMixEnvironImpact {
 	if o == nil || IsNil(o.EnvironImpact) {
-		var ret TariffEnergyMixEnvironImpact
+		var ret CdrBodyTariffsEnergyMixEnvironImpact
 		return ret
 	}
 	return *o.EnvironImpact
@@ -111,7 +111,7 @@ func (o *TariffEnergyMix) GetEnvironImpact() TariffEnergyMixEnvironImpact {
 
 // GetEnvironImpactOk returns a tuple with the EnvironImpact field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TariffEnergyMix) GetEnvironImpactOk() (*TariffEnergyMixEnvironImpact, bool) {
+func (o *CdrBodyTariffsEnergyMix) GetEnvironImpactOk() (*CdrBodyTariffsEnergyMixEnvironImpact, bool) {
 	if o == nil || IsNil(o.EnvironImpact) {
 		return nil, false
 	}
@@ -119,7 +119,7 @@ func (o *TariffEnergyMix) GetEnvironImpactOk() (*TariffEnergyMixEnvironImpact, b
 }
 
 // HasEnvironImpact returns a boolean if a field has been set.
-func (o *TariffEnergyMix) HasEnvironImpact() bool {
+func (o *CdrBodyTariffsEnergyMix) HasEnvironImpact() bool {
 	if o != nil && !IsNil(o.EnvironImpact) {
 		return true
 	}
@@ -127,13 +127,13 @@ func (o *TariffEnergyMix) HasEnvironImpact() bool {
 	return false
 }
 
-// SetEnvironImpact gets a reference to the given TariffEnergyMixEnvironImpact and assigns it to the EnvironImpact field.
-func (o *TariffEnergyMix) SetEnvironImpact(v TariffEnergyMixEnvironImpact) {
+// SetEnvironImpact gets a reference to the given CdrBodyTariffsEnergyMixEnvironImpact and assigns it to the EnvironImpact field.
+func (o *CdrBodyTariffsEnergyMix) SetEnvironImpact(v CdrBodyTariffsEnergyMixEnvironImpact) {
 	o.EnvironImpact = &v
 }
 
 // GetSupplierName returns the SupplierName field value if set, zero value otherwise.
-func (o *TariffEnergyMix) GetSupplierName() string {
+func (o *CdrBodyTariffsEnergyMix) GetSupplierName() string {
 	if o == nil || IsNil(o.SupplierName) {
 		var ret string
 		return ret
@@ -143,7 +143,7 @@ func (o *TariffEnergyMix) GetSupplierName() string {
 
 // GetSupplierNameOk returns a tuple with the SupplierName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TariffEnergyMix) GetSupplierNameOk() (*string, bool) {
+func (o *CdrBodyTariffsEnergyMix) GetSupplierNameOk() (*string, bool) {
 	if o == nil || IsNil(o.SupplierName) {
 		return nil, false
 	}
@@ -151,7 +151,7 @@ func (o *TariffEnergyMix) GetSupplierNameOk() (*string, bool) {
 }
 
 // HasSupplierName returns a boolean if a field has been set.
-func (o *TariffEnergyMix) HasSupplierName() bool {
+func (o *CdrBodyTariffsEnergyMix) HasSupplierName() bool {
 	if o != nil && !IsNil(o.SupplierName) {
 		return true
 	}
@@ -160,12 +160,12 @@ func (o *TariffEnergyMix) HasSupplierName() bool {
 }
 
 // SetSupplierName gets a reference to the given string and assigns it to the SupplierName field.
-func (o *TariffEnergyMix) SetSupplierName(v string) {
+func (o *CdrBodyTariffsEnergyMix) SetSupplierName(v string) {
 	o.SupplierName = &v
 }
 
 // GetEnergyProductName returns the EnergyProductName field value if set, zero value otherwise.
-func (o *TariffEnergyMix) GetEnergyProductName() string {
+func (o *CdrBodyTariffsEnergyMix) GetEnergyProductName() string {
 	if o == nil || IsNil(o.EnergyProductName) {
 		var ret string
 		return ret
@@ -175,7 +175,7 @@ func (o *TariffEnergyMix) GetEnergyProductName() string {
 
 // GetEnergyProductNameOk returns a tuple with the EnergyProductName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TariffEnergyMix) GetEnergyProductNameOk() (*string, bool) {
+func (o *CdrBodyTariffsEnergyMix) GetEnergyProductNameOk() (*string, bool) {
 	if o == nil || IsNil(o.EnergyProductName) {
 		return nil, false
 	}
@@ -183,7 +183,7 @@ func (o *TariffEnergyMix) GetEnergyProductNameOk() (*string, bool) {
 }
 
 // HasEnergyProductName returns a boolean if a field has been set.
-func (o *TariffEnergyMix) HasEnergyProductName() bool {
+func (o *CdrBodyTariffsEnergyMix) HasEnergyProductName() bool {
 	if o != nil && !IsNil(o.EnergyProductName) {
 		return true
 	}
@@ -192,11 +192,11 @@ func (o *TariffEnergyMix) HasEnergyProductName() bool {
 }
 
 // SetEnergyProductName gets a reference to the given string and assigns it to the EnergyProductName field.
-func (o *TariffEnergyMix) SetEnergyProductName(v string) {
+func (o *CdrBodyTariffsEnergyMix) SetEnergyProductName(v string) {
 	o.EnergyProductName = &v
 }
 
-func (o TariffEnergyMix) MarshalJSON() ([]byte, error) {
+func (o CdrBodyTariffsEnergyMix) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -204,7 +204,7 @@ func (o TariffEnergyMix) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o TariffEnergyMix) ToMap() (map[string]interface{}, error) {
+func (o CdrBodyTariffsEnergyMix) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["is_green_energy"] = o.IsGreenEnergy
 	if !IsNil(o.EnergySources) {
@@ -222,38 +222,38 @@ func (o TariffEnergyMix) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableTariffEnergyMix struct {
-	value *TariffEnergyMix
+type NullableCdrBodyTariffsEnergyMix struct {
+	value *CdrBodyTariffsEnergyMix
 	isSet bool
 }
 
-func (v NullableTariffEnergyMix) Get() *TariffEnergyMix {
+func (v NullableCdrBodyTariffsEnergyMix) Get() *CdrBodyTariffsEnergyMix {
 	return v.value
 }
 
-func (v *NullableTariffEnergyMix) Set(val *TariffEnergyMix) {
+func (v *NullableCdrBodyTariffsEnergyMix) Set(val *CdrBodyTariffsEnergyMix) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableTariffEnergyMix) IsSet() bool {
+func (v NullableCdrBodyTariffsEnergyMix) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableTariffEnergyMix) Unset() {
+func (v *NullableCdrBodyTariffsEnergyMix) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableTariffEnergyMix(val *TariffEnergyMix) *NullableTariffEnergyMix {
-	return &NullableTariffEnergyMix{value: val, isSet: true}
+func NewNullableCdrBodyTariffsEnergyMix(val *CdrBodyTariffsEnergyMix) *NullableCdrBodyTariffsEnergyMix {
+	return &NullableCdrBodyTariffsEnergyMix{value: val, isSet: true}
 }
 
-func (v NullableTariffEnergyMix) MarshalJSON() ([]byte, error) {
+func (v NullableCdrBodyTariffsEnergyMix) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableTariffEnergyMix) UnmarshalJSON(src []byte) error {
+func (v *NullableCdrBodyTariffsEnergyMix) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

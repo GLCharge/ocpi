@@ -25,7 +25,7 @@ type Session struct {
 	StartDateTime string `json:"start_date_time"`
 	EndDateTime *string `json:"end_date_time,omitempty"`
 	Kwh float32 `json:"kwh"`
-	CdrToken CdrCdrToken `json:"cdr_token"`
+	CdrToken CdrBodyCdrToken `json:"cdr_token"`
 	AuthMethod string `json:"auth_method"`
 	AuthorizationReference *string `json:"authorization_reference,omitempty"`
 	LocationId string `json:"location_id"`
@@ -43,7 +43,7 @@ type Session struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSession(countryCode string, partyId string, id string, startDateTime string, kwh float32, cdrToken CdrCdrToken, authMethod string, locationId string, evseUid string, connectorId string, currency string, status string, lastUpdated string) *Session {
+func NewSession(countryCode string, partyId string, id string, startDateTime string, kwh float32, cdrToken CdrBodyCdrToken, authMethod string, locationId string, evseUid string, connectorId string, currency string, status string, lastUpdated string) *Session {
 	this := Session{}
 	this.CountryCode = countryCode
 	this.PartyId = partyId
@@ -222,9 +222,9 @@ func (o *Session) SetKwh(v float32) {
 }
 
 // GetCdrToken returns the CdrToken field value
-func (o *Session) GetCdrToken() CdrCdrToken {
+func (o *Session) GetCdrToken() CdrBodyCdrToken {
 	if o == nil {
-		var ret CdrCdrToken
+		var ret CdrBodyCdrToken
 		return ret
 	}
 
@@ -233,7 +233,7 @@ func (o *Session) GetCdrToken() CdrCdrToken {
 
 // GetCdrTokenOk returns a tuple with the CdrToken field value
 // and a boolean to check if the value has been set.
-func (o *Session) GetCdrTokenOk() (*CdrCdrToken, bool) {
+func (o *Session) GetCdrTokenOk() (*CdrBodyCdrToken, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -241,7 +241,7 @@ func (o *Session) GetCdrTokenOk() (*CdrCdrToken, bool) {
 }
 
 // SetCdrToken sets field value
-func (o *Session) SetCdrToken(v CdrCdrToken) {
+func (o *Session) SetCdrToken(v CdrBodyCdrToken) {
 	o.CdrToken = v
 }
 

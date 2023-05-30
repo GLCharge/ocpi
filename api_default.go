@@ -757,11 +757,11 @@ func (a *DefaultApiService) OcpiCdrsGetExecute(r ApiOcpiCdrsGetRequest) (*CdrsRe
 type ApiOcpiCdrsPostRequest struct {
 	ctx context.Context
 	ApiService *DefaultApiService
-	cdr *Cdr
+	cdrBody *CdrBody
 }
 
-func (r ApiOcpiCdrsPostRequest) Cdr(cdr Cdr) ApiOcpiCdrsPostRequest {
-	r.cdr = &cdr
+func (r ApiOcpiCdrsPostRequest) CdrBody(cdrBody CdrBody) ApiOcpiCdrsPostRequest {
+	r.cdrBody = &cdrBody
 	return r
 }
 
@@ -823,7 +823,7 @@ func (a *DefaultApiService) OcpiCdrsPostExecute(r ApiOcpiCdrsPostRequest) (*CdrR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.cdr
+	localVarPostBody = r.cdrBody
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -3949,7 +3949,7 @@ func (r ApiOcpiTokenUidAuthorizePostRequest) LocationReferences(locationReferenc
 	return r
 }
 
-func (r ApiOcpiTokenUidAuthorizePostRequest) Execute() (*AuthorizationInfo, *http.Response, error) {
+func (r ApiOcpiTokenUidAuthorizePostRequest) Execute() (*Authorization, *http.Response, error) {
 	return r.ApiService.OcpiTokenUidAuthorizePostExecute(r)
 }
 
@@ -3971,13 +3971,13 @@ func (a *DefaultApiService) OcpiTokenUidAuthorizePost(ctx context.Context, token
 }
 
 // Execute executes the request
-//  @return AuthorizationInfo
-func (a *DefaultApiService) OcpiTokenUidAuthorizePostExecute(r ApiOcpiTokenUidAuthorizePostRequest) (*AuthorizationInfo, *http.Response, error) {
+//  @return Authorization
+func (a *DefaultApiService) OcpiTokenUidAuthorizePostExecute(r ApiOcpiTokenUidAuthorizePostRequest) (*Authorization, *http.Response, error) {
 	var (
 		localVarHTTPMethod   = http.MethodPost
 		localVarPostBody     interface{}
 		formFiles            []formFile
-		localVarReturnValue  *AuthorizationInfo
+		localVarReturnValue  *Authorization
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.OcpiTokenUidAuthorizePost")

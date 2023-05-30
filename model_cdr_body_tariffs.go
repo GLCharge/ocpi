@@ -14,11 +14,11 @@ import (
 	"encoding/json"
 )
 
-// checks if the Tariff type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &Tariff{}
+// checks if the CdrBodyTariffs type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CdrBodyTariffs{}
 
-// Tariff struct for Tariff
-type Tariff struct {
+// CdrBodyTariffs struct for CdrBodyTariffs
+type CdrBodyTariffs struct {
 	CountryCode string `json:"country_code"`
 	PartyId string `json:"party_id"`
 	Id string `json:"id"`
@@ -28,19 +28,19 @@ type Tariff struct {
 	TariffAltUrl *string `json:"tariff_alt_url,omitempty"`
 	MinPrice *Price `json:"min_price,omitempty"`
 	MaxPrice *Price `json:"max_price,omitempty"`
-	Elements *TariffElements `json:"elements,omitempty"`
+	Elements *CdrBodyTariffsElements `json:"elements,omitempty"`
 	StartDateTime *string `json:"start_date_time,omitempty"`
 	EndDateTime *string `json:"end_date_time,omitempty"`
-	EnergyMix *TariffEnergyMix `json:"energy_mix,omitempty"`
+	EnergyMix *CdrBodyTariffsEnergyMix `json:"energy_mix,omitempty"`
 	LastUpdated string `json:"last_updated"`
 }
 
-// NewTariff instantiates a new Tariff object
+// NewCdrBodyTariffs instantiates a new CdrBodyTariffs object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTariff(countryCode string, partyId string, id string, currency string, lastUpdated string) *Tariff {
-	this := Tariff{}
+func NewCdrBodyTariffs(countryCode string, partyId string, id string, currency string, lastUpdated string) *CdrBodyTariffs {
+	this := CdrBodyTariffs{}
 	this.CountryCode = countryCode
 	this.PartyId = partyId
 	this.Id = id
@@ -49,16 +49,16 @@ func NewTariff(countryCode string, partyId string, id string, currency string, l
 	return &this
 }
 
-// NewTariffWithDefaults instantiates a new Tariff object
+// NewCdrBodyTariffsWithDefaults instantiates a new CdrBodyTariffs object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewTariffWithDefaults() *Tariff {
-	this := Tariff{}
+func NewCdrBodyTariffsWithDefaults() *CdrBodyTariffs {
+	this := CdrBodyTariffs{}
 	return &this
 }
 
 // GetCountryCode returns the CountryCode field value
-func (o *Tariff) GetCountryCode() string {
+func (o *CdrBodyTariffs) GetCountryCode() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -69,7 +69,7 @@ func (o *Tariff) GetCountryCode() string {
 
 // GetCountryCodeOk returns a tuple with the CountryCode field value
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetCountryCodeOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetCountryCodeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -77,12 +77,12 @@ func (o *Tariff) GetCountryCodeOk() (*string, bool) {
 }
 
 // SetCountryCode sets field value
-func (o *Tariff) SetCountryCode(v string) {
+func (o *CdrBodyTariffs) SetCountryCode(v string) {
 	o.CountryCode = v
 }
 
 // GetPartyId returns the PartyId field value
-func (o *Tariff) GetPartyId() string {
+func (o *CdrBodyTariffs) GetPartyId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -93,7 +93,7 @@ func (o *Tariff) GetPartyId() string {
 
 // GetPartyIdOk returns a tuple with the PartyId field value
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetPartyIdOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetPartyIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -101,12 +101,12 @@ func (o *Tariff) GetPartyIdOk() (*string, bool) {
 }
 
 // SetPartyId sets field value
-func (o *Tariff) SetPartyId(v string) {
+func (o *CdrBodyTariffs) SetPartyId(v string) {
 	o.PartyId = v
 }
 
 // GetId returns the Id field value
-func (o *Tariff) GetId() string {
+func (o *CdrBodyTariffs) GetId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -117,7 +117,7 @@ func (o *Tariff) GetId() string {
 
 // GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetIdOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -125,12 +125,12 @@ func (o *Tariff) GetIdOk() (*string, bool) {
 }
 
 // SetId sets field value
-func (o *Tariff) SetId(v string) {
+func (o *CdrBodyTariffs) SetId(v string) {
 	o.Id = v
 }
 
 // GetCurrency returns the Currency field value
-func (o *Tariff) GetCurrency() string {
+func (o *CdrBodyTariffs) GetCurrency() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -141,7 +141,7 @@ func (o *Tariff) GetCurrency() string {
 
 // GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetCurrencyOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetCurrencyOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -149,12 +149,12 @@ func (o *Tariff) GetCurrencyOk() (*string, bool) {
 }
 
 // SetCurrency sets field value
-func (o *Tariff) SetCurrency(v string) {
+func (o *CdrBodyTariffs) SetCurrency(v string) {
 	o.Currency = v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *Tariff) GetType() string {
+func (o *CdrBodyTariffs) GetType() string {
 	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
@@ -164,7 +164,7 @@ func (o *Tariff) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetTypeOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetTypeOk() (*string, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -172,7 +172,7 @@ func (o *Tariff) GetTypeOk() (*string, bool) {
 }
 
 // HasType returns a boolean if a field has been set.
-func (o *Tariff) HasType() bool {
+func (o *CdrBodyTariffs) HasType() bool {
 	if o != nil && !IsNil(o.Type) {
 		return true
 	}
@@ -181,12 +181,12 @@ func (o *Tariff) HasType() bool {
 }
 
 // SetType gets a reference to the given string and assigns it to the Type field.
-func (o *Tariff) SetType(v string) {
+func (o *CdrBodyTariffs) SetType(v string) {
 	o.Type = &v
 }
 
 // GetTariffAltText returns the TariffAltText field value if set, zero value otherwise.
-func (o *Tariff) GetTariffAltText() CdrBodyTariffsTariffAltText {
+func (o *CdrBodyTariffs) GetTariffAltText() CdrBodyTariffsTariffAltText {
 	if o == nil || IsNil(o.TariffAltText) {
 		var ret CdrBodyTariffsTariffAltText
 		return ret
@@ -196,7 +196,7 @@ func (o *Tariff) GetTariffAltText() CdrBodyTariffsTariffAltText {
 
 // GetTariffAltTextOk returns a tuple with the TariffAltText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetTariffAltTextOk() (*CdrBodyTariffsTariffAltText, bool) {
+func (o *CdrBodyTariffs) GetTariffAltTextOk() (*CdrBodyTariffsTariffAltText, bool) {
 	if o == nil || IsNil(o.TariffAltText) {
 		return nil, false
 	}
@@ -204,7 +204,7 @@ func (o *Tariff) GetTariffAltTextOk() (*CdrBodyTariffsTariffAltText, bool) {
 }
 
 // HasTariffAltText returns a boolean if a field has been set.
-func (o *Tariff) HasTariffAltText() bool {
+func (o *CdrBodyTariffs) HasTariffAltText() bool {
 	if o != nil && !IsNil(o.TariffAltText) {
 		return true
 	}
@@ -213,12 +213,12 @@ func (o *Tariff) HasTariffAltText() bool {
 }
 
 // SetTariffAltText gets a reference to the given CdrBodyTariffsTariffAltText and assigns it to the TariffAltText field.
-func (o *Tariff) SetTariffAltText(v CdrBodyTariffsTariffAltText) {
+func (o *CdrBodyTariffs) SetTariffAltText(v CdrBodyTariffsTariffAltText) {
 	o.TariffAltText = &v
 }
 
 // GetTariffAltUrl returns the TariffAltUrl field value if set, zero value otherwise.
-func (o *Tariff) GetTariffAltUrl() string {
+func (o *CdrBodyTariffs) GetTariffAltUrl() string {
 	if o == nil || IsNil(o.TariffAltUrl) {
 		var ret string
 		return ret
@@ -228,7 +228,7 @@ func (o *Tariff) GetTariffAltUrl() string {
 
 // GetTariffAltUrlOk returns a tuple with the TariffAltUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetTariffAltUrlOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetTariffAltUrlOk() (*string, bool) {
 	if o == nil || IsNil(o.TariffAltUrl) {
 		return nil, false
 	}
@@ -236,7 +236,7 @@ func (o *Tariff) GetTariffAltUrlOk() (*string, bool) {
 }
 
 // HasTariffAltUrl returns a boolean if a field has been set.
-func (o *Tariff) HasTariffAltUrl() bool {
+func (o *CdrBodyTariffs) HasTariffAltUrl() bool {
 	if o != nil && !IsNil(o.TariffAltUrl) {
 		return true
 	}
@@ -245,12 +245,12 @@ func (o *Tariff) HasTariffAltUrl() bool {
 }
 
 // SetTariffAltUrl gets a reference to the given string and assigns it to the TariffAltUrl field.
-func (o *Tariff) SetTariffAltUrl(v string) {
+func (o *CdrBodyTariffs) SetTariffAltUrl(v string) {
 	o.TariffAltUrl = &v
 }
 
 // GetMinPrice returns the MinPrice field value if set, zero value otherwise.
-func (o *Tariff) GetMinPrice() Price {
+func (o *CdrBodyTariffs) GetMinPrice() Price {
 	if o == nil || IsNil(o.MinPrice) {
 		var ret Price
 		return ret
@@ -260,7 +260,7 @@ func (o *Tariff) GetMinPrice() Price {
 
 // GetMinPriceOk returns a tuple with the MinPrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetMinPriceOk() (*Price, bool) {
+func (o *CdrBodyTariffs) GetMinPriceOk() (*Price, bool) {
 	if o == nil || IsNil(o.MinPrice) {
 		return nil, false
 	}
@@ -268,7 +268,7 @@ func (o *Tariff) GetMinPriceOk() (*Price, bool) {
 }
 
 // HasMinPrice returns a boolean if a field has been set.
-func (o *Tariff) HasMinPrice() bool {
+func (o *CdrBodyTariffs) HasMinPrice() bool {
 	if o != nil && !IsNil(o.MinPrice) {
 		return true
 	}
@@ -277,12 +277,12 @@ func (o *Tariff) HasMinPrice() bool {
 }
 
 // SetMinPrice gets a reference to the given Price and assigns it to the MinPrice field.
-func (o *Tariff) SetMinPrice(v Price) {
+func (o *CdrBodyTariffs) SetMinPrice(v Price) {
 	o.MinPrice = &v
 }
 
 // GetMaxPrice returns the MaxPrice field value if set, zero value otherwise.
-func (o *Tariff) GetMaxPrice() Price {
+func (o *CdrBodyTariffs) GetMaxPrice() Price {
 	if o == nil || IsNil(o.MaxPrice) {
 		var ret Price
 		return ret
@@ -292,7 +292,7 @@ func (o *Tariff) GetMaxPrice() Price {
 
 // GetMaxPriceOk returns a tuple with the MaxPrice field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetMaxPriceOk() (*Price, bool) {
+func (o *CdrBodyTariffs) GetMaxPriceOk() (*Price, bool) {
 	if o == nil || IsNil(o.MaxPrice) {
 		return nil, false
 	}
@@ -300,7 +300,7 @@ func (o *Tariff) GetMaxPriceOk() (*Price, bool) {
 }
 
 // HasMaxPrice returns a boolean if a field has been set.
-func (o *Tariff) HasMaxPrice() bool {
+func (o *CdrBodyTariffs) HasMaxPrice() bool {
 	if o != nil && !IsNil(o.MaxPrice) {
 		return true
 	}
@@ -309,14 +309,14 @@ func (o *Tariff) HasMaxPrice() bool {
 }
 
 // SetMaxPrice gets a reference to the given Price and assigns it to the MaxPrice field.
-func (o *Tariff) SetMaxPrice(v Price) {
+func (o *CdrBodyTariffs) SetMaxPrice(v Price) {
 	o.MaxPrice = &v
 }
 
 // GetElements returns the Elements field value if set, zero value otherwise.
-func (o *Tariff) GetElements() TariffElements {
+func (o *CdrBodyTariffs) GetElements() CdrBodyTariffsElements {
 	if o == nil || IsNil(o.Elements) {
-		var ret TariffElements
+		var ret CdrBodyTariffsElements
 		return ret
 	}
 	return *o.Elements
@@ -324,7 +324,7 @@ func (o *Tariff) GetElements() TariffElements {
 
 // GetElementsOk returns a tuple with the Elements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetElementsOk() (*TariffElements, bool) {
+func (o *CdrBodyTariffs) GetElementsOk() (*CdrBodyTariffsElements, bool) {
 	if o == nil || IsNil(o.Elements) {
 		return nil, false
 	}
@@ -332,7 +332,7 @@ func (o *Tariff) GetElementsOk() (*TariffElements, bool) {
 }
 
 // HasElements returns a boolean if a field has been set.
-func (o *Tariff) HasElements() bool {
+func (o *CdrBodyTariffs) HasElements() bool {
 	if o != nil && !IsNil(o.Elements) {
 		return true
 	}
@@ -340,13 +340,13 @@ func (o *Tariff) HasElements() bool {
 	return false
 }
 
-// SetElements gets a reference to the given TariffElements and assigns it to the Elements field.
-func (o *Tariff) SetElements(v TariffElements) {
+// SetElements gets a reference to the given CdrBodyTariffsElements and assigns it to the Elements field.
+func (o *CdrBodyTariffs) SetElements(v CdrBodyTariffsElements) {
 	o.Elements = &v
 }
 
 // GetStartDateTime returns the StartDateTime field value if set, zero value otherwise.
-func (o *Tariff) GetStartDateTime() string {
+func (o *CdrBodyTariffs) GetStartDateTime() string {
 	if o == nil || IsNil(o.StartDateTime) {
 		var ret string
 		return ret
@@ -356,7 +356,7 @@ func (o *Tariff) GetStartDateTime() string {
 
 // GetStartDateTimeOk returns a tuple with the StartDateTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetStartDateTimeOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetStartDateTimeOk() (*string, bool) {
 	if o == nil || IsNil(o.StartDateTime) {
 		return nil, false
 	}
@@ -364,7 +364,7 @@ func (o *Tariff) GetStartDateTimeOk() (*string, bool) {
 }
 
 // HasStartDateTime returns a boolean if a field has been set.
-func (o *Tariff) HasStartDateTime() bool {
+func (o *CdrBodyTariffs) HasStartDateTime() bool {
 	if o != nil && !IsNil(o.StartDateTime) {
 		return true
 	}
@@ -373,12 +373,12 @@ func (o *Tariff) HasStartDateTime() bool {
 }
 
 // SetStartDateTime gets a reference to the given string and assigns it to the StartDateTime field.
-func (o *Tariff) SetStartDateTime(v string) {
+func (o *CdrBodyTariffs) SetStartDateTime(v string) {
 	o.StartDateTime = &v
 }
 
 // GetEndDateTime returns the EndDateTime field value if set, zero value otherwise.
-func (o *Tariff) GetEndDateTime() string {
+func (o *CdrBodyTariffs) GetEndDateTime() string {
 	if o == nil || IsNil(o.EndDateTime) {
 		var ret string
 		return ret
@@ -388,7 +388,7 @@ func (o *Tariff) GetEndDateTime() string {
 
 // GetEndDateTimeOk returns a tuple with the EndDateTime field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetEndDateTimeOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetEndDateTimeOk() (*string, bool) {
 	if o == nil || IsNil(o.EndDateTime) {
 		return nil, false
 	}
@@ -396,7 +396,7 @@ func (o *Tariff) GetEndDateTimeOk() (*string, bool) {
 }
 
 // HasEndDateTime returns a boolean if a field has been set.
-func (o *Tariff) HasEndDateTime() bool {
+func (o *CdrBodyTariffs) HasEndDateTime() bool {
 	if o != nil && !IsNil(o.EndDateTime) {
 		return true
 	}
@@ -405,14 +405,14 @@ func (o *Tariff) HasEndDateTime() bool {
 }
 
 // SetEndDateTime gets a reference to the given string and assigns it to the EndDateTime field.
-func (o *Tariff) SetEndDateTime(v string) {
+func (o *CdrBodyTariffs) SetEndDateTime(v string) {
 	o.EndDateTime = &v
 }
 
 // GetEnergyMix returns the EnergyMix field value if set, zero value otherwise.
-func (o *Tariff) GetEnergyMix() TariffEnergyMix {
+func (o *CdrBodyTariffs) GetEnergyMix() CdrBodyTariffsEnergyMix {
 	if o == nil || IsNil(o.EnergyMix) {
-		var ret TariffEnergyMix
+		var ret CdrBodyTariffsEnergyMix
 		return ret
 	}
 	return *o.EnergyMix
@@ -420,7 +420,7 @@ func (o *Tariff) GetEnergyMix() TariffEnergyMix {
 
 // GetEnergyMixOk returns a tuple with the EnergyMix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetEnergyMixOk() (*TariffEnergyMix, bool) {
+func (o *CdrBodyTariffs) GetEnergyMixOk() (*CdrBodyTariffsEnergyMix, bool) {
 	if o == nil || IsNil(o.EnergyMix) {
 		return nil, false
 	}
@@ -428,7 +428,7 @@ func (o *Tariff) GetEnergyMixOk() (*TariffEnergyMix, bool) {
 }
 
 // HasEnergyMix returns a boolean if a field has been set.
-func (o *Tariff) HasEnergyMix() bool {
+func (o *CdrBodyTariffs) HasEnergyMix() bool {
 	if o != nil && !IsNil(o.EnergyMix) {
 		return true
 	}
@@ -436,13 +436,13 @@ func (o *Tariff) HasEnergyMix() bool {
 	return false
 }
 
-// SetEnergyMix gets a reference to the given TariffEnergyMix and assigns it to the EnergyMix field.
-func (o *Tariff) SetEnergyMix(v TariffEnergyMix) {
+// SetEnergyMix gets a reference to the given CdrBodyTariffsEnergyMix and assigns it to the EnergyMix field.
+func (o *CdrBodyTariffs) SetEnergyMix(v CdrBodyTariffsEnergyMix) {
 	o.EnergyMix = &v
 }
 
 // GetLastUpdated returns the LastUpdated field value
-func (o *Tariff) GetLastUpdated() string {
+func (o *CdrBodyTariffs) GetLastUpdated() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -453,7 +453,7 @@ func (o *Tariff) GetLastUpdated() string {
 
 // GetLastUpdatedOk returns a tuple with the LastUpdated field value
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetLastUpdatedOk() (*string, bool) {
+func (o *CdrBodyTariffs) GetLastUpdatedOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -461,11 +461,11 @@ func (o *Tariff) GetLastUpdatedOk() (*string, bool) {
 }
 
 // SetLastUpdated sets field value
-func (o *Tariff) SetLastUpdated(v string) {
+func (o *CdrBodyTariffs) SetLastUpdated(v string) {
 	o.LastUpdated = v
 }
 
-func (o Tariff) MarshalJSON() ([]byte, error) {
+func (o CdrBodyTariffs) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -473,7 +473,7 @@ func (o Tariff) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o Tariff) ToMap() (map[string]interface{}, error) {
+func (o CdrBodyTariffs) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["country_code"] = o.CountryCode
 	toSerialize["party_id"] = o.PartyId
@@ -510,38 +510,38 @@ func (o Tariff) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableTariff struct {
-	value *Tariff
+type NullableCdrBodyTariffs struct {
+	value *CdrBodyTariffs
 	isSet bool
 }
 
-func (v NullableTariff) Get() *Tariff {
+func (v NullableCdrBodyTariffs) Get() *CdrBodyTariffs {
 	return v.value
 }
 
-func (v *NullableTariff) Set(val *Tariff) {
+func (v *NullableCdrBodyTariffs) Set(val *CdrBodyTariffs) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableTariff) IsSet() bool {
+func (v NullableCdrBodyTariffs) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableTariff) Unset() {
+func (v *NullableCdrBodyTariffs) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableTariff(val *Tariff) *NullableTariff {
-	return &NullableTariff{value: val, isSet: true}
+func NewNullableCdrBodyTariffs(val *CdrBodyTariffs) *NullableCdrBodyTariffs {
+	return &NullableCdrBodyTariffs{value: val, isSet: true}
 }
 
-func (v NullableTariff) MarshalJSON() ([]byte, error) {
+func (v NullableCdrBodyTariffs) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableTariff) UnmarshalJSON(src []byte) error {
+func (v *NullableCdrBodyTariffs) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

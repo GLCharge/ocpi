@@ -19,7 +19,7 @@ var _ MappedNullable = &CdrsResponse{}
 
 // CdrsResponse struct for CdrsResponse
 type CdrsResponse struct {
-	Cdrs *Cdr `json:"cdrs,omitempty"`
+	Cdrs *CdrBody `json:"cdrs,omitempty"`
 	StatusCode float32 `json:"status_code"`
 	StatusMessage *string `json:"status_message,omitempty"`
 	TimeStamp *string `json:"timeStamp,omitempty"`
@@ -44,9 +44,9 @@ func NewCdrsResponseWithDefaults() *CdrsResponse {
 }
 
 // GetCdrs returns the Cdrs field value if set, zero value otherwise.
-func (o *CdrsResponse) GetCdrs() Cdr {
+func (o *CdrsResponse) GetCdrs() CdrBody {
 	if o == nil || IsNil(o.Cdrs) {
-		var ret Cdr
+		var ret CdrBody
 		return ret
 	}
 	return *o.Cdrs
@@ -54,7 +54,7 @@ func (o *CdrsResponse) GetCdrs() Cdr {
 
 // GetCdrsOk returns a tuple with the Cdrs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CdrsResponse) GetCdrsOk() (*Cdr, bool) {
+func (o *CdrsResponse) GetCdrsOk() (*CdrBody, bool) {
 	if o == nil || IsNil(o.Cdrs) {
 		return nil, false
 	}
@@ -70,8 +70,8 @@ func (o *CdrsResponse) HasCdrs() bool {
 	return false
 }
 
-// SetCdrs gets a reference to the given Cdr and assigns it to the Cdrs field.
-func (o *CdrsResponse) SetCdrs(v Cdr) {
+// SetCdrs gets a reference to the given CdrBody and assigns it to the Cdrs field.
+func (o *CdrsResponse) SetCdrs(v CdrBody) {
 	o.Cdrs = &v
 }
 

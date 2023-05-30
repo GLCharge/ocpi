@@ -30,11 +30,11 @@ type LocationsData struct {
 	PostalCode *string `json:"postal_code,omitempty"`
 	State *string `json:"state,omitempty"`
 	Country string `json:"country"`
-	Coordinates CdrCdrLocationCoordinates `json:"coordinates"`
+	Coordinates CdrBodyCdrLocationCoordinates `json:"coordinates"`
 	RelatedLocations *LocationsDataRelatedLocations `json:"related_locations,omitempty"`
 	ParkingType *string `json:"parking_type,omitempty"`
 	Evses *Evse `json:"evses,omitempty"`
-	Directions *CdrTariffsTariffAltText `json:"directions,omitempty"`
+	Directions *CdrBodyTariffsTariffAltText `json:"directions,omitempty"`
 	Operator *BusinessDetails `json:"operator,omitempty"`
 	Suboperator *BusinessDetails `json:"suboperator,omitempty"`
 	Owner *BusinessDetails `json:"owner,omitempty"`
@@ -43,7 +43,7 @@ type LocationsData struct {
 	OpeningTimes *LocationsDataOpeningTimes `json:"opening_times,omitempty"`
 	ChargingWhenClosed *bool `json:"charging_when_closed,omitempty"`
 	Images *Image `json:"images,omitempty"`
-	EnergyMix *CdrTariffsEnergyMix `json:"energy_mix,omitempty"`
+	EnergyMix *CdrBodyTariffsEnergyMix `json:"energy_mix,omitempty"`
 	LastUpdated string `json:"last_updated"`
 }
 
@@ -51,7 +51,7 @@ type LocationsData struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLocationsData(address string, city string, country string, coordinates CdrCdrLocationCoordinates, timeZone string, lastUpdated string) *LocationsData {
+func NewLocationsData(address string, city string, country string, coordinates CdrBodyCdrLocationCoordinates, timeZone string, lastUpdated string) *LocationsData {
 	this := LocationsData{}
 	this.Address = address
 	this.City = city
@@ -399,9 +399,9 @@ func (o *LocationsData) SetCountry(v string) {
 }
 
 // GetCoordinates returns the Coordinates field value
-func (o *LocationsData) GetCoordinates() CdrCdrLocationCoordinates {
+func (o *LocationsData) GetCoordinates() CdrBodyCdrLocationCoordinates {
 	if o == nil {
-		var ret CdrCdrLocationCoordinates
+		var ret CdrBodyCdrLocationCoordinates
 		return ret
 	}
 
@@ -410,7 +410,7 @@ func (o *LocationsData) GetCoordinates() CdrCdrLocationCoordinates {
 
 // GetCoordinatesOk returns a tuple with the Coordinates field value
 // and a boolean to check if the value has been set.
-func (o *LocationsData) GetCoordinatesOk() (*CdrCdrLocationCoordinates, bool) {
+func (o *LocationsData) GetCoordinatesOk() (*CdrBodyCdrLocationCoordinates, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -418,7 +418,7 @@ func (o *LocationsData) GetCoordinatesOk() (*CdrCdrLocationCoordinates, bool) {
 }
 
 // SetCoordinates sets field value
-func (o *LocationsData) SetCoordinates(v CdrCdrLocationCoordinates) {
+func (o *LocationsData) SetCoordinates(v CdrBodyCdrLocationCoordinates) {
 	o.Coordinates = v
 }
 
@@ -519,9 +519,9 @@ func (o *LocationsData) SetEvses(v Evse) {
 }
 
 // GetDirections returns the Directions field value if set, zero value otherwise.
-func (o *LocationsData) GetDirections() CdrTariffsTariffAltText {
+func (o *LocationsData) GetDirections() CdrBodyTariffsTariffAltText {
 	if o == nil || IsNil(o.Directions) {
-		var ret CdrTariffsTariffAltText
+		var ret CdrBodyTariffsTariffAltText
 		return ret
 	}
 	return *o.Directions
@@ -529,7 +529,7 @@ func (o *LocationsData) GetDirections() CdrTariffsTariffAltText {
 
 // GetDirectionsOk returns a tuple with the Directions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LocationsData) GetDirectionsOk() (*CdrTariffsTariffAltText, bool) {
+func (o *LocationsData) GetDirectionsOk() (*CdrBodyTariffsTariffAltText, bool) {
 	if o == nil || IsNil(o.Directions) {
 		return nil, false
 	}
@@ -545,8 +545,8 @@ func (o *LocationsData) HasDirections() bool {
 	return false
 }
 
-// SetDirections gets a reference to the given CdrTariffsTariffAltText and assigns it to the Directions field.
-func (o *LocationsData) SetDirections(v CdrTariffsTariffAltText) {
+// SetDirections gets a reference to the given CdrBodyTariffsTariffAltText and assigns it to the Directions field.
+func (o *LocationsData) SetDirections(v CdrBodyTariffsTariffAltText) {
 	o.Directions = &v
 }
 
@@ -799,9 +799,9 @@ func (o *LocationsData) SetImages(v Image) {
 }
 
 // GetEnergyMix returns the EnergyMix field value if set, zero value otherwise.
-func (o *LocationsData) GetEnergyMix() CdrTariffsEnergyMix {
+func (o *LocationsData) GetEnergyMix() CdrBodyTariffsEnergyMix {
 	if o == nil || IsNil(o.EnergyMix) {
-		var ret CdrTariffsEnergyMix
+		var ret CdrBodyTariffsEnergyMix
 		return ret
 	}
 	return *o.EnergyMix
@@ -809,7 +809,7 @@ func (o *LocationsData) GetEnergyMix() CdrTariffsEnergyMix {
 
 // GetEnergyMixOk returns a tuple with the EnergyMix field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LocationsData) GetEnergyMixOk() (*CdrTariffsEnergyMix, bool) {
+func (o *LocationsData) GetEnergyMixOk() (*CdrBodyTariffsEnergyMix, bool) {
 	if o == nil || IsNil(o.EnergyMix) {
 		return nil, false
 	}
@@ -825,8 +825,8 @@ func (o *LocationsData) HasEnergyMix() bool {
 	return false
 }
 
-// SetEnergyMix gets a reference to the given CdrTariffsEnergyMix and assigns it to the EnergyMix field.
-func (o *LocationsData) SetEnergyMix(v CdrTariffsEnergyMix) {
+// SetEnergyMix gets a reference to the given CdrBodyTariffsEnergyMix and assigns it to the EnergyMix field.
+func (o *LocationsData) SetEnergyMix(v CdrBodyTariffsEnergyMix) {
 	o.EnergyMix = &v
 }
 

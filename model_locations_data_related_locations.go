@@ -21,7 +21,7 @@ var _ MappedNullable = &LocationsDataRelatedLocations{}
 type LocationsDataRelatedLocations struct {
 	Latitude string `json:"latitude"`
 	Longitude string `json:"longitude"`
-	Name *CdrTariffsTariffAltText `json:"name,omitempty"`
+	Name *CdrBodyTariffsTariffAltText `json:"name,omitempty"`
 }
 
 // NewLocationsDataRelatedLocations instantiates a new LocationsDataRelatedLocations object
@@ -92,9 +92,9 @@ func (o *LocationsDataRelatedLocations) SetLongitude(v string) {
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *LocationsDataRelatedLocations) GetName() CdrTariffsTariffAltText {
+func (o *LocationsDataRelatedLocations) GetName() CdrBodyTariffsTariffAltText {
 	if o == nil || IsNil(o.Name) {
-		var ret CdrTariffsTariffAltText
+		var ret CdrBodyTariffsTariffAltText
 		return ret
 	}
 	return *o.Name
@@ -102,7 +102,7 @@ func (o *LocationsDataRelatedLocations) GetName() CdrTariffsTariffAltText {
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LocationsDataRelatedLocations) GetNameOk() (*CdrTariffsTariffAltText, bool) {
+func (o *LocationsDataRelatedLocations) GetNameOk() (*CdrBodyTariffsTariffAltText, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -118,8 +118,8 @@ func (o *LocationsDataRelatedLocations) HasName() bool {
 	return false
 }
 
-// SetName gets a reference to the given CdrTariffsTariffAltText and assigns it to the Name field.
-func (o *LocationsDataRelatedLocations) SetName(v CdrTariffsTariffAltText) {
+// SetName gets a reference to the given CdrBodyTariffsTariffAltText and assigns it to the Name field.
+func (o *LocationsDataRelatedLocations) SetName(v CdrBodyTariffsTariffAltText) {
 	o.Name = &v
 }
 

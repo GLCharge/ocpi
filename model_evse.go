@@ -26,9 +26,9 @@ type Evse struct {
 	Capabilities *string `json:"capabilities,omitempty"`
 	Connectors *Connector `json:"connectors,omitempty"`
 	FloorLevel *string `json:"floor_level,omitempty"`
-	Coordinates *CdrCdrLocationCoordinates `json:"coordinates,omitempty"`
+	Coordinates *CdrBodyCdrLocationCoordinates `json:"coordinates,omitempty"`
 	PhysicalReference *string `json:"physical_reference,omitempty"`
-	Directions *CdrTariffsTariffAltText `json:"directions,omitempty"`
+	Directions *CdrBodyTariffsTariffAltText `json:"directions,omitempty"`
 	ParkingRestrictions *string `json:"parking_restrictions,omitempty"`
 	Images *Image `json:"images,omitempty"`
 	LastUpdated string `json:"last_updated"`
@@ -263,9 +263,9 @@ func (o *Evse) SetFloorLevel(v string) {
 }
 
 // GetCoordinates returns the Coordinates field value if set, zero value otherwise.
-func (o *Evse) GetCoordinates() CdrCdrLocationCoordinates {
+func (o *Evse) GetCoordinates() CdrBodyCdrLocationCoordinates {
 	if o == nil || IsNil(o.Coordinates) {
-		var ret CdrCdrLocationCoordinates
+		var ret CdrBodyCdrLocationCoordinates
 		return ret
 	}
 	return *o.Coordinates
@@ -273,7 +273,7 @@ func (o *Evse) GetCoordinates() CdrCdrLocationCoordinates {
 
 // GetCoordinatesOk returns a tuple with the Coordinates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Evse) GetCoordinatesOk() (*CdrCdrLocationCoordinates, bool) {
+func (o *Evse) GetCoordinatesOk() (*CdrBodyCdrLocationCoordinates, bool) {
 	if o == nil || IsNil(o.Coordinates) {
 		return nil, false
 	}
@@ -289,8 +289,8 @@ func (o *Evse) HasCoordinates() bool {
 	return false
 }
 
-// SetCoordinates gets a reference to the given CdrCdrLocationCoordinates and assigns it to the Coordinates field.
-func (o *Evse) SetCoordinates(v CdrCdrLocationCoordinates) {
+// SetCoordinates gets a reference to the given CdrBodyCdrLocationCoordinates and assigns it to the Coordinates field.
+func (o *Evse) SetCoordinates(v CdrBodyCdrLocationCoordinates) {
 	o.Coordinates = &v
 }
 
@@ -327,9 +327,9 @@ func (o *Evse) SetPhysicalReference(v string) {
 }
 
 // GetDirections returns the Directions field value if set, zero value otherwise.
-func (o *Evse) GetDirections() CdrTariffsTariffAltText {
+func (o *Evse) GetDirections() CdrBodyTariffsTariffAltText {
 	if o == nil || IsNil(o.Directions) {
-		var ret CdrTariffsTariffAltText
+		var ret CdrBodyTariffsTariffAltText
 		return ret
 	}
 	return *o.Directions
@@ -337,7 +337,7 @@ func (o *Evse) GetDirections() CdrTariffsTariffAltText {
 
 // GetDirectionsOk returns a tuple with the Directions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Evse) GetDirectionsOk() (*CdrTariffsTariffAltText, bool) {
+func (o *Evse) GetDirectionsOk() (*CdrBodyTariffsTariffAltText, bool) {
 	if o == nil || IsNil(o.Directions) {
 		return nil, false
 	}
@@ -353,8 +353,8 @@ func (o *Evse) HasDirections() bool {
 	return false
 }
 
-// SetDirections gets a reference to the given CdrTariffsTariffAltText and assigns it to the Directions field.
-func (o *Evse) SetDirections(v CdrTariffsTariffAltText) {
+// SetDirections gets a reference to the given CdrBodyTariffsTariffAltText and assigns it to the Directions field.
+func (o *Evse) SetDirections(v CdrBodyTariffsTariffAltText) {
 	o.Directions = &v
 }
 

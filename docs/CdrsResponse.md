@@ -4,7 +4,7 @@
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Cdrs** | Pointer to [**Cdr**](Cdr.md) |  | [optional] 
+**Cdrs** | Pointer to [**CdrBody**](CdrBody.md) |  | [optional] 
 **StatusCode** | **float32** |  | 
 **StatusMessage** | Pointer to **string** |  | [optional] 
 **TimeStamp** | Pointer to **string** |  | [optional] 
@@ -30,20 +30,20 @@ but it doesn't guarantee that properties required by API are set
 
 ### GetCdrs
 
-`func (o *CdrsResponse) GetCdrs() Cdr`
+`func (o *CdrsResponse) GetCdrs() CdrBody`
 
 GetCdrs returns the Cdrs field if non-nil, zero value otherwise.
 
 ### GetCdrsOk
 
-`func (o *CdrsResponse) GetCdrsOk() (*Cdr, bool)`
+`func (o *CdrsResponse) GetCdrsOk() (*CdrBody, bool)`
 
 GetCdrsOk returns a tuple with the Cdrs field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCdrs
 
-`func (o *CdrsResponse) SetCdrs(v Cdr)`
+`func (o *CdrsResponse) SetCdrs(v CdrBody)`
 
 SetCdrs sets Cdrs field to given value.
 

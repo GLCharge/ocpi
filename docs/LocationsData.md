@@ -15,11 +15,11 @@ Name | Type | Description | Notes
 **PostalCode** | Pointer to **string** |  | [optional] 
 **State** | Pointer to **string** |  | [optional] 
 **Country** | **string** |  | 
-**Coordinates** | [**CdrCdrLocationCoordinates**](CdrCdrLocationCoordinates.md) |  | 
+**Coordinates** | [**CdrBodyCdrLocationCoordinates**](CdrBodyCdrLocationCoordinates.md) |  | 
 **RelatedLocations** | Pointer to [**LocationsDataRelatedLocations**](LocationsDataRelatedLocations.md) |  | [optional] 
 **ParkingType** | Pointer to **string** |  | [optional] 
 **Evses** | Pointer to [**Evse**](Evse.md) |  | [optional] 
-**Directions** | Pointer to [**CdrTariffsTariffAltText**](CdrTariffsTariffAltText.md) |  | [optional] 
+**Directions** | Pointer to [**CdrBodyTariffsTariffAltText**](CdrBodyTariffsTariffAltText.md) |  | [optional] 
 **Operator** | Pointer to [**BusinessDetails**](BusinessDetails.md) |  | [optional] 
 **Suboperator** | Pointer to [**BusinessDetails**](BusinessDetails.md) |  | [optional] 
 **Owner** | Pointer to [**BusinessDetails**](BusinessDetails.md) |  | [optional] 
@@ -28,14 +28,14 @@ Name | Type | Description | Notes
 **OpeningTimes** | Pointer to [**LocationsDataOpeningTimes**](LocationsDataOpeningTimes.md) |  | [optional] 
 **ChargingWhenClosed** | Pointer to **bool** |  | [optional] 
 **Images** | Pointer to [**Image**](Image.md) |  | [optional] 
-**EnergyMix** | Pointer to [**CdrTariffsEnergyMix**](CdrTariffsEnergyMix.md) |  | [optional] 
+**EnergyMix** | Pointer to [**CdrBodyTariffsEnergyMix**](CdrBodyTariffsEnergyMix.md) |  | [optional] 
 **LastUpdated** | **string** |  | 
 
 ## Methods
 
 ### NewLocationsData
 
-`func NewLocationsData(address string, city string, country string, coordinates CdrCdrLocationCoordinates, timeZone string, lastUpdated string, ) *LocationsData`
+`func NewLocationsData(address string, city string, country string, coordinates CdrBodyCdrLocationCoordinates, timeZone string, lastUpdated string, ) *LocationsData`
 
 NewLocationsData instantiates a new LocationsData object
 This constructor will assign default values to properties that have it defined,
@@ -312,20 +312,20 @@ SetCountry sets Country field to given value.
 
 ### GetCoordinates
 
-`func (o *LocationsData) GetCoordinates() CdrCdrLocationCoordinates`
+`func (o *LocationsData) GetCoordinates() CdrBodyCdrLocationCoordinates`
 
 GetCoordinates returns the Coordinates field if non-nil, zero value otherwise.
 
 ### GetCoordinatesOk
 
-`func (o *LocationsData) GetCoordinatesOk() (*CdrCdrLocationCoordinates, bool)`
+`func (o *LocationsData) GetCoordinatesOk() (*CdrBodyCdrLocationCoordinates, bool)`
 
 GetCoordinatesOk returns a tuple with the Coordinates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCoordinates
 
-`func (o *LocationsData) SetCoordinates(v CdrCdrLocationCoordinates)`
+`func (o *LocationsData) SetCoordinates(v CdrBodyCdrLocationCoordinates)`
 
 SetCoordinates sets Coordinates field to given value.
 
@@ -407,20 +407,20 @@ HasEvses returns a boolean if a field has been set.
 
 ### GetDirections
 
-`func (o *LocationsData) GetDirections() CdrTariffsTariffAltText`
+`func (o *LocationsData) GetDirections() CdrBodyTariffsTariffAltText`
 
 GetDirections returns the Directions field if non-nil, zero value otherwise.
 
 ### GetDirectionsOk
 
-`func (o *LocationsData) GetDirectionsOk() (*CdrTariffsTariffAltText, bool)`
+`func (o *LocationsData) GetDirectionsOk() (*CdrBodyTariffsTariffAltText, bool)`
 
 GetDirectionsOk returns a tuple with the Directions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDirections
 
-`func (o *LocationsData) SetDirections(v CdrTariffsTariffAltText)`
+`func (o *LocationsData) SetDirections(v CdrBodyTariffsTariffAltText)`
 
 SetDirections sets Directions field to given value.
 
@@ -627,20 +627,20 @@ HasImages returns a boolean if a field has been set.
 
 ### GetEnergyMix
 
-`func (o *LocationsData) GetEnergyMix() CdrTariffsEnergyMix`
+`func (o *LocationsData) GetEnergyMix() CdrBodyTariffsEnergyMix`
 
 GetEnergyMix returns the EnergyMix field if non-nil, zero value otherwise.
 
 ### GetEnergyMixOk
 
-`func (o *LocationsData) GetEnergyMixOk() (*CdrTariffsEnergyMix, bool)`
+`func (o *LocationsData) GetEnergyMixOk() (*CdrBodyTariffsEnergyMix, bool)`
 
 GetEnergyMixOk returns a tuple with the EnergyMix field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnergyMix
 
-`func (o *LocationsData) SetEnergyMix(v CdrTariffsEnergyMix)`
+`func (o *LocationsData) SetEnergyMix(v CdrBodyTariffsEnergyMix)`
 
 SetEnergyMix sets EnergyMix field to given value.
 

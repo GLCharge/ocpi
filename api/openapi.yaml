@@ -65,7 +65,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/cdr'
+              $ref: '#/components/schemas/cdrBody'
       responses:
         "200":
           content:
@@ -1426,8 +1426,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/authorizationInfo'
-          description: authorizationInfo
+                $ref: '#/components/schemas/authorization'
+          description: authorization
         default:
           content:
             application/json:
@@ -1718,9 +1718,9 @@ components:
               restrictions:
                 end_date: 2015-06-29T23:50:16Z
                 min_kwh: 1.0
-                end_time: 18:00
+                end_time: 1080
                 min_duration: 0
-                min_current: 32.00
+                min_current: 32.0
                 max_duration: 3600
                 start_time: 09:00
                 max_power: 32.0
@@ -1783,7 +1783,7 @@ components:
           meter_id: meter_id
       properties:
         cdrs:
-          $ref: '#/components/schemas/cdr'
+          $ref: '#/components/schemas/cdrBody'
         status_code:
           example: 1000
           type: number
@@ -1821,7 +1821,7 @@ components:
       - timestamp
       - url
       type: object
-    cdr:
+    cdrBody:
       example:
         total_energy: 15.342
         authorization_reference: authorization_reference
@@ -1881,9 +1881,9 @@ components:
             restrictions:
               end_date: 2015-06-29T23:50:16Z
               min_kwh: 1.0
-              end_time: 18:00
+              end_time: 1080
               min_duration: 0
-              min_current: 32.00
+              min_current: 32.0
               max_duration: 3600
               start_time: 09:00
               max_power: 32.0
@@ -1964,7 +1964,7 @@ components:
           example: "1234"
           type: string
         cdr_token:
-          $ref: '#/components/schemas/cdr_cdr_token'
+          $ref: '#/components/schemas/cdrBody_cdr_token'
         auth_method:
           enum:
           - AUTH_REQUEST
@@ -1974,18 +1974,18 @@ components:
         authorization_reference:
           type: string
         cdr_location:
-          $ref: '#/components/schemas/cdr_cdr_location'
+          $ref: '#/components/schemas/cdrBody_cdr_location'
         meter_id:
           type: string
         currency:
           example: EUR
           type: string
         tariffs:
-          $ref: '#/components/schemas/cdr_tariffs'
+          $ref: '#/components/schemas/cdrBody_tariffs'
         charging_periods:
-          $ref: '#/components/schemas/cdr_charging_periods'
+          $ref: '#/components/schemas/cdrBody_charging_periods'
         signed_data:
-          $ref: '#/components/schemas/cdr_signed_data'
+          $ref: '#/components/schemas/cdrBody_signed_data'
         total_cost:
           $ref: '#/components/schemas/price'
         total_fixed_cost:
@@ -2497,7 +2497,7 @@ components:
             capabilities: CHARGING_PROFILE_CAPABLE
             status_schedule:
               period_begin: 07:00
-              period_end: 18:00
+              period_end: 1080
               status: AVAILABLE
             coordinates:
               latitude: "51.047599"
@@ -2537,14 +2537,14 @@ components:
             twentyfourseven: true
             regular_hours:
               period_begin: 07:00
-              period_end: 18:00
+              period_end: 1080
               weekday: 1
             exceptional_closings:
               period_begin: 07:00
-              period_end: 18:00
+              period_end: 1080
             exceptional_openings:
               period_begin: 07:00
-              period_end: 18:00
+              period_end: 1080
           publish_allowed_to:
             uid: "012345678"
             group_id: DF000-2001-8999
@@ -2658,7 +2658,7 @@ components:
         capabilities: CHARGING_PROFILE_CAPABLE
         status_schedule:
           period_begin: 07:00
-          period_end: 18:00
+          period_end: 1080
           status: AVAILABLE
         coordinates:
           latitude: "51.047599"
@@ -2713,12 +2713,12 @@ components:
           example: "-1"
           type: string
         coordinates:
-          $ref: '#/components/schemas/cdr_cdr_location_coordinates'
+          $ref: '#/components/schemas/cdrBody_cdr_location_coordinates'
         physical_reference:
           example: "1"
           type: string
         directions:
-          $ref: '#/components/schemas/cdr_tariffs_tariff_alt_text'
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
         parking_restrictions:
           enum:
           - EV_ONLY
@@ -3015,7 +3015,7 @@ components:
           example: 0.0
           type: number
         cdr_token:
-          $ref: '#/components/schemas/cdr_cdr_token'
+          $ref: '#/components/schemas/cdrBody_cdr_token'
         auth_method:
           enum:
           - AUTH_REQUEST
@@ -3151,9 +3151,9 @@ components:
             restrictions:
               end_date: 2015-06-29T23:50:16Z
               min_kwh: 1.0
-              end_time: 18:00
+              end_time: 1080
               min_duration: 0
-              min_current: 32.00
+              min_current: 32.0
               max_duration: 3600
               start_time: 09:00
               max_power: 32.0
@@ -3218,9 +3218,9 @@ components:
             restrictions:
               end_date: 2015-06-29T23:50:16Z
               min_kwh: 1.0
-              end_time: 18:00
+              end_time: 1080
               min_duration: 0
-              min_current: 32.00
+              min_current: 32.0
               max_duration: 3600
               start_time: 09:00
               max_power: 32.0
@@ -3282,9 +3282,9 @@ components:
           restrictions:
             end_date: 2015-06-29T23:50:16Z
             min_kwh: 1.0
-            end_time: 18:00
+            end_time: 1080
             min_duration: 0
-            min_current: 32.00
+            min_current: 32.0
             max_duration: 3600
             start_time: 09:00
             max_power: 32.0
@@ -3320,7 +3320,7 @@ components:
           - REGULAR
           type: string
         tariff_alt_text:
-          $ref: '#/components/schemas/cdr_tariffs_tariff_alt_text'
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
         tariff_alt_url:
           example: https://company.com/tariffs/14
           type: string
@@ -3565,7 +3565,9 @@ components:
       required:
       - location_id
       type: object
-    authorizationInfo:
+    authorization:
+      description: Changed name of the object from official docs due to colliding
+        naming of info property
       example:
         authorization_reference: "567890"
         allowed: ALLOWED
@@ -3716,7 +3718,7 @@ components:
       - $ref: '#/components/schemas/locations'
       - $ref: '#/components/schemas/evse'
       - $ref: '#/components/schemas/connector'
-    cdr_cdr_token:
+    cdrBody_cdr_token:
       example:
         country_code: CZ
         uid: 123abc
@@ -3750,7 +3752,7 @@ components:
       - type
       - uid
       type: object
-    cdr_cdr_location_coordinates:
+    cdrBody_cdr_location_coordinates:
       example:
         latitude: "51.047599"
         longitude: "3.729944"
@@ -3765,7 +3767,7 @@ components:
       - latitude
       - longitude
       type: object
-    cdr_cdr_location:
+    cdrBody_cdr_location:
       example:
         country: BEL
         evse_id: BE*BEC*E041503003
@@ -3805,7 +3807,7 @@ components:
           example: BEL
           type: string
         coordinates:
-          $ref: '#/components/schemas/cdr_cdr_location_coordinates'
+          $ref: '#/components/schemas/cdrBody_cdr_location_coordinates'
         evse_uid:
           example: "3256"
           type: string
@@ -3871,7 +3873,7 @@ components:
           - DC
           type: string
       type: object
-    cdr_tariffs_tariff_alt_text:
+    cdrBody_tariffs_tariff_alt_text:
       example:
         language: en
         text: 2.00 euro p/hour including VAT.
@@ -3886,13 +3888,13 @@ components:
       - language
       - text
       type: object
-    cdr_tariffs_elements_restrictions:
+    cdrBody_tariffs_elements_restrictions:
       example:
         end_date: 2015-06-29T23:50:16Z
         min_kwh: 1.0
-        end_time: 18:00
+        end_time: 1080
         min_duration: 0
-        min_current: 32.00
+        min_current: 32.0
         max_duration: 3600
         start_time: 09:00
         max_power: 32.0
@@ -3907,7 +3909,7 @@ components:
           example: 09:00
           type: string
         end_time:
-          example: 18:00
+          example: "1080"
           type: string
         start_date:
           example: 2019-06-23T08:16:02Z
@@ -3922,7 +3924,7 @@ components:
           example: 1.0
           type: number
         min_current:
-          example: 32.00
+          example: 32.0
           type: number
         max_current:
           example: 30
@@ -3955,14 +3957,14 @@ components:
           - RESERVATION_EXPIRES
           type: string
       type: object
-    cdr_tariffs_elements:
+    cdrBody_tariffs_elements:
       example:
         restrictions:
           end_date: 2015-06-29T23:50:16Z
           min_kwh: 1.0
-          end_time: 18:00
+          end_time: 1080
           min_duration: 0
-          min_current: 32.00
+          min_current: 32.0
           max_duration: 3600
           start_time: 09:00
           max_power: 32.0
@@ -3982,9 +3984,9 @@ components:
           - TIME
           type: string
         restrictions:
-          $ref: '#/components/schemas/cdr_tariffs_elements_restrictions'
+          $ref: '#/components/schemas/cdrBody_tariffs_elements_restrictions'
       type: object
-    cdr_tariffs_energy_mix_energy_sources:
+    cdrBody_tariffs_energy_mix_energy_sources:
       example:
         percentage: 21.7
         source: NUCLEAR
@@ -4007,7 +4009,7 @@ components:
       - percentage
       - source
       type: object
-    cdr_tariffs_energy_mix_environ_impact:
+    cdrBody_tariffs_energy_mix_environ_impact:
       example:
         amount: 372
         category: NUCLEAR_WASTE
@@ -4024,7 +4026,7 @@ components:
       - amount
       - category
       type: object
-    cdr_tariffs_energy_mix:
+    cdrBody_tariffs_energy_mix:
       example:
         energy_product_name: E.ON DirektStrom eco
         is_green_energy: true
@@ -4040,9 +4042,9 @@ components:
           example: true
           type: boolean
         energy_sources:
-          $ref: '#/components/schemas/cdr_tariffs_energy_mix_energy_sources'
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix_energy_sources'
         environ_impact:
-          $ref: '#/components/schemas/cdr_tariffs_energy_mix_environ_impact'
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix_environ_impact'
         supplier_name:
           example: E.ON Energy Deutschland
           type: string
@@ -4052,7 +4054,7 @@ components:
       required:
       - is_green_energy
       type: object
-    cdr_tariffs:
+    cdrBody_tariffs:
       example:
         tariff_alt_url: https://company.com/tariffs/14
         last_updated: 2015-06-29T22:39:09Z
@@ -4083,9 +4085,9 @@ components:
           restrictions:
             end_date: 2015-06-29T23:50:16Z
             min_kwh: 1.0
-            end_time: 18:00
+            end_time: 1080
             min_duration: 0
-            min_current: 32.00
+            min_current: 32.0
             max_duration: 3600
             start_time: 09:00
             max_power: 32.0
@@ -4121,7 +4123,7 @@ components:
           - REGULAR
           type: string
         tariff_alt_text:
-          $ref: '#/components/schemas/cdr_tariffs_tariff_alt_text'
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
         tariff_alt_url:
           example: https://company.com/tariffs/14
           type: string
@@ -4130,7 +4132,7 @@ components:
         max_price:
           $ref: '#/components/schemas/price'
         elements:
-          $ref: '#/components/schemas/cdr_tariffs_elements'
+          $ref: '#/components/schemas/cdrBody_tariffs_elements'
         start_date_time:
           example: 2019-06-23T08:16:02Z
           type: string
@@ -4138,7 +4140,7 @@ components:
           example: 2019-06-23T08:16:02Z
           type: string
         energy_mix:
-          $ref: '#/components/schemas/cdr_tariffs_energy_mix'
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix'
         last_updated:
           example: 2015-06-29T22:39:09Z
           type: string
@@ -4149,7 +4151,7 @@ components:
       - last_updated
       - party_id
       type: object
-    cdr_charging_periods_dimensions:
+    cdrBody_charging_periods_dimensions:
       example:
         volume: 2200
         type: CURRENT
@@ -4177,7 +4179,7 @@ components:
       - type
       - volume
       type: object
-    cdr_charging_periods:
+    cdrBody_charging_periods:
       example:
         tariff_id: "12"
         start_date_time: 2019-06-23T08:16:02Z
@@ -4189,14 +4191,14 @@ components:
           example: 2019-06-23T08:16:02Z
           type: string
         dimensions:
-          $ref: '#/components/schemas/cdr_charging_periods_dimensions'
+          $ref: '#/components/schemas/cdrBody_charging_periods_dimensions'
         tariff_id:
           example: "12"
           type: string
       required:
       - start_date_time
       type: object
-    cdr_signed_data_signed_values:
+    cdrBody_signed_data_signed_values:
       example:
         plain_data: plain_data
         signed_data: signed_data
@@ -4213,7 +4215,7 @@ components:
       - plain_data
       - signed_data
       type: object
-    cdr_signed_data:
+    cdrBody_signed_data:
       example:
         public_key: public_key
         signed_values:
@@ -4231,7 +4233,7 @@ components:
         public_key:
           type: string
         signed_values:
-          $ref: '#/components/schemas/cdr_signed_data_signed_values'
+          $ref: '#/components/schemas/cdrBody_signed_data_signed_values'
         url:
           example: https://example.com
           type: string
@@ -4449,7 +4451,7 @@ components:
           example: "3.729944"
           type: string
         name:
-          $ref: '#/components/schemas/cdr_tariffs_tariff_alt_text'
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
       required:
       - latitude
       - longitude
@@ -4457,7 +4459,7 @@ components:
     locations_data_opening_times_regular_hours:
       example:
         period_begin: 07:00
-        period_end: 18:00
+        period_end: 1080
         weekday: 1
       properties:
         weekday:
@@ -4467,7 +4469,7 @@ components:
           example: 07:00
           type: string
         period_end:
-          example: 18:00
+          example: "1080"
           type: string
       required:
       - period_begin
@@ -4477,13 +4479,13 @@ components:
     locations_data_opening_times_exceptional_openings:
       example:
         period_begin: 07:00
-        period_end: 18:00
+        period_end: 1080
       properties:
         period_begin:
           example: 07:00
           type: string
         period_end:
-          example: 18:00
+          example: "1080"
           type: string
       required:
       - period_begin
@@ -4494,14 +4496,14 @@ components:
         twentyfourseven: true
         regular_hours:
           period_begin: 07:00
-          period_end: 18:00
+          period_end: 1080
           weekday: 1
         exceptional_closings:
           period_begin: 07:00
-          period_end: 18:00
+          period_end: 1080
         exceptional_openings:
           period_begin: 07:00
-          period_end: 18:00
+          period_end: 1080
       properties:
         twentyfourseven:
           example: true
@@ -4566,7 +4568,7 @@ components:
           capabilities: CHARGING_PROFILE_CAPABLE
           status_schedule:
             period_begin: 07:00
-            period_end: 18:00
+            period_end: 1080
             status: AVAILABLE
           coordinates:
             latitude: "51.047599"
@@ -4606,14 +4608,14 @@ components:
           twentyfourseven: true
           regular_hours:
             period_begin: 07:00
-            period_end: 18:00
+            period_end: 1080
             weekday: 1
           exceptional_closings:
             period_begin: 07:00
-            period_end: 18:00
+            period_end: 1080
           exceptional_openings:
             period_begin: 07:00
-            period_end: 18:00
+            period_end: 1080
         publish_allowed_to:
           uid: "012345678"
           group_id: DF000-2001-8999
@@ -4680,7 +4682,7 @@ components:
           example: BEL
           type: string
         coordinates:
-          $ref: '#/components/schemas/cdr_cdr_location_coordinates'
+          $ref: '#/components/schemas/cdrBody_cdr_location_coordinates'
         related_locations:
           $ref: '#/components/schemas/locations_data_related_locations'
         parking_type:
@@ -4695,7 +4697,7 @@ components:
         evses:
           $ref: '#/components/schemas/evse'
         directions:
-          $ref: '#/components/schemas/cdr_tariffs_tariff_alt_text'
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
         operator:
           $ref: '#/components/schemas/businessDetails'
         suboperator:
@@ -4736,7 +4738,7 @@ components:
         images:
           $ref: '#/components/schemas/image'
         energy_mix:
-          $ref: '#/components/schemas/cdr_tariffs_energy_mix'
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix'
         last_updated:
           example: 2015-06-29T20:39:09Z
           type: string
@@ -4751,14 +4753,14 @@ components:
     evse_status_schedule:
       example:
         period_begin: 07:00
-        period_end: 18:00
+        period_end: 1080
         status: AVAILABLE
       properties:
         period_begin:
           example: 07:00
           type: string
         period_end:
-          example: 18:00
+          example: "1080"
           type: string
         status:
           enum:
@@ -4831,9 +4833,9 @@ components:
       example:
         end_date: 2015-06-29T23:50:16Z
         min_kwh: 1.0
-        end_time: 18:00
+        end_time: 1080
         min_duration: 0
-        min_current: 32.00
+        min_current: 32.0
         max_duration: 3600
         start_time: 09:00
         max_power: 32.0
@@ -4848,7 +4850,7 @@ components:
           example: 09:00
           type: string
         end_time:
-          example: 18:00
+          example: "1080"
           type: string
         start_date:
           example: 2019-06-23T08:16:02Z
@@ -4863,7 +4865,7 @@ components:
           example: 1.0
           type: number
         min_current:
-          example: 32.00
+          example: 32.0
           type: number
         max_current:
           example: 30
@@ -4898,9 +4900,9 @@ components:
         restrictions:
           end_date: 2015-06-29T23:50:16Z
           min_kwh: 1.0
-          end_time: 18:00
+          end_time: 1080
           min_duration: 0
-          min_current: 32.00
+          min_current: 32.0
           max_duration: 3600
           start_time: 09:00
           max_power: 32.0
@@ -4952,7 +4954,7 @@ components:
           example: true
           type: boolean
         energy_sources:
-          $ref: '#/components/schemas/cdr_tariffs_energy_mix_energy_sources'
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix_energy_sources'
         environ_impact:
           $ref: '#/components/schemas/tariff_energy_mix_environ_impact'
         supplier_name:

@@ -1,5 +1,5 @@
 /*
-OCPI CDRs module
+OCPI modules
 
 Testing DefaultApiService
 
@@ -22,6 +22,66 @@ func Test_OCPI_DefaultApiService(t *testing.T) {
 	configuration := openapiclient.NewConfiguration()
 	apiClient := openapiclient.NewAPIClient(configuration)
 
+	t.Run("Test DefaultApiService Ocpi221CredentialsDelete", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.Ocpi221CredentialsDelete(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService Ocpi221CredentialsGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.Ocpi221CredentialsGet(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService Ocpi221CredentialsPost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.Ocpi221CredentialsPost(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService Ocpi221CredentialsPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.Ocpi221CredentialsPut(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService Ocpi221DetailsGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.Ocpi221DetailsGet(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
 	t.Run("Test DefaultApiService OcpiCdrsGet", func(t *testing.T) {
 
 		t.Skip("skip test")  // remove to run test
@@ -39,6 +99,442 @@ func Test_OCPI_DefaultApiService(t *testing.T) {
 		t.Skip("skip test")  // remove to run test
 
 		resp, httpRes, err := apiClient.DefaultApi.OcpiCdrsPost(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiChargingprofilePost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiChargingprofilePost(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiChargingprofileSessionIdPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var sessionId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiChargingprofileSessionIdPut(context.Background(), sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiChargingprofilesSessionIdDurationUrlGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var sessionId string
+		var duration int32
+		var url string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiChargingprofilesSessionIdDurationUrlGet(context.Background(), sessionId, duration, url).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiChargingprofilesSessionIdPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var sessionId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiChargingprofilesSessionIdPut(context.Background(), sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiChargingprofilesSessionIdResponseUrlDelete", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var sessionId string
+		var responseUrl string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiChargingprofilesSessionIdResponseUrlDelete(context.Background(), sessionId, responseUrl).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiClientinfoCountryCodePartyIdGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiClientinfoCountryCodePartyIdGet(context.Background(), countryCode, partyId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiClientinfoCountryCodePartyIdPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiClientinfoCountryCodePartyIdPut(context.Background(), countryCode, partyId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiCommandsCommandPost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var command string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiCommandsCommandPost(context.Background(), command).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiCommandsCommandUidPost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var command string
+		var uid string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiCommandsCommandUidPost(context.Background(), command, uid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiHubclientinfoGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiHubclientinfoGet(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiLocationsCountryCodePartyIdLocationIdGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var locationId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiLocationsCountryCodePartyIdLocationIdGet(context.Background(), countryCode, partyId, locationId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiLocationsCountryCodePartyIdLocationIdPatch", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var locationId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiLocationsCountryCodePartyIdLocationIdPatch(context.Background(), countryCode, partyId, locationId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiLocationsCountryCodePartyIdLocationIdPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var locationId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiLocationsCountryCodePartyIdLocationIdPut(context.Background(), countryCode, partyId, locationId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiLocationsGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiLocationsGet(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiLocationsLocationIdGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var locationId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiLocationsLocationIdGet(context.Background(), locationId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiSessionsCountryCodePartyIdSessionIdGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var sessionId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiSessionsCountryCodePartyIdSessionIdGet(context.Background(), countryCode, partyId, sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiSessionsCountryCodePartyIdSessionIdPatch", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var sessionId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiSessionsCountryCodePartyIdSessionIdPatch(context.Background(), countryCode, partyId, sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiSessionsCountryCodePartyIdSessionIdPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var sessionId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiSessionsCountryCodePartyIdSessionIdPut(context.Background(), countryCode, partyId, sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiSessionsGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiSessionsGet(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiSessionsSessionIdChargingPreferencesPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var sessionId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiSessionsSessionIdChargingPreferencesPut(context.Background(), sessionId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTariffsCountryCodePartyIdTariffIdDelete", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var tariffId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTariffsCountryCodePartyIdTariffIdDelete(context.Background(), countryCode, partyId, tariffId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTariffsCountryCodePartyIdTariffIdGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var tariffId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTariffsCountryCodePartyIdTariffIdGet(context.Background(), countryCode, partyId, tariffId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTariffsCountryCodePartyIdTariffIdPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var tariffId string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTariffsCountryCodePartyIdTariffIdPut(context.Background(), countryCode, partyId, tariffId).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTariffsGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTariffsGet(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTokenUidAuthorizePost", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var tokenUid string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTokenUidAuthorizePost(context.Background(), tokenUid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTokensCountryCodePartyIdTokenUidGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var tokenUid string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTokensCountryCodePartyIdTokenUidGet(context.Background(), countryCode, partyId, tokenUid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTokensCountryCodePartyIdTokenUidPatch", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var tokenUid string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTokensCountryCodePartyIdTokenUidPatch(context.Background(), countryCode, partyId, tokenUid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTokensCountryCodePartyIdTokenUidPut", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		var countryCode string
+		var partyId string
+		var tokenUid string
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTokensCountryCodePartyIdTokenUidPut(context.Background(), countryCode, partyId, tokenUid).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiTokensGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiTokensGet(context.Background()).Execute()
+
+		require.Nil(t, err)
+		require.NotNil(t, resp)
+		assert.Equal(t, 200, httpRes.StatusCode)
+
+	})
+
+	t.Run("Test DefaultApiService OcpiVersionsGet", func(t *testing.T) {
+
+		t.Skip("skip test")  // remove to run test
+
+		resp, httpRes, err := apiClient.DefaultApi.OcpiVersionsGet(context.Background()).Execute()
 
 		require.Nil(t, err)
 		require.NotNil(t, resp)

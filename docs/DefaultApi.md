@@ -433,7 +433,7 @@ No authorization required
 
 ## OcpiCdrsPost
 
-> CdrResponse OcpiCdrsPost(ctx).Cdr(cdr).Execute()
+> CdrResponse OcpiCdrsPost(ctx).CdrBody(cdrBody).Execute()
 
 Create CDR object
 
@@ -452,11 +452,11 @@ import (
 )
 
 func main() {
-    cdr := *openapiclient.NewCdr("CZ", "BEC", "12345", "2015-06-29T21:39:09Z", "2015-06-29T21:39:09Z", *openapiclient.NewCdrCdrToken("CZ", "STK", "123abc", "Type_example", "NL-TST-C12345678-S"), "AuthMethod_example", *openapiclient.NewCdrCdrLocation(), "EUR", *openapiclient.NewPrice(float32(2.5)), float32(15.342), float32(1.973), "2015-06-29T22:39:09Z") // Cdr |  (optional)
+    cdrBody := *openapiclient.NewCdrBody("CZ", "BEC", "12345", "2015-06-29T21:39:09Z", "2015-06-29T21:39:09Z", *openapiclient.NewCdrBodyCdrToken("CZ", "STK", "123abc", "Type_example", "NL-TST-C12345678-S"), "AuthMethod_example", *openapiclient.NewCdrBodyCdrLocation(), "EUR", *openapiclient.NewPrice(float32(2.5)), float32(15.342), float32(1.973), "2015-06-29T22:39:09Z") // CdrBody |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
-    resp, r, err := apiClient.DefaultApi.OcpiCdrsPost(context.Background()).Cdr(cdr).Execute()
+    resp, r, err := apiClient.DefaultApi.OcpiCdrsPost(context.Background()).CdrBody(cdrBody).Execute()
     if err != nil {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.OcpiCdrsPost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
@@ -477,7 +477,7 @@ Other parameters are passed through a pointer to a apiOcpiCdrsPostRequest struct
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **cdr** | [**Cdr**](Cdr.md) |  | 
+ **cdrBody** | [**CdrBody**](CdrBody.md) |  | 
 
 ### Return type
 
@@ -1787,7 +1787,7 @@ func main() {
     countryCode := "countryCode_example" // string | Country code of the CPO performing this PUT on the eMSP's system.  This SHALL be the same value as the country_code in the Session object being pushed.
     partyId := "partyId_example" // string | Party ID (Provider ID) of the CPO performing this PUT on the eMSP's  system. This SHALL be the same value as the party_id in the Session object being  pushed.
     sessionId := "sessionId_example" // string | Id of the new or updated Session object.
-    session := *openapiclient.NewSession("CZ", "STK", "101", "2020-03-09T10:17:09Z", float32(0.0), *openapiclient.NewCdrCdrToken("CZ", "STK", "123abc", "Type_example", "NL-TST-C12345678-S"), "AuthMethod_example", "LOC1", "3256", "1", "EUR", "Status_example", "2019-06-24T12:39:09Z") // Session |  (optional)
+    session := *openapiclient.NewSession("CZ", "STK", "101", "2020-03-09T10:17:09Z", float32(0.0), *openapiclient.NewCdrBodyCdrToken("CZ", "STK", "123abc", "Type_example", "NL-TST-C12345678-S"), "AuthMethod_example", "LOC1", "3256", "1", "EUR", "Status_example", "2019-06-24T12:39:09Z") // Session |  (optional)
 
     configuration := openapiclient.NewConfiguration()
     apiClient := openapiclient.NewAPIClient(configuration)
@@ -2289,7 +2289,7 @@ No authorization required
 
 ## OcpiTokenUidAuthorizePost
 
-> AuthorizationInfo OcpiTokenUidAuthorizePost(ctx, tokenUid).Type_(type_).LocationReferences(locationReferences).Execute()
+> Authorization OcpiTokenUidAuthorizePost(ctx, tokenUid).Type_(type_).LocationReferences(locationReferences).Execute()
 
 Authorization
 
@@ -2319,7 +2319,7 @@ func main() {
         fmt.Fprintf(os.Stderr, "Error when calling `DefaultApi.OcpiTokenUidAuthorizePost``: %v\n", err)
         fmt.Fprintf(os.Stderr, "Full HTTP response: %v\n", r)
     }
-    // response from `OcpiTokenUidAuthorizePost`: AuthorizationInfo
+    // response from `OcpiTokenUidAuthorizePost`: Authorization
     fmt.Fprintf(os.Stdout, "Response from `DefaultApi.OcpiTokenUidAuthorizePost`: %v\n", resp)
 }
 ```
@@ -2345,7 +2345,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**AuthorizationInfo**](AuthorizationInfo.md)
+[**Authorization**](Authorization.md)
 
 ### Authorization
 

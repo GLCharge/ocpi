@@ -1,4 +1,4 @@
-# TariffEnergyMix
+# CdrBodyTariffsEnergyMix
 
 ## Properties
 
@@ -6,146 +6,146 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsGreenEnergy** | **bool** |  | 
 **EnergySources** | Pointer to [**CdrBodyTariffsEnergyMixEnergySources**](CdrBodyTariffsEnergyMixEnergySources.md) |  | [optional] 
-**EnvironImpact** | Pointer to [**TariffEnergyMixEnvironImpact**](TariffEnergyMixEnvironImpact.md) |  | [optional] 
+**EnvironImpact** | Pointer to [**CdrBodyTariffsEnergyMixEnvironImpact**](CdrBodyTariffsEnergyMixEnvironImpact.md) |  | [optional] 
 **SupplierName** | Pointer to **string** |  | [optional] 
 **EnergyProductName** | Pointer to **string** |  | [optional] 
 
 ## Methods
 
-### NewTariffEnergyMix
+### NewCdrBodyTariffsEnergyMix
 
-`func NewTariffEnergyMix(isGreenEnergy bool, ) *TariffEnergyMix`
+`func NewCdrBodyTariffsEnergyMix(isGreenEnergy bool, ) *CdrBodyTariffsEnergyMix`
 
-NewTariffEnergyMix instantiates a new TariffEnergyMix object
+NewCdrBodyTariffsEnergyMix instantiates a new CdrBodyTariffsEnergyMix object
 This constructor will assign default values to properties that have it defined,
 and makes sure properties required by API are set, but the set of arguments
 will change when the set of required properties is changed
 
-### NewTariffEnergyMixWithDefaults
+### NewCdrBodyTariffsEnergyMixWithDefaults
 
-`func NewTariffEnergyMixWithDefaults() *TariffEnergyMix`
+`func NewCdrBodyTariffsEnergyMixWithDefaults() *CdrBodyTariffsEnergyMix`
 
-NewTariffEnergyMixWithDefaults instantiates a new TariffEnergyMix object
+NewCdrBodyTariffsEnergyMixWithDefaults instantiates a new CdrBodyTariffsEnergyMix object
 This constructor will only assign default values to properties that have it defined,
 but it doesn't guarantee that properties required by API are set
 
 ### GetIsGreenEnergy
 
-`func (o *TariffEnergyMix) GetIsGreenEnergy() bool`
+`func (o *CdrBodyTariffsEnergyMix) GetIsGreenEnergy() bool`
 
 GetIsGreenEnergy returns the IsGreenEnergy field if non-nil, zero value otherwise.
 
 ### GetIsGreenEnergyOk
 
-`func (o *TariffEnergyMix) GetIsGreenEnergyOk() (*bool, bool)`
+`func (o *CdrBodyTariffsEnergyMix) GetIsGreenEnergyOk() (*bool, bool)`
 
 GetIsGreenEnergyOk returns a tuple with the IsGreenEnergy field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetIsGreenEnergy
 
-`func (o *TariffEnergyMix) SetIsGreenEnergy(v bool)`
+`func (o *CdrBodyTariffsEnergyMix) SetIsGreenEnergy(v bool)`
 
 SetIsGreenEnergy sets IsGreenEnergy field to given value.
 
 
 ### GetEnergySources
 
-`func (o *TariffEnergyMix) GetEnergySources() CdrBodyTariffsEnergyMixEnergySources`
+`func (o *CdrBodyTariffsEnergyMix) GetEnergySources() CdrBodyTariffsEnergyMixEnergySources`
 
 GetEnergySources returns the EnergySources field if non-nil, zero value otherwise.
 
 ### GetEnergySourcesOk
 
-`func (o *TariffEnergyMix) GetEnergySourcesOk() (*CdrBodyTariffsEnergyMixEnergySources, bool)`
+`func (o *CdrBodyTariffsEnergyMix) GetEnergySourcesOk() (*CdrBodyTariffsEnergyMixEnergySources, bool)`
 
 GetEnergySourcesOk returns a tuple with the EnergySources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnergySources
 
-`func (o *TariffEnergyMix) SetEnergySources(v CdrBodyTariffsEnergyMixEnergySources)`
+`func (o *CdrBodyTariffsEnergyMix) SetEnergySources(v CdrBodyTariffsEnergyMixEnergySources)`
 
 SetEnergySources sets EnergySources field to given value.
 
 ### HasEnergySources
 
-`func (o *TariffEnergyMix) HasEnergySources() bool`
+`func (o *CdrBodyTariffsEnergyMix) HasEnergySources() bool`
 
 HasEnergySources returns a boolean if a field has been set.
 
 ### GetEnvironImpact
 
-`func (o *TariffEnergyMix) GetEnvironImpact() TariffEnergyMixEnvironImpact`
+`func (o *CdrBodyTariffsEnergyMix) GetEnvironImpact() CdrBodyTariffsEnergyMixEnvironImpact`
 
 GetEnvironImpact returns the EnvironImpact field if non-nil, zero value otherwise.
 
 ### GetEnvironImpactOk
 
-`func (o *TariffEnergyMix) GetEnvironImpactOk() (*TariffEnergyMixEnvironImpact, bool)`
+`func (o *CdrBodyTariffsEnergyMix) GetEnvironImpactOk() (*CdrBodyTariffsEnergyMixEnvironImpact, bool)`
 
 GetEnvironImpactOk returns a tuple with the EnvironImpact field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnvironImpact
 
-`func (o *TariffEnergyMix) SetEnvironImpact(v TariffEnergyMixEnvironImpact)`
+`func (o *CdrBodyTariffsEnergyMix) SetEnvironImpact(v CdrBodyTariffsEnergyMixEnvironImpact)`
 
 SetEnvironImpact sets EnvironImpact field to given value.
 
 ### HasEnvironImpact
 
-`func (o *TariffEnergyMix) HasEnvironImpact() bool`
+`func (o *CdrBodyTariffsEnergyMix) HasEnvironImpact() bool`
 
 HasEnvironImpact returns a boolean if a field has been set.
 
 ### GetSupplierName
 
-`func (o *TariffEnergyMix) GetSupplierName() string`
+`func (o *CdrBodyTariffsEnergyMix) GetSupplierName() string`
 
 GetSupplierName returns the SupplierName field if non-nil, zero value otherwise.
 
 ### GetSupplierNameOk
 
-`func (o *TariffEnergyMix) GetSupplierNameOk() (*string, bool)`
+`func (o *CdrBodyTariffsEnergyMix) GetSupplierNameOk() (*string, bool)`
 
 GetSupplierNameOk returns a tuple with the SupplierName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetSupplierName
 
-`func (o *TariffEnergyMix) SetSupplierName(v string)`
+`func (o *CdrBodyTariffsEnergyMix) SetSupplierName(v string)`
 
 SetSupplierName sets SupplierName field to given value.
 
 ### HasSupplierName
 
-`func (o *TariffEnergyMix) HasSupplierName() bool`
+`func (o *CdrBodyTariffsEnergyMix) HasSupplierName() bool`
 
 HasSupplierName returns a boolean if a field has been set.
 
 ### GetEnergyProductName
 
-`func (o *TariffEnergyMix) GetEnergyProductName() string`
+`func (o *CdrBodyTariffsEnergyMix) GetEnergyProductName() string`
 
 GetEnergyProductName returns the EnergyProductName field if non-nil, zero value otherwise.
 
 ### GetEnergyProductNameOk
 
-`func (o *TariffEnergyMix) GetEnergyProductNameOk() (*string, bool)`
+`func (o *CdrBodyTariffsEnergyMix) GetEnergyProductNameOk() (*string, bool)`
 
 GetEnergyProductNameOk returns a tuple with the EnergyProductName field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnergyProductName
 
-`func (o *TariffEnergyMix) SetEnergyProductName(v string)`
+`func (o *CdrBodyTariffsEnergyMix) SetEnergyProductName(v string)`
 
 SetEnergyProductName sets EnergyProductName field to given value.
 
 ### HasEnergyProductName
 
-`func (o *TariffEnergyMix) HasEnergyProductName() bool`
+`func (o *CdrBodyTariffsEnergyMix) HasEnergyProductName() bool`
 
 HasEnergyProductName returns a boolean if a field has been set.
 
