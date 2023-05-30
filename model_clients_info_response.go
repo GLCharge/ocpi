@@ -14,62 +14,62 @@ import (
 	"encoding/json"
 )
 
-// checks if the SessionResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &SessionResponse{}
+// checks if the ClientsInfoResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ClientsInfoResponse{}
 
-// SessionResponse struct for SessionResponse
-type SessionResponse struct {
-	Session Session `json:"session"`
+// ClientsInfoResponse struct for ClientsInfoResponse
+type ClientsInfoResponse struct {
+	ClientInfo ClientInfo `json:"client_info"`
 	StatusCode float32 `json:"status_code"`
 	StatusMessage *string `json:"status_message,omitempty"`
 	TimeStamp *string `json:"timeStamp,omitempty"`
 }
 
-// NewSessionResponse instantiates a new SessionResponse object
+// NewClientsInfoResponse instantiates a new ClientsInfoResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSessionResponse(session Session, statusCode float32) *SessionResponse {
-	this := SessionResponse{}
-	this.Session = session
+func NewClientsInfoResponse(clientInfo ClientInfo, statusCode float32) *ClientsInfoResponse {
+	this := ClientsInfoResponse{}
+	this.ClientInfo = clientInfo
 	this.StatusCode = statusCode
 	return &this
 }
 
-// NewSessionResponseWithDefaults instantiates a new SessionResponse object
+// NewClientsInfoResponseWithDefaults instantiates a new ClientsInfoResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewSessionResponseWithDefaults() *SessionResponse {
-	this := SessionResponse{}
+func NewClientsInfoResponseWithDefaults() *ClientsInfoResponse {
+	this := ClientsInfoResponse{}
 	return &this
 }
 
-// GetSession returns the Session field value
-func (o *SessionResponse) GetSession() Session {
+// GetClientInfo returns the ClientInfo field value
+func (o *ClientsInfoResponse) GetClientInfo() ClientInfo {
 	if o == nil {
-		var ret Session
+		var ret ClientInfo
 		return ret
 	}
 
-	return o.Session
+	return o.ClientInfo
 }
 
-// GetSessionOk returns a tuple with the Session field value
+// GetClientInfoOk returns a tuple with the ClientInfo field value
 // and a boolean to check if the value has been set.
-func (o *SessionResponse) GetSessionOk() (*Session, bool) {
+func (o *ClientsInfoResponse) GetClientInfoOk() (*ClientInfo, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Session, true
+	return &o.ClientInfo, true
 }
 
-// SetSession sets field value
-func (o *SessionResponse) SetSession(v Session) {
-	o.Session = v
+// SetClientInfo sets field value
+func (o *ClientsInfoResponse) SetClientInfo(v ClientInfo) {
+	o.ClientInfo = v
 }
 
 // GetStatusCode returns the StatusCode field value
-func (o *SessionResponse) GetStatusCode() float32 {
+func (o *ClientsInfoResponse) GetStatusCode() float32 {
 	if o == nil {
 		var ret float32
 		return ret
@@ -80,7 +80,7 @@ func (o *SessionResponse) GetStatusCode() float32 {
 
 // GetStatusCodeOk returns a tuple with the StatusCode field value
 // and a boolean to check if the value has been set.
-func (o *SessionResponse) GetStatusCodeOk() (*float32, bool) {
+func (o *ClientsInfoResponse) GetStatusCodeOk() (*float32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -88,12 +88,12 @@ func (o *SessionResponse) GetStatusCodeOk() (*float32, bool) {
 }
 
 // SetStatusCode sets field value
-func (o *SessionResponse) SetStatusCode(v float32) {
+func (o *ClientsInfoResponse) SetStatusCode(v float32) {
 	o.StatusCode = v
 }
 
 // GetStatusMessage returns the StatusMessage field value if set, zero value otherwise.
-func (o *SessionResponse) GetStatusMessage() string {
+func (o *ClientsInfoResponse) GetStatusMessage() string {
 	if o == nil || IsNil(o.StatusMessage) {
 		var ret string
 		return ret
@@ -103,7 +103,7 @@ func (o *SessionResponse) GetStatusMessage() string {
 
 // GetStatusMessageOk returns a tuple with the StatusMessage field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SessionResponse) GetStatusMessageOk() (*string, bool) {
+func (o *ClientsInfoResponse) GetStatusMessageOk() (*string, bool) {
 	if o == nil || IsNil(o.StatusMessage) {
 		return nil, false
 	}
@@ -111,7 +111,7 @@ func (o *SessionResponse) GetStatusMessageOk() (*string, bool) {
 }
 
 // HasStatusMessage returns a boolean if a field has been set.
-func (o *SessionResponse) HasStatusMessage() bool {
+func (o *ClientsInfoResponse) HasStatusMessage() bool {
 	if o != nil && !IsNil(o.StatusMessage) {
 		return true
 	}
@@ -120,12 +120,12 @@ func (o *SessionResponse) HasStatusMessage() bool {
 }
 
 // SetStatusMessage gets a reference to the given string and assigns it to the StatusMessage field.
-func (o *SessionResponse) SetStatusMessage(v string) {
+func (o *ClientsInfoResponse) SetStatusMessage(v string) {
 	o.StatusMessage = &v
 }
 
 // GetTimeStamp returns the TimeStamp field value if set, zero value otherwise.
-func (o *SessionResponse) GetTimeStamp() string {
+func (o *ClientsInfoResponse) GetTimeStamp() string {
 	if o == nil || IsNil(o.TimeStamp) {
 		var ret string
 		return ret
@@ -135,7 +135,7 @@ func (o *SessionResponse) GetTimeStamp() string {
 
 // GetTimeStampOk returns a tuple with the TimeStamp field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SessionResponse) GetTimeStampOk() (*string, bool) {
+func (o *ClientsInfoResponse) GetTimeStampOk() (*string, bool) {
 	if o == nil || IsNil(o.TimeStamp) {
 		return nil, false
 	}
@@ -143,7 +143,7 @@ func (o *SessionResponse) GetTimeStampOk() (*string, bool) {
 }
 
 // HasTimeStamp returns a boolean if a field has been set.
-func (o *SessionResponse) HasTimeStamp() bool {
+func (o *ClientsInfoResponse) HasTimeStamp() bool {
 	if o != nil && !IsNil(o.TimeStamp) {
 		return true
 	}
@@ -152,11 +152,11 @@ func (o *SessionResponse) HasTimeStamp() bool {
 }
 
 // SetTimeStamp gets a reference to the given string and assigns it to the TimeStamp field.
-func (o *SessionResponse) SetTimeStamp(v string) {
+func (o *ClientsInfoResponse) SetTimeStamp(v string) {
 	o.TimeStamp = &v
 }
 
-func (o SessionResponse) MarshalJSON() ([]byte, error) {
+func (o ClientsInfoResponse) MarshalJSON() ([]byte, error) {
 	toSerialize,err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -164,9 +164,9 @@ func (o SessionResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o SessionResponse) ToMap() (map[string]interface{}, error) {
+func (o ClientsInfoResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["session"] = o.Session
+	toSerialize["client_info"] = o.ClientInfo
 	toSerialize["status_code"] = o.StatusCode
 	if !IsNil(o.StatusMessage) {
 		toSerialize["status_message"] = o.StatusMessage
@@ -177,38 +177,38 @@ func (o SessionResponse) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-type NullableSessionResponse struct {
-	value *SessionResponse
+type NullableClientsInfoResponse struct {
+	value *ClientsInfoResponse
 	isSet bool
 }
 
-func (v NullableSessionResponse) Get() *SessionResponse {
+func (v NullableClientsInfoResponse) Get() *ClientsInfoResponse {
 	return v.value
 }
 
-func (v *NullableSessionResponse) Set(val *SessionResponse) {
+func (v *NullableClientsInfoResponse) Set(val *ClientsInfoResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableSessionResponse) IsSet() bool {
+func (v NullableClientsInfoResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableSessionResponse) Unset() {
+func (v *NullableClientsInfoResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableSessionResponse(val *SessionResponse) *NullableSessionResponse {
-	return &NullableSessionResponse{value: val, isSet: true}
+func NewNullableClientsInfoResponse(val *ClientsInfoResponse) *NullableClientsInfoResponse {
+	return &NullableClientsInfoResponse{value: val, isSet: true}
 }
 
-func (v NullableSessionResponse) MarshalJSON() ([]byte, error) {
+func (v NullableClientsInfoResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableSessionResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableClientsInfoResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -8,7 +8,7 @@ Name | Type | Description | Notes
 **Token** | [**Token**](Token.md) |  | 
 **Location** | Pointer to [**LocationReferences**](LocationReferences.md) |  | [optional] 
 **AuthorizationReference** | Pointer to **string** |  | [optional] 
-**Info** | Pointer to [**AuthorizationInfoInfo**](AuthorizationInfoInfo.md) |  | [optional] 
+**Info** | Pointer to [**CommandResponseMessage**](CommandResponseMessage.md) |  | [optional] 
 
 ## Methods
 
@@ -121,20 +121,20 @@ HasAuthorizationReference returns a boolean if a field has been set.
 
 ### GetInfo
 
-`func (o *AuthorizationInfo) GetInfo() AuthorizationInfoInfo`
+`func (o *AuthorizationInfo) GetInfo() CommandResponseMessage`
 
 GetInfo returns the Info field if non-nil, zero value otherwise.
 
 ### GetInfoOk
 
-`func (o *AuthorizationInfo) GetInfoOk() (*AuthorizationInfoInfo, bool)`
+`func (o *AuthorizationInfo) GetInfoOk() (*CommandResponseMessage, bool)`
 
 GetInfoOk returns a tuple with the Info field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetInfo
 
-`func (o *AuthorizationInfo) SetInfo(v AuthorizationInfoInfo)`
+`func (o *AuthorizationInfo) SetInfo(v CommandResponseMessage)`
 
 SetInfo sets Info field to given value.
 

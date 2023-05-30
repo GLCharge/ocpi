@@ -5,7 +5,7 @@
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **IsGreenEnergy** | **bool** |  | 
-**EnergySources** | Pointer to [**TariffEnergyMixEnergySources**](TariffEnergyMixEnergySources.md) |  | [optional] 
+**EnergySources** | Pointer to [**CdrTariffsEnergyMixEnergySources**](CdrTariffsEnergyMixEnergySources.md) |  | [optional] 
 **EnvironImpact** | Pointer to [**TariffEnergyMixEnvironImpact**](TariffEnergyMixEnvironImpact.md) |  | [optional] 
 **SupplierName** | Pointer to **string** |  | [optional] 
 **EnergyProductName** | Pointer to **string** |  | [optional] 
@@ -51,20 +51,20 @@ SetIsGreenEnergy sets IsGreenEnergy field to given value.
 
 ### GetEnergySources
 
-`func (o *TariffEnergyMix) GetEnergySources() TariffEnergyMixEnergySources`
+`func (o *TariffEnergyMix) GetEnergySources() CdrTariffsEnergyMixEnergySources`
 
 GetEnergySources returns the EnergySources field if non-nil, zero value otherwise.
 
 ### GetEnergySourcesOk
 
-`func (o *TariffEnergyMix) GetEnergySourcesOk() (*TariffEnergyMixEnergySources, bool)`
+`func (o *TariffEnergyMix) GetEnergySourcesOk() (*CdrTariffsEnergyMixEnergySources, bool)`
 
 GetEnergySourcesOk returns a tuple with the EnergySources field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetEnergySources
 
-`func (o *TariffEnergyMix) SetEnergySources(v TariffEnergyMixEnergySources)`
+`func (o *TariffEnergyMix) SetEnergySources(v CdrTariffsEnergyMixEnergySources)`
 
 SetEnergySources sets EnergySources field to given value.
 

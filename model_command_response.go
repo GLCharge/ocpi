@@ -1,7 +1,7 @@
 /*
-OCPI commands module
+OCPI modules
 
-Specification for OCPIs commands handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

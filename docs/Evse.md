@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **Capabilities** | Pointer to **string** |  | [optional] 
 **Connectors** | Pointer to [**Connector**](Connector.md) |  | [optional] 
 **FloorLevel** | Pointer to **string** |  | [optional] 
-**Coordinates** | Pointer to [**LocationsDataCoordinates**](LocationsDataCoordinates.md) |  | [optional] 
+**Coordinates** | Pointer to [**CdrCdrLocationCoordinates**](CdrCdrLocationCoordinates.md) |  | [optional] 
 **PhysicalReference** | Pointer to **string** |  | [optional] 
-**Directions** | Pointer to [**LocationsDataRelatedLocationsName**](LocationsDataRelatedLocationsName.md) |  | [optional] 
+**Directions** | Pointer to [**CdrTariffsTariffAltText**](CdrTariffsTariffAltText.md) |  | [optional] 
 **ParkingRestrictions** | Pointer to **string** |  | [optional] 
 **Images** | Pointer to [**Image**](Image.md) |  | [optional] 
 **LastUpdated** | **string** |  | 
@@ -204,20 +204,20 @@ HasFloorLevel returns a boolean if a field has been set.
 
 ### GetCoordinates
 
-`func (o *Evse) GetCoordinates() LocationsDataCoordinates`
+`func (o *Evse) GetCoordinates() CdrCdrLocationCoordinates`
 
 GetCoordinates returns the Coordinates field if non-nil, zero value otherwise.
 
 ### GetCoordinatesOk
 
-`func (o *Evse) GetCoordinatesOk() (*LocationsDataCoordinates, bool)`
+`func (o *Evse) GetCoordinatesOk() (*CdrCdrLocationCoordinates, bool)`
 
 GetCoordinatesOk returns a tuple with the Coordinates field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCoordinates
 
-`func (o *Evse) SetCoordinates(v LocationsDataCoordinates)`
+`func (o *Evse) SetCoordinates(v CdrCdrLocationCoordinates)`
 
 SetCoordinates sets Coordinates field to given value.
 
@@ -254,20 +254,20 @@ HasPhysicalReference returns a boolean if a field has been set.
 
 ### GetDirections
 
-`func (o *Evse) GetDirections() LocationsDataRelatedLocationsName`
+`func (o *Evse) GetDirections() CdrTariffsTariffAltText`
 
 GetDirections returns the Directions field if non-nil, zero value otherwise.
 
 ### GetDirectionsOk
 
-`func (o *Evse) GetDirectionsOk() (*LocationsDataRelatedLocationsName, bool)`
+`func (o *Evse) GetDirectionsOk() (*CdrTariffsTariffAltText, bool)`
 
 GetDirectionsOk returns a tuple with the Directions field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetDirections
 
-`func (o *Evse) SetDirections(v LocationsDataRelatedLocationsName)`
+`func (o *Evse) SetDirections(v CdrTariffsTariffAltText)`
 
 SetDirections sets Directions field to given value.
 

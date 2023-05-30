@@ -1,7 +1,7 @@
 /*
-OCPI locations module
+OCPI modules
 
-Specification for OCPIs locations handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */
@@ -21,7 +21,7 @@ var _ MappedNullable = &BusinessDetails{}
 type BusinessDetails struct {
 	Name string `json:"name"`
 	Website *string `json:"website,omitempty"`
-	Logo *BusinessDetailsLogo `json:"logo,omitempty"`
+	Logo *CredentialsDataRolesBusinessDetailsLogo `json:"logo,omitempty"`
 }
 
 // NewBusinessDetails instantiates a new BusinessDetails object
@@ -99,9 +99,9 @@ func (o *BusinessDetails) SetWebsite(v string) {
 }
 
 // GetLogo returns the Logo field value if set, zero value otherwise.
-func (o *BusinessDetails) GetLogo() BusinessDetailsLogo {
+func (o *BusinessDetails) GetLogo() CredentialsDataRolesBusinessDetailsLogo {
 	if o == nil || IsNil(o.Logo) {
-		var ret BusinessDetailsLogo
+		var ret CredentialsDataRolesBusinessDetailsLogo
 		return ret
 	}
 	return *o.Logo
@@ -109,7 +109,7 @@ func (o *BusinessDetails) GetLogo() BusinessDetailsLogo {
 
 // GetLogoOk returns a tuple with the Logo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BusinessDetails) GetLogoOk() (*BusinessDetailsLogo, bool) {
+func (o *BusinessDetails) GetLogoOk() (*CredentialsDataRolesBusinessDetailsLogo, bool) {
 	if o == nil || IsNil(o.Logo) {
 		return nil, false
 	}
@@ -125,8 +125,8 @@ func (o *BusinessDetails) HasLogo() bool {
 	return false
 }
 
-// SetLogo gets a reference to the given BusinessDetailsLogo and assigns it to the Logo field.
-func (o *BusinessDetails) SetLogo(v BusinessDetailsLogo) {
+// SetLogo gets a reference to the given CredentialsDataRolesBusinessDetailsLogo and assigns it to the Logo field.
+func (o *BusinessDetails) SetLogo(v CredentialsDataRolesBusinessDetailsLogo) {
 	o.Logo = &v
 }
 

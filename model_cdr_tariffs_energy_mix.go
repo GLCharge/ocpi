@@ -1,7 +1,7 @@
 /*
-OCPI CDRs module
+OCPI modules
 
-Specification for OCPIs CDRs handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

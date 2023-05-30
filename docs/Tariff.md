@@ -9,7 +9,7 @@ Name | Type | Description | Notes
 **Id** | **string** |  | 
 **Currency** | **string** |  | 
 **Type** | Pointer to **string** |  | [optional] 
-**TariffAltText** | Pointer to [**TariffTariffAltText**](TariffTariffAltText.md) |  | [optional] 
+**TariffAltText** | Pointer to [**CdrTariffsTariffAltText**](CdrTariffsTariffAltText.md) |  | [optional] 
 **TariffAltUrl** | Pointer to **string** |  | [optional] 
 **MinPrice** | Pointer to [**Price**](Price.md) |  | [optional] 
 **MaxPrice** | Pointer to [**Price**](Price.md) |  | [optional] 
@@ -145,20 +145,20 @@ HasType returns a boolean if a field has been set.
 
 ### GetTariffAltText
 
-`func (o *Tariff) GetTariffAltText() TariffTariffAltText`
+`func (o *Tariff) GetTariffAltText() CdrTariffsTariffAltText`
 
 GetTariffAltText returns the TariffAltText field if non-nil, zero value otherwise.
 
 ### GetTariffAltTextOk
 
-`func (o *Tariff) GetTariffAltTextOk() (*TariffTariffAltText, bool)`
+`func (o *Tariff) GetTariffAltTextOk() (*CdrTariffsTariffAltText, bool)`
 
 GetTariffAltTextOk returns a tuple with the TariffAltText field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetTariffAltText
 
-`func (o *Tariff) SetTariffAltText(v TariffTariffAltText)`
+`func (o *Tariff) SetTariffAltText(v CdrTariffsTariffAltText)`
 
 SetTariffAltText sets TariffAltText field to given value.
 

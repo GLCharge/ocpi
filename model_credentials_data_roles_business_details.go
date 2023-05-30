@@ -1,7 +1,7 @@
 /*
-OCPI credentials module
+OCPI modules
 
-Specification for OCPIs credentials handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

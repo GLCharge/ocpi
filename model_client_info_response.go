@@ -1,7 +1,7 @@
 /*
-OCPI hub client info module
+OCPI modules
 
-Specification for OCPIs hub client info handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

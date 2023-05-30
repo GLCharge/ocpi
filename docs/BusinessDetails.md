@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Name** | **string** |  | 
 **Website** | Pointer to **string** |  | [optional] 
-**Logo** | Pointer to [**BusinessDetailsLogo**](BusinessDetailsLogo.md) |  | [optional] 
+**Logo** | Pointer to [**CredentialsDataRolesBusinessDetailsLogo**](CredentialsDataRolesBusinessDetailsLogo.md) |  | [optional] 
 
 ## Methods
 
@@ -74,20 +74,20 @@ HasWebsite returns a boolean if a field has been set.
 
 ### GetLogo
 
-`func (o *BusinessDetails) GetLogo() BusinessDetailsLogo`
+`func (o *BusinessDetails) GetLogo() CredentialsDataRolesBusinessDetailsLogo`
 
 GetLogo returns the Logo field if non-nil, zero value otherwise.
 
 ### GetLogoOk
 
-`func (o *BusinessDetails) GetLogoOk() (*BusinessDetailsLogo, bool)`
+`func (o *BusinessDetails) GetLogoOk() (*CredentialsDataRolesBusinessDetailsLogo, bool)`
 
 GetLogoOk returns a tuple with the Logo field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetLogo
 
-`func (o *BusinessDetails) SetLogo(v BusinessDetailsLogo)`
+`func (o *BusinessDetails) SetLogo(v CredentialsDataRolesBusinessDetailsLogo)`
 
 SetLogo sets Logo field to given value.
 

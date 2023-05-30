@@ -1,7 +1,7 @@
 /*
-OCPI charging profiles module
+OCPI modules
 
-Specification for OCPIs charging profiles handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

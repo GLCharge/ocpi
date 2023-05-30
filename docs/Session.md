@@ -10,7 +10,7 @@ Name | Type | Description | Notes
 **StartDateTime** | **string** |  | 
 **EndDateTime** | Pointer to **string** |  | [optional] 
 **Kwh** | **float32** |  | 
-**CdrToken** | [**SessionCdrToken**](SessionCdrToken.md) |  | 
+**CdrToken** | [**CdrCdrToken**](CdrCdrToken.md) |  | 
 **AuthMethod** | **string** |  | 
 **AuthorizationReference** | Pointer to **string** |  | [optional] 
 **LocationId** | **string** |  | 
@@ -27,7 +27,7 @@ Name | Type | Description | Notes
 
 ### NewSession
 
-`func NewSession(countryCode string, partyId string, id string, startDateTime string, kwh float32, cdrToken SessionCdrToken, authMethod string, locationId string, evseUid string, connectorId string, currency string, status string, lastUpdated string, ) *Session`
+`func NewSession(countryCode string, partyId string, id string, startDateTime string, kwh float32, cdrToken CdrCdrToken, authMethod string, locationId string, evseUid string, connectorId string, currency string, status string, lastUpdated string, ) *Session`
 
 NewSession instantiates a new Session object
 This constructor will assign default values to properties that have it defined,
@@ -169,20 +169,20 @@ SetKwh sets Kwh field to given value.
 
 ### GetCdrToken
 
-`func (o *Session) GetCdrToken() SessionCdrToken`
+`func (o *Session) GetCdrToken() CdrCdrToken`
 
 GetCdrToken returns the CdrToken field if non-nil, zero value otherwise.
 
 ### GetCdrTokenOk
 
-`func (o *Session) GetCdrTokenOk() (*SessionCdrToken, bool)`
+`func (o *Session) GetCdrTokenOk() (*CdrCdrToken, bool)`
 
 GetCdrTokenOk returns a tuple with the CdrToken field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetCdrToken
 
-`func (o *Session) SetCdrToken(v SessionCdrToken)`
+`func (o *Session) SetCdrToken(v CdrCdrToken)`
 
 SetCdrToken sets CdrToken field to given value.
 

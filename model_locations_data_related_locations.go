@@ -1,7 +1,7 @@
 /*
-OCPI locations module
+OCPI modules
 
-Specification for OCPIs locations handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */
@@ -21,7 +21,7 @@ var _ MappedNullable = &LocationsDataRelatedLocations{}
 type LocationsDataRelatedLocations struct {
 	Latitude string `json:"latitude"`
 	Longitude string `json:"longitude"`
-	Name *LocationsDataRelatedLocationsName `json:"name,omitempty"`
+	Name *CdrTariffsTariffAltText `json:"name,omitempty"`
 }
 
 // NewLocationsDataRelatedLocations instantiates a new LocationsDataRelatedLocations object
@@ -92,9 +92,9 @@ func (o *LocationsDataRelatedLocations) SetLongitude(v string) {
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
-func (o *LocationsDataRelatedLocations) GetName() LocationsDataRelatedLocationsName {
+func (o *LocationsDataRelatedLocations) GetName() CdrTariffsTariffAltText {
 	if o == nil || IsNil(o.Name) {
-		var ret LocationsDataRelatedLocationsName
+		var ret CdrTariffsTariffAltText
 		return ret
 	}
 	return *o.Name
@@ -102,7 +102,7 @@ func (o *LocationsDataRelatedLocations) GetName() LocationsDataRelatedLocationsN
 
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LocationsDataRelatedLocations) GetNameOk() (*LocationsDataRelatedLocationsName, bool) {
+func (o *LocationsDataRelatedLocations) GetNameOk() (*CdrTariffsTariffAltText, bool) {
 	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
@@ -118,8 +118,8 @@ func (o *LocationsDataRelatedLocations) HasName() bool {
 	return false
 }
 
-// SetName gets a reference to the given LocationsDataRelatedLocationsName and assigns it to the Name field.
-func (o *LocationsDataRelatedLocations) SetName(v LocationsDataRelatedLocationsName) {
+// SetName gets a reference to the given CdrTariffsTariffAltText and assigns it to the Name field.
+func (o *LocationsDataRelatedLocations) SetName(v CdrTariffsTariffAltText) {
 	o.Name = &v
 }
 

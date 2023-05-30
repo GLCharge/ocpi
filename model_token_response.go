@@ -1,7 +1,7 @@
 /*
-OCPI tokens module
+OCPI modules
 
-Specification for OCPIs tokens handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

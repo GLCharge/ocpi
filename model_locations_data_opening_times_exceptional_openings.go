@@ -1,7 +1,7 @@
 /*
-OCPI locations module
+OCPI modules
 
-Specification for OCPIs locations handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

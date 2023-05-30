@@ -1,7 +1,7 @@
 /*
-OCPI tokens module
+OCPI modules
 
-Specification for OCPIs tokens handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */
@@ -23,7 +23,7 @@ type AuthorizationInfo struct {
 	Token Token `json:"token"`
 	Location *LocationReferences `json:"location,omitempty"`
 	AuthorizationReference *string `json:"authorization_reference,omitempty"`
-	Info *AuthorizationInfoInfo `json:"info,omitempty"`
+	Info *CommandResponseMessage `json:"info,omitempty"`
 }
 
 // NewAuthorizationInfo instantiates a new AuthorizationInfo object
@@ -158,9 +158,9 @@ func (o *AuthorizationInfo) SetAuthorizationReference(v string) {
 }
 
 // GetInfo returns the Info field value if set, zero value otherwise.
-func (o *AuthorizationInfo) GetInfo() AuthorizationInfoInfo {
+func (o *AuthorizationInfo) GetInfo() CommandResponseMessage {
 	if o == nil || IsNil(o.Info) {
-		var ret AuthorizationInfoInfo
+		var ret CommandResponseMessage
 		return ret
 	}
 	return *o.Info
@@ -168,7 +168,7 @@ func (o *AuthorizationInfo) GetInfo() AuthorizationInfoInfo {
 
 // GetInfoOk returns a tuple with the Info field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AuthorizationInfo) GetInfoOk() (*AuthorizationInfoInfo, bool) {
+func (o *AuthorizationInfo) GetInfoOk() (*CommandResponseMessage, bool) {
 	if o == nil || IsNil(o.Info) {
 		return nil, false
 	}
@@ -184,8 +184,8 @@ func (o *AuthorizationInfo) HasInfo() bool {
 	return false
 }
 
-// SetInfo gets a reference to the given AuthorizationInfoInfo and assigns it to the Info field.
-func (o *AuthorizationInfo) SetInfo(v AuthorizationInfoInfo) {
+// SetInfo gets a reference to the given CommandResponseMessage and assigns it to the Info field.
+func (o *AuthorizationInfo) SetInfo(v CommandResponseMessage) {
 	o.Info = &v
 }
 

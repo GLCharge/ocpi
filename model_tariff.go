@@ -1,7 +1,7 @@
 /*
-OCPI tariffs module
+OCPI modules
 
-Specification for OCPIs tariffs handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */
@@ -24,7 +24,7 @@ type Tariff struct {
 	Id string `json:"id"`
 	Currency string `json:"currency"`
 	Type *string `json:"type,omitempty"`
-	TariffAltText *TariffTariffAltText `json:"tariff_alt_text,omitempty"`
+	TariffAltText *CdrTariffsTariffAltText `json:"tariff_alt_text,omitempty"`
 	TariffAltUrl *string `json:"tariff_alt_url,omitempty"`
 	MinPrice *Price `json:"min_price,omitempty"`
 	MaxPrice *Price `json:"max_price,omitempty"`
@@ -186,9 +186,9 @@ func (o *Tariff) SetType(v string) {
 }
 
 // GetTariffAltText returns the TariffAltText field value if set, zero value otherwise.
-func (o *Tariff) GetTariffAltText() TariffTariffAltText {
+func (o *Tariff) GetTariffAltText() CdrTariffsTariffAltText {
 	if o == nil || IsNil(o.TariffAltText) {
-		var ret TariffTariffAltText
+		var ret CdrTariffsTariffAltText
 		return ret
 	}
 	return *o.TariffAltText
@@ -196,7 +196,7 @@ func (o *Tariff) GetTariffAltText() TariffTariffAltText {
 
 // GetTariffAltTextOk returns a tuple with the TariffAltText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Tariff) GetTariffAltTextOk() (*TariffTariffAltText, bool) {
+func (o *Tariff) GetTariffAltTextOk() (*CdrTariffsTariffAltText, bool) {
 	if o == nil || IsNil(o.TariffAltText) {
 		return nil, false
 	}
@@ -212,8 +212,8 @@ func (o *Tariff) HasTariffAltText() bool {
 	return false
 }
 
-// SetTariffAltText gets a reference to the given TariffTariffAltText and assigns it to the TariffAltText field.
-func (o *Tariff) SetTariffAltText(v TariffTariffAltText) {
+// SetTariffAltText gets a reference to the given CdrTariffsTariffAltText and assigns it to the TariffAltText field.
+func (o *Tariff) SetTariffAltText(v CdrTariffsTariffAltText) {
 	o.TariffAltText = &v
 }
 

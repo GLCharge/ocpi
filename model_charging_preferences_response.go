@@ -1,7 +1,7 @@
 /*
-OCPI sessions module
+OCPI modules
 
-Specification for OCPIs sessions handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */

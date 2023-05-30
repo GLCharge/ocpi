@@ -1,7 +1,7 @@
 /*
-OCPI tariffs module
+OCPI modules
 
-Specification for OCPIs tariffs handlers
+Specification for OCPIs modules handlers
 
 API version: 2.2.1
 */
@@ -20,7 +20,7 @@ var _ MappedNullable = &TariffEnergyMix{}
 // TariffEnergyMix struct for TariffEnergyMix
 type TariffEnergyMix struct {
 	IsGreenEnergy bool `json:"is_green_energy"`
-	EnergySources *TariffEnergyMixEnergySources `json:"energy_sources,omitempty"`
+	EnergySources *CdrTariffsEnergyMixEnergySources `json:"energy_sources,omitempty"`
 	EnvironImpact *TariffEnergyMixEnvironImpact `json:"environ_impact,omitempty"`
 	SupplierName *string `json:"supplier_name,omitempty"`
 	EnergyProductName *string `json:"energy_product_name,omitempty"`
@@ -69,9 +69,9 @@ func (o *TariffEnergyMix) SetIsGreenEnergy(v bool) {
 }
 
 // GetEnergySources returns the EnergySources field value if set, zero value otherwise.
-func (o *TariffEnergyMix) GetEnergySources() TariffEnergyMixEnergySources {
+func (o *TariffEnergyMix) GetEnergySources() CdrTariffsEnergyMixEnergySources {
 	if o == nil || IsNil(o.EnergySources) {
-		var ret TariffEnergyMixEnergySources
+		var ret CdrTariffsEnergyMixEnergySources
 		return ret
 	}
 	return *o.EnergySources
@@ -79,7 +79,7 @@ func (o *TariffEnergyMix) GetEnergySources() TariffEnergyMixEnergySources {
 
 // GetEnergySourcesOk returns a tuple with the EnergySources field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TariffEnergyMix) GetEnergySourcesOk() (*TariffEnergyMixEnergySources, bool) {
+func (o *TariffEnergyMix) GetEnergySourcesOk() (*CdrTariffsEnergyMixEnergySources, bool) {
 	if o == nil || IsNil(o.EnergySources) {
 		return nil, false
 	}
@@ -95,8 +95,8 @@ func (o *TariffEnergyMix) HasEnergySources() bool {
 	return false
 }
 
-// SetEnergySources gets a reference to the given TariffEnergyMixEnergySources and assigns it to the EnergySources field.
-func (o *TariffEnergyMix) SetEnergySources(v TariffEnergyMixEnergySources) {
+// SetEnergySources gets a reference to the given CdrTariffsEnergyMixEnergySources and assigns it to the EnergySources field.
+func (o *TariffEnergyMix) SetEnergySources(v CdrTariffsEnergyMixEnergySources) {
 	o.EnergySources = &v
 }
 

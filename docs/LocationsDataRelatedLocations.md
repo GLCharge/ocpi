@@ -6,7 +6,7 @@ Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Latitude** | **string** |  | 
 **Longitude** | **string** |  | 
-**Name** | Pointer to [**LocationsDataRelatedLocationsName**](LocationsDataRelatedLocationsName.md) |  | [optional] 
+**Name** | Pointer to [**CdrTariffsTariffAltText**](CdrTariffsTariffAltText.md) |  | [optional] 
 
 ## Methods
 
@@ -69,20 +69,20 @@ SetLongitude sets Longitude field to given value.
 
 ### GetName
 
-`func (o *LocationsDataRelatedLocations) GetName() LocationsDataRelatedLocationsName`
+`func (o *LocationsDataRelatedLocations) GetName() CdrTariffsTariffAltText`
 
 GetName returns the Name field if non-nil, zero value otherwise.
 
 ### GetNameOk
 
-`func (o *LocationsDataRelatedLocations) GetNameOk() (*LocationsDataRelatedLocationsName, bool)`
+`func (o *LocationsDataRelatedLocations) GetNameOk() (*CdrTariffsTariffAltText, bool)`
 
 GetNameOk returns a tuple with the Name field if it's non-nil, zero value otherwise
 and a boolean to check if the value has been set.
 
 ### SetName
 
-`func (o *LocationsDataRelatedLocations) SetName(v LocationsDataRelatedLocationsName)`
+`func (o *LocationsDataRelatedLocations) SetName(v CdrTariffsTariffAltText)`
 
 SetName sets Name field to given value.
 
