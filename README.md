@@ -10,7 +10,7 @@ the official [OCPI documentation](https://evroaming.org/app/uploads/2021/11/OCPI
 
 ## Installation
 
-```shell
+```go
 import OCPI "https://github.com/GLCharge/ocpi/<ocpi-version>"
 ```
 
