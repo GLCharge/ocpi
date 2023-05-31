@@ -1,0 +1,5042 @@
+openapi: 3.0.3
+info:
+  description: Specification for OCPIs modules handlers
+  title: OCPI modules
+  version: 2.2.1
+servers:
+- url: /
+paths:
+  /ocpi/cdrs:
+    get:
+      description: Fetch CDRs from the CPO's system
+      parameters:
+      - description: Return CDRs that have last_updated after or equal to this Date/Time
+          (inclusive).
+        explode: true
+        in: query
+        name: date_from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Return CDRs that have last_updated up to this Date/Time, but\
+          \ not including (exclusive)."
+        explode: true
+        in: query
+        name: date_to
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The offset of the first object returned. Default is 0.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Maximum number of objects to GET.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cdrsResponse'
+          description: cdrsResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get CDRs
+    post:
+      description: Creates a new CDR. The POST method should contain the full and
+        final CDR object.  Returns URL of created CDR object
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/cdrBody'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/cdrResponse'
+          description: cdrResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Create CDR object
+  /ocpi/chargingprofiles/{session_id}/{duration}/{response_url}:
+    get:
+      description: Retrieves the ActiveChargingProfile as it is currently planned
+        for the the given session
+      parameters:
+      - description: The unique id that identifies the session in the CPO platform.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Length of the requested ActiveChargingProfile in seconds Duration
+          in seconds.
+        explode: false
+        in: path
+        name: duration
+        required: true
+        schema:
+          type: integer
+        style: simple
+      - description: URL that the ActiveChargingProfileResult POST should be send
+          to. This URL  might contain an unique ID to be able to distinguish between
+          GET ActiveChargingProfile  requests.
+        explode: false
+        in: path
+        name: response_url
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chargingProfilesResponse'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get active charging profile
+  /ocpi/chargingprofiles/{session_id}:
+    put:
+      description: "Creates a new ChargingProfile on a session, or replaces an existing\
+        \ ChargingProfile on the EVSE."
+      parameters:
+      - description: The unique id that identifies the session in the CPO platform.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/setChargingProfile'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chargingProfilesResponse'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Create or update charging profile on session
+  /ocpi/chargingprofiles/{session_id}/{response_url}:
+    delete:
+      description: Clears the ChargingProfile set by the eMSP on the given session.
+      parameters:
+      - description: The unique id that identifies the session in the CPO platform.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: URL that the ClearProfileResult POST should be send to. This
+          URL  might contain an unique ID to be able to distinguish between DELETE  ChargingProfile
+          requests.
+        explode: false
+        in: path
+        name: response_url
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chargingProfilesResponse'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Delete charging profile on the session
+  /ocpi/chargingprofile:
+    post:
+      description: "There are no URL segment parameters required by OCPI.  As the\
+        \ Sender interface is called by the Receiver (typically CPO) on  the URL given\
+        \ response_url in the Sender request to the Receiver interface.  It is up\
+        \ to the implementation of the Sender (typically SCSP) to determine  what\
+        \ parameters are put in the URL. The Sender sends a URL in the POST method\
+        \  body to the Receiver. The Receiver is required to use this URL for the\
+        \ asynchronous  response by the Charge Point. It is advised to make this URL\
+        \ unique for every  request to differentiate simultaneous commands, for example\
+        \ by adding a unique  id as a URL segment."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_ocpi_chargingprofile_post_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponse'
+          description: genericResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Send a result of the original request by the eMSP
+  /ocpi/chargingprofile/{session_id}:
+    put:
+      description: "Updates the Sender (typically SCSP) when the Receiver (typically\
+        \ CPO)  knows the ActiveChargingProfile has changed. The Receiver SHALL call\
+        \ this interface  every time it knows changes have been made that influence\
+        \ the ActiveChargingProfile  for an ongoing session AND the Sender has at\
+        \ least once successfully called the charging  profile Receiver PUT interface\
+        \ for this session (SetChargingProfile). If the Receiver  doesn't know the\
+        \ ActiveChargingProfile has changed (EVSE does not notify the Receiver  (typically\
+        \ CPO) of the change) it is not required to call this interface. The Receiver\
+        \  SHALL NOT call this interface for any session where the Sender has never,\
+        \ successfully  called the charging profile Receiver PUT interface for this\
+        \ session (SetChargingProfile).  The Receiver SHALL send a useful relevant\
+        \ duration of ActiveChargingProfile to send to the  Sender. As a guide: between\
+        \ 5 and 60 minutes. If the Sender wants a longer ActiveChargingProfile  the\
+        \ Sender can always do a GET with a longer duration."
+      parameters:
+      - description: The unique id that identifies the session in the CPO platform.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/activeChargingProfile'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericResponse'
+          description: genericResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update charging profile
+  /ocpi/commands/{command}:
+    post:
+      description: "Send a command to the CPO, requesting the CPO to send  the command\
+        \ to the Charge Point"
+      parameters:
+      - description: Type of command that is requested.
+        explode: false
+        in: path
+        name: command
+        required: true
+        schema:
+          enum:
+          - CANCEL_RESERVATION
+          - RESERVE_NOW
+          - START_SESSION
+          - STOP_SESSION
+          - UNLOCK_CONNECTOR
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_ocpi_commands__command__post_request'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commandResponse'
+          description: commandResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Send a command
+  /ocpi/commands/{command}/{uid}:
+    post:
+      description: "It is up to the implementation of the eMSP to determine  what\
+        \ parameters are put in the URL. The eMSP sends a URL in the POST  method\
+        \ body to the CPO. The CPO is required to use this URL for the  asynchronous\
+        \ response by the Charge Point. It is advised to make this  URL unique for\
+        \ every request to differentiate simultaneous commands,  for example by adding\
+        \ a unique id as a URL segment."
+      parameters:
+      - description: Type of command that is requested.
+        explode: false
+        in: path
+        name: command
+        required: true
+        schema:
+          enum:
+          - CANCEL_RESERVATION
+          - RESERVE_NOW
+          - START_SESSION
+          - STOP_SESSION
+          - UNLOCK_CONNECTOR
+          type: string
+        style: simple
+      - explode: false
+        in: path
+        name: uid
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/commandResult'
+        description: "Result of the command request, from the Charge Point."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/commandResponse'
+          description: commandResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Receive the asynchronous response from the Charge Point.
+  /ocpi/2.2.1/credentials:
+    delete:
+      description: "Informs the server that its credentials to access the client's\
+        \ system are now invalid and can no longer be used. Both parties must end\
+        \ any automated communication. This is the unregistration process. This method\
+        \ MUST return a HTTP status code 405: method not allowed if the client has\
+        \ not been registered before."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/credentials'
+          description: credentials
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Informs that credentials are invalid
+    get:
+      description: "Retrieves the credentials object to access the server's platform.\
+        \ The request body is empty, the response contains the credentials object\
+        \ to  access the server's platform. This credentials object also contains\
+        \ extra  information about the server such as its business details."
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/credentials'
+          description: credentials
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get the credentials object
+    post:
+      description: "Provides the server with credentials to access the client's system.\
+        \ This credentials object also contains extra information about the client\
+        \ such as its business details. A POST initiates the registration process\
+        \ for this endpoint's version. The server must also fetch the client's endpoints\
+        \ for this version. OCPI 2.2.1 If successful, the server must generate a new\
+        \ credentials token and respond with the client's new credentials to access\
+        \ the server's system. The credentials object in the response also contains\
+        \ extra information about the server such as its business details. This method\
+        \ MUST return a HTTP status code 405: method not allowed if the client has\
+        \ already been registered before."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/credentials'
+          description: credentials
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Provides the credentials object
+    put:
+      description: "Provides the server with updated credentials to access the client's\
+        \ system. This credentials object also contains extra information about the\
+        \ client such as its business details. A PUT will switch to the version that\
+        \ contains this credentials endpoint if it's different from the current version.\
+        \ The server must fetch the client's endpoints again, even if the version\
+        \ has not changed. If successful, the server must generate a new credentials\
+        \ token for the client and respond with the client's updated credentials to\
+        \ access the server's system. The credentials object in the response also\
+        \ contains extra information about the server such as its business details.\
+        \ This method MUST return a HTTP status code 405: method not allowed if the\
+        \ client has not been registered yet."
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/credentials'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/credentials'
+          description: credentials
+        "405":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Provides updated credentials object
+  /ocpi/clientinfo/{country_code}/{party_id}:
+    get:
+      description: "If the Hub wants to check the status of a ClientInfo  object in\
+        \ the connected clients system it might GET the object from the  connected\
+        \ clients system for validation purposes. The Hub is the owner  of the objects,\
+        \ so it would be illogical if the connected client system  had a different\
+        \ status or was missing an object."
+      parameters:
+      - description: Country code of the requested ClientInfo object.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the requested ClientInfo object.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientsInfoResponse'
+          description: clientsInfoResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get a ClientInfo object as it is stored in the connected clients system.
+    put:
+      description: New or updated ClientInfo objects are pushed from the Hub to a
+        connected client.
+      parameters:
+      - description: Country code of the eMSP sending this PUT request to the CPO
+          system.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the eMSP sending this PUT request to
+          the CPO system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/clientInfo'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientsInfoResponse'
+          description: response
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Create or update client info
+  /ocpi/hubclientinfo:
+    get:
+      description: Fetch information about clients connected to a Hub.
+      parameters:
+      - description: Return ClientInfo that have last_updated after or equal to Date/Time
+          (inclusive).
+        explode: true
+        in: query
+        name: date_from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Return ClientInfo that have last_updated up to Date/Time, but\
+          \ not including (exclusive)."
+        explode: true
+        in: query
+        name: date_to
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The offset of the first object returned. Default is 0.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Maximum number of objects to GET.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/clientInfoResponse'
+          description: clientInfoResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get hub connected clients
+  /ocpi/locations:
+    get:
+      description: "Depending on the URL Segments provided, the GET  request can either\
+        \ be used to retrieve information about a  list of available Locations (with\
+        \ EVSEs and Connectors) at  a CPO (GET List) or it can be used to retrieve\
+        \ information  about one specific Location, OCPI 2.2.1 51 EVSE or Connector\
+        \  (GET Object)."
+      parameters:
+      - description: Return Locations that have last_updated after or equal to this
+          date time (inclusive).
+        explode: true
+        in: query
+        name: date_from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Return Locations that have last_updated up to this date time,\
+          \ but not including (exclusive)."
+        explode: true
+        in: query
+        name: date_to
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The offset of the first object returned. Default is 0.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Maximum number of objects to GET.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/locations'
+          description: locations
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get available locations
+  /ocpi/locations/{location_id}:
+    get:
+      description: "Endpoint structure definition for retrieving a Location, EVSE\
+        \ or Connector:"
+      parameters:
+      - description: Location.id of the Location object to retrieve.
+        explode: false
+        in: path
+        name: location_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Evse.uid, required when requesting an EVSE or Connector object."
+        explode: true
+        in: query
+        name: evse_uid
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Connector.id, required when requesting a Connector object."
+        explode: true
+        in: query
+        name: connector_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_ocpi_locations__location_id__get_200_response'
+          description: "locations, evse, connector"
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: "Get location, EVSE or connector"
+  /ocpi/locations/{country_code}/{party_id}/{location_id}:
+    get:
+      description: "If the CPO wants to check the status of a Location, EVSE  or Connector\
+        \ object in the eMSP system, it might GET the object from  the eMSP system\
+        \ for validation purposes. The CPO is the owner of the  objects, so it would\
+        \ be illogical if the eMSP system had a different  status or was missing an\
+        \ object. If a discrepancy is found, the CPO  might push an update to the\
+        \ eMSP via a PUT or PATCH call."
+      parameters:
+      - description: Country code of the CPO requesting data from the eMSP system.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO requesting data from the eMSP
+          system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Location.id of the Location object to retrieve.
+        explode: false
+        in: path
+        name: location_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Evse.uid, required when requesting an EVSE or Connector object."
+        explode: true
+        in: query
+        name: evse_uid
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Connector.id, required when requesting a Connector object."
+        explode: true
+        in: query
+        name: connector_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_ocpi_locations__location_id__get_200_response'
+          description: "locations, evse, connector"
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: "Get location, EVSE or connector"
+    patch:
+      description: "Same as the PUT method, but only the fields/objects that have\
+        \  to be updated have to be present. Other fields/objects that are not specified\
+        \  as part of the request are considered unchanged. Therefore, this method\
+        \ is not  suitable to remove information shared earlier. Any request to the\
+        \ PATCH method  SHALL contain the last_updated field. When the PATCH is on\
+        \ a Connector Object,  the Receiver SHALL also set the new last_updated value\
+        \ on the parent EVSE and  Location Objects. When the PATCH is on a EVSE Object,\
+        \ the Receiver SHALL also  set the new last_updated value on the parent Location\
+        \ Object."
+      parameters:
+      - description: Country code of the CPO requesting data from the eMSP system.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO requesting data from the eMSP
+          system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Location.id of the Location object to retrieve.
+        explode: false
+        in: path
+        name: location_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Evse.uid, required when requesting an EVSE or Connector object."
+        explode: true
+        in: query
+        name: evse_uid
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Connector.id, required when requesting a Connector object."
+        explode: true
+        in: query
+        name: connector_id
+        required: false
+        schema:
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_ocpi_locations__location_id__get_200_response'
+          description: "locations, evse, connector"
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Sends new location object
+    put:
+      description: "The CPO pushes available Location, EVSE or Connector  objects\
+        \ to the eMSP. PUT can be used to send new Location objects to  the eMSP but\
+        \ also to replace existing Locations. When the PUT only  contains a Connector\
+        \ Object, the Receiver SHALL also set the new  last_updated value on the parent\
+        \ EVSE and Location Objects. When  the PUT only contains a EVSE Object, the\
+        \ Receiver SHALL also set \the new last_updated value on the parent Location\
+        \ Object."
+      parameters:
+      - description: Country code of the CPO requesting data from the eMSP system.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO requesting data from the eMSP
+          system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Location.id of the Location object to retrieve.
+        explode: false
+        in: path
+        name: location_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Evse.uid, required when requesting an EVSE or Connector object."
+        explode: true
+        in: query
+        name: evse_uid
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Connector.id, required when requesting a Connector object."
+        explode: true
+        in: query
+        name: connector_id
+        required: false
+        schema:
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/_ocpi_locations__location_id__get_200_response'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/_ocpi_locations__location_id__get_200_response'
+          description: "locations, evse, connector"
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Sends new location object
+  /ocpi/sessions:
+    get:
+      description: "Fetch Session objects of charging sessions last  updated between\
+        \ the {date_from} and {date_to} (paginated)."
+      parameters:
+      - description: Return Sessions that have last_updated after or equal to this
+          date time (inclusive).
+        explode: true
+        in: query
+        name: date_from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Return Sessions that have last_updated up to this date time,\
+          \ but not including (exclusive)."
+        explode: true
+        in: query
+        name: date_to
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The offset of the first object returned. Default is 0.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Maximum number of objects to GET.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sessionsResponse'
+          description: sessionsResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get charging sessions
+  /ocpi/sessions/{session_id}/charging_preferences:
+    put:
+      description: "Setting Charging Preferences of an ongoing session. If a PUT with\
+        \ ChargingPreferences is received for an EVSE that  does not have the capability\
+        \ CHARGING_PREFERENCES_CAPABLE, the  receiver should respond with an HTTP\
+        \ status of 404 and an OCPI  status code of 2001 in the OCPI response object."
+      parameters:
+      - description: Session.id of the Session for which the Charging Preferences
+          are to be set.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/chargingPreferences'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/chargingPreferencesResponse'
+          description: chargingPreferencesResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update charging session
+  /ocpi/sessions/{country_code}/{party_id}/{session_id}:
+    get:
+      description: "The CPO system might request the current version of  a Session\
+        \ object from the eMSP's system to, for example, validate the state, or because\
+        \ the CPO has received an error during a PATCH operation."
+      parameters:
+      - description: Country code of the CPO performing the GET on the eMSP's system
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO performing the GET on the eMSP's
+          system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Id of the Session object to get from the eMSP's system.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sessionResponse'
+          description: sessionResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get session with session_id
+    patch:
+      description: "Same as the PUT method, but only the fields/objects that need\
+        \ to  be updated have to be present. Fields/objects which are not specified\
+        \ are  considered unchanged. Any request to the PATCH method SHALL contain\
+        \ the last_updated  field. The PATCH method of the Session Receiver interface\
+        \ works on the entire Session  object only. It is not allowed to use extra\
+        \ URL segments to try to PATCH fields of inner  objects of the Session object\
+        \ directly. When a PATCH request contains the charging_periods  field (inside\
+        \ a Session object), this SHALL be processed as a request to add all the \
+        \ ChargingPeriod objects to the existing Session object. If the request charging_periods\
+        \  list is omitted (or contains an empty list), no changes SHALL be made to\
+        \ the existing  list of charging_periods. If existing ChargingPeriod objects\
+        \ in a Session need to be    replaced or removed, the Sender SHALL use the\
+        \ PUT method to replace the entire Session  object (including all the charging_periods)."
+      parameters:
+      - description: Country code of the CPO performing this PATCH on the eMSP's system.  This
+          SHALL be the same value as the country_code in the Session object being
+          pushed.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO performing this PATCH on the
+          eMSP's  system. This SHALL be the same value as the party_id in the Session
+          object being  pushed.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Id of the new or updated Session object.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sessionResponse'
+          description: sessionResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update session with session_id
+    put:
+      description: ""
+      parameters:
+      - description: Country code of the CPO performing this PUT on the eMSP's system.  This
+          SHALL be the same value as the country_code in the Session object being
+          pushed.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO performing this PUT on the
+          eMSP's  system. This SHALL be the same value as the party_id in the Session
+          object being  pushed.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Id of the new or updated Session object.
+        explode: false
+        in: path
+        name: session_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/session'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/sessionResponse'
+          description: sessionResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update session with session_id
+  /ocpi/tariffs:
+    get:
+      description: Fetch tariffs from the CPO's system
+      parameters:
+      - description: Return Tariffs that have last_updated after or equal to Date/Time
+          (inclusive).
+        explode: true
+        in: query
+        name: date_from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Return Tariffs that have last_updated up to Date/Time, but not\
+          \ including (exclusive)."
+        explode: true
+        in: query
+        name: date_to
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The offset of the first object returned. Default is 0.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Maximum number of objects to GET.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffsResponse'
+          description: tariffsResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get tariffs
+  /ocpi/tariffs/{country_code}/{party_id}/{tariff_id}:
+    delete:
+      description: "Delete a Tariff object which is not used any more and will not\
+        \ be used in the future.  Before deleting a Tariff object, it is RECOMMENDED\
+        \ to ensure that the Tariff object is not referenced  by any Connector object\
+        \ within the tariff_ids."
+      parameters:
+      - description: Country code of the CPO performing the PUT request on the eMSP's
+          system.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO performing the PUT request
+          on the eMSP's system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Tariff.id of the Tariff object to delete.
+        explode: false
+        in: path
+        name: tariff_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffDeleteResponse'
+          description: tariffDeleteResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Delete tariff
+    get:
+      description: "If the CPO wants to check the status of a Tariff in the  eMSP's\
+        \ system, it might GET the object from the eMSP's system for  validation purposes.\
+        \ After all, the CPO is the owner of the object,  so it would be illogical\
+        \ if the eMSP's system had a different status  or was missing the object entirely"
+      parameters:
+      - description: Country code of the CPO performing the GET on the eMSP's system
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO performing the GET on the eMSP's
+          system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Tariff.id of the Tariff object to retrieve.
+        explode: false
+        in: path
+        name: tariff_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffResponse'
+          description: tariffResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get tariff with tariff_id
+    put:
+      description: New or updated Tariff objects are pushed from the CPO to the eMSP.
+      parameters:
+      - description: Country code of the CPO performing the PUT request on the eMSP's
+          system.  This SHALL be the same value as the country_code in the Tariff
+          object being pushed.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the CPO performing the PUT request
+          on the eMSP's system. This SHALL be the same value as the party_id in the
+          Tariff object being pushed.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Tariff.id of the Tariff object to create or replace.
+        explode: false
+        in: path
+        name: tariff_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/tariff'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tariffResponse'
+          description: tariffResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update tariff
+  /ocpi/tokens:
+    get:
+      description: Fetch information about Tokens known in the eMSP systems.
+      parameters:
+      - description: Return tokens that have last_updated after or equal to this Date/Time
+          (inclusive).
+        explode: true
+        in: query
+        name: date_from
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: "Return tokens that have last_updated up to Date/Time, but not\
+          \ including (exclusive)."
+        explode: true
+        in: query
+        name: date_to
+        required: false
+        schema:
+          type: string
+        style: form
+      - description: The offset of the first object returned. Default is 0.
+        explode: true
+        in: query
+        name: offset
+        required: false
+        schema:
+          type: integer
+        style: form
+      - description: Maximum number of objects to GET.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          type: integer
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokensResponse'
+          description: tokensResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get tokens
+  /ocpi/{token_uid}/authorize:
+    post:
+      description: "Do a 'real-time' authorization request to the eMSP system,  validating\
+        \ if a Token might be used (at the optionally given Location)."
+      parameters:
+      - description: Token.uid of the Token for which authorization is requested.
+        explode: false
+        in: path
+        name: token_uid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Token.type of the Token to retrieve. Default if omitted: RFID"
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - AD_HOC_USER
+          - APP_USER
+          - OTHER
+          - RFID
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/locationReferences'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/authorization'
+          description: authorization
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Authorization
+  /ocpi/tokens/{country_code}/{party_id}/{token_uid}:
+    get:
+      description: "If the eMSP wants to check the status of a Token in the  CPO system\
+        \ it might GET the object from the CPO system for validation  purposes. The\
+        \ eMSP is the owner of the objects, so it would be illogical  if the CPO system\
+        \ had a different status or was missing an object."
+      parameters:
+      - description: Country code of the eMSP requesting this GET from the CPO system.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the eMSP requesting this GET from the
+          CPO system.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Token.uid of the Token object to retrieve.
+        explode: false
+        in: path
+        name: token_uid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Token.type of the Token to retrieve. Default if omitted: RFID"
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - AD_HOC_USER
+          - APP_USER
+          - OTHER
+          - RFID
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenResponse'
+          description: tokenResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get the token object
+    patch:
+      description: "Same as the PUT method, but only the fields/objects  that have\
+        \ to be updated have to be present, other fields/objects  that are not specified\
+        \ are considered unchanged. Any request to the  PATCH method SHALL contain\
+        \ the last_updated field."
+      parameters:
+      - description: Country code of the eMSP sending this PATCH request to the CPO
+          system.  This SHALL be the same value as the country_code in the Token object
+          being pushed.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the eMSP sending this PATCH request
+          to the CPO  system. This SHALL be the same value as the party_id in the
+          Token object being pushed.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Token.uid of the Token object to retrieve.
+        explode: false
+        in: path
+        name: token_uid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Token.type of the Token to retrieve. Default if omitted: RFID"
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - AD_HOC_USER
+          - APP_USER
+          - OTHER
+          - RFID
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenResponse'
+          description: tokenResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update token object
+    put:
+      description: New or updated Token objects are pushed from the eMSP to the CPO.
+      parameters:
+      - description: Country code of the eMSP sending this PUT request to the CPO
+          system.  This SHALL be the same value as the country_code in the Token object
+          being pushed.
+        explode: false
+        in: path
+        name: country_code
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Party ID (Provider ID) of the eMSP sending this PUT request to
+          the CPO  system. This SHALL be the same value as the party_id in the Token
+          object being pushed.
+        explode: false
+        in: path
+        name: party_id
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: Token.uid of the Token object to retrieve.
+        explode: false
+        in: path
+        name: token_uid
+        required: true
+        schema:
+          type: string
+        style: simple
+      - description: "Token.type of the Token to retrieve. Default if omitted: RFID"
+        explode: true
+        in: query
+        name: type
+        required: false
+        schema:
+          enum:
+          - AD_HOC_USER
+          - APP_USER
+          - OTHER
+          - RFID
+          type: string
+        style: form
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/token'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/tokenResponse'
+          description: tokenResponse
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Update token object
+  /ocpi/versions:
+    get:
+      description: Fetch information about the supported versions.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/versions'
+          description: versions
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get supported versions
+  /ocpi/2.2.1/details:
+    get:
+      description: Fetch information about the supported endpoints for version.
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/details'
+          description: details
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/genericError'
+          description: genericError
+      summary: Get version supported endpoints
+components:
+  schemas:
+    cdrsResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        cdrs:
+          total_energy: 15.342
+          authorization_reference: authorization_reference
+          total_cost:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          remark: remark
+          cdr_token:
+            country_code: CZ
+            uid: 123abc
+            contract_id: NL-TST-C12345678-S
+            party_id: STK
+            type: AD_HOC_USER
+          end_date_time: 2015-06-29T21:39:09Z
+          total_parking_time: 6.027456183070403
+          credit_reference_id: credit_reference_id
+          currency: EUR
+          id: "12345"
+          total_time: 1.973
+          credit: true
+          total_energy_cost:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          total_parking_cost:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          total_reservation_cost:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          tariffs:
+            tariff_alt_url: https://company.com/tariffs/14
+            last_updated: 2015-06-29T22:39:09Z
+            type: AD_HOC_PAYMENT
+            country_code: BE
+            end_date_time: 2019-06-23T08:16:02Z
+            energy_mix:
+              energy_product_name: E.ON DirektStrom eco
+              is_green_energy: true
+              supplier_name: E.ON Energy Deutschland
+              energy_sources:
+                percentage: 21.7
+                source: NUCLEAR
+              environ_impact:
+                amount: 372
+                category: NUCLEAR_WASTE
+            max_price:
+              excl_vat: 2.5
+              incl_vat: 0.66
+            min_price:
+              excl_vat: 2.5
+              incl_vat: 0.66
+            tariff_alt_text:
+              language: en
+              text: 2.00 euro p/hour including VAT.
+            party_id: BEC
+            elements:
+              restrictions:
+                end_date: 2015-06-29T23:50:16Z
+                min_kwh: 1.0
+                end_time: 1080
+                min_duration: 0
+                min_current: 32.0
+                max_duration: 3600
+                start_time: 09:00
+                max_power: 32.0
+                max_kwh: 1.0
+                reservation: RESERVATION
+                max_current: 30
+                start_date: 2019-06-23T08:16:02Z
+                min_power: 32.0
+                day_of_week: MONDAY
+              price_components: ENERGY
+            currency: EUR
+            id: "12"
+            start_date_time: 2019-06-23T08:16:02Z
+          last_updated: 2015-06-29T22:39:09Z
+          charging_periods:
+            tariff_id: "12"
+            start_date_time: 2019-06-23T08:16:02Z
+            dimensions:
+              volume: 2200
+              type: CURRENT
+          signed_data:
+            public_key: public_key
+            signed_values:
+              plain_data: plain_data
+              signed_data: signed_data
+              nature: nature
+            encoding_method: encoding_method
+            encoding_method_version: 0
+            url: https://example.com
+          total_fixed_cost:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          session_id: "1234"
+          total_time_cost:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          country_code: CZ
+          auth_method: AUTH_REQUEST
+          cdr_location:
+            country: BEL
+            evse_id: BE*BEC*E041503003
+            address: F.Rooseveltlaan 3A
+            city: Gent
+            coordinates:
+              latitude: "51.047599"
+              longitude: "3.729944"
+            name: Gent Zuid
+            connector_id: "1"
+            id: LOC1
+            state: state
+            evse_uid: "3256"
+            postal_code: "9000"
+            connector_power_type: AC_1_PHASE
+            connector_standard: CHADEMO
+            connector_format: SOCKET
+          party_id: BEC
+          invoice_reference_id: invoice_reference_id
+          home_charging_compensation: true
+          start_date_time: 2015-06-29T21:39:09Z
+          meter_id: meter_id
+      properties:
+        cdrs:
+          $ref: '#/components/schemas/cdrBody'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    cdrResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        url: https://www.server.com/ocpi/cdrs/123456
+      properties:
+        url:
+          example: https://www.server.com/ocpi/cdrs/123456
+          type: string
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      - url
+      type: object
+    cdrBody:
+      example:
+        total_energy: 15.342
+        authorization_reference: authorization_reference
+        total_cost:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        remark: remark
+        cdr_token:
+          country_code: CZ
+          uid: 123abc
+          contract_id: NL-TST-C12345678-S
+          party_id: STK
+          type: AD_HOC_USER
+        end_date_time: 2015-06-29T21:39:09Z
+        total_parking_time: 6.027456183070403
+        credit_reference_id: credit_reference_id
+        currency: EUR
+        id: "12345"
+        total_time: 1.973
+        credit: true
+        total_energy_cost:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        total_parking_cost:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        total_reservation_cost:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        tariffs:
+          tariff_alt_url: https://company.com/tariffs/14
+          last_updated: 2015-06-29T22:39:09Z
+          type: AD_HOC_PAYMENT
+          country_code: BE
+          end_date_time: 2019-06-23T08:16:02Z
+          energy_mix:
+            energy_product_name: E.ON DirektStrom eco
+            is_green_energy: true
+            supplier_name: E.ON Energy Deutschland
+            energy_sources:
+              percentage: 21.7
+              source: NUCLEAR
+            environ_impact:
+              amount: 372
+              category: NUCLEAR_WASTE
+          max_price:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          min_price:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          tariff_alt_text:
+            language: en
+            text: 2.00 euro p/hour including VAT.
+          party_id: BEC
+          elements:
+            restrictions:
+              end_date: 2015-06-29T23:50:16Z
+              min_kwh: 1.0
+              end_time: 1080
+              min_duration: 0
+              min_current: 32.0
+              max_duration: 3600
+              start_time: 09:00
+              max_power: 32.0
+              max_kwh: 1.0
+              reservation: RESERVATION
+              max_current: 30
+              start_date: 2019-06-23T08:16:02Z
+              min_power: 32.0
+              day_of_week: MONDAY
+            price_components: ENERGY
+          currency: EUR
+          id: "12"
+          start_date_time: 2019-06-23T08:16:02Z
+        last_updated: 2015-06-29T22:39:09Z
+        charging_periods:
+          tariff_id: "12"
+          start_date_time: 2019-06-23T08:16:02Z
+          dimensions:
+            volume: 2200
+            type: CURRENT
+        signed_data:
+          public_key: public_key
+          signed_values:
+            plain_data: plain_data
+            signed_data: signed_data
+            nature: nature
+          encoding_method: encoding_method
+          encoding_method_version: 0
+          url: https://example.com
+        total_fixed_cost:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        session_id: "1234"
+        total_time_cost:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        country_code: CZ
+        auth_method: AUTH_REQUEST
+        cdr_location:
+          country: BEL
+          evse_id: BE*BEC*E041503003
+          address: F.Rooseveltlaan 3A
+          city: Gent
+          coordinates:
+            latitude: "51.047599"
+            longitude: "3.729944"
+          name: Gent Zuid
+          connector_id: "1"
+          id: LOC1
+          state: state
+          evse_uid: "3256"
+          postal_code: "9000"
+          connector_power_type: AC_1_PHASE
+          connector_standard: CHADEMO
+          connector_format: SOCKET
+        party_id: BEC
+        invoice_reference_id: invoice_reference_id
+        home_charging_compensation: true
+        start_date_time: 2015-06-29T21:39:09Z
+        meter_id: meter_id
+      properties:
+        country_code:
+          example: CZ
+          type: string
+        party_id:
+          example: BEC
+          type: string
+        id:
+          example: "12345"
+          type: string
+        start_date_time:
+          example: 2015-06-29T21:39:09Z
+          type: string
+        end_date_time:
+          example: 2015-06-29T21:39:09Z
+          type: string
+        session_id:
+          example: "1234"
+          type: string
+        cdr_token:
+          $ref: '#/components/schemas/cdrBody_cdr_token'
+        auth_method:
+          enum:
+          - AUTH_REQUEST
+          - COMMAND
+          - WHITELIST
+          type: string
+        authorization_reference:
+          type: string
+        cdr_location:
+          $ref: '#/components/schemas/cdrBody_cdr_location'
+        meter_id:
+          type: string
+        currency:
+          example: EUR
+          type: string
+        tariffs:
+          $ref: '#/components/schemas/cdrBody_tariffs'
+        charging_periods:
+          $ref: '#/components/schemas/cdrBody_charging_periods'
+        signed_data:
+          $ref: '#/components/schemas/cdrBody_signed_data'
+        total_cost:
+          $ref: '#/components/schemas/price'
+        total_fixed_cost:
+          $ref: '#/components/schemas/price'
+        total_energy:
+          example: 15.342
+          type: number
+        total_energy_cost:
+          $ref: '#/components/schemas/price'
+        total_time:
+          example: 1.973
+          type: number
+        total_time_cost:
+          $ref: '#/components/schemas/price'
+        total_parking_time:
+          type: number
+        total_parking_cost:
+          $ref: '#/components/schemas/price'
+        total_reservation_cost:
+          $ref: '#/components/schemas/price'
+        remark:
+          type: string
+        invoice_reference_id:
+          type: string
+        credit:
+          example: true
+          type: boolean
+        credit_reference_id:
+          type: string
+        home_charging_compensation:
+          example: true
+          type: boolean
+        last_updated:
+          example: 2015-06-29T22:39:09Z
+          type: string
+      required:
+      - auth_method
+      - cdr_location
+      - cdr_token
+      - country_code
+      - currency
+      - end_date_time
+      - id
+      - last_updated
+      - party_id
+      - start_date_time
+      - total_cost
+      - total_energy
+      - total_time
+      type: object
+    chargingProfilesResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        chargingProfile:
+          result: null
+          timeout: 0
+      properties:
+        chargingProfile:
+          $ref: '#/components/schemas/chargingProfileResponse'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    chargingProfileResponse:
+      example:
+        result: null
+        timeout: 0
+      properties:
+        result:
+          $ref: '#/components/schemas/chargingProfileResponseType'
+        timeout:
+          example: 0
+          type: integer
+      required:
+      - result
+      - timeout
+      type: object
+    chargingProfileResponseType:
+      description: Response to the ChargingProfile request from the eMSP to the CPO.
+      enum:
+      - ACCEPTED
+      - NOT_SUPPORTED
+      - REJECTED
+      - TOO_OFTEN
+      - UNKNOWN_SESSION
+      type: string
+    setChargingProfile:
+      properties:
+        charging_profile:
+          $ref: '#/components/schemas/chargingProfile'
+        response_url:
+          example: https://client.com/12345
+          type: string
+      required:
+      - charging_profile
+      - response_url
+      type: object
+    chargingProfile:
+      properties:
+        start_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        duration:
+          example: 900
+          type: integer
+        charging_rate_unit:
+          enum:
+          - W
+          - A
+          type: string
+        min_charging_rate:
+          type: number
+        charging_profile_period:
+          $ref: '#/components/schemas/chargingProfile_charging_profile_period'
+      required:
+      - charging_rate_unit
+      type: object
+    activeChargingProfileResult:
+      properties:
+        result:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - UNKNOWN
+          type: string
+        profile:
+          $ref: '#/components/schemas/activeChargingProfileResult_profile'
+      required:
+      - result
+      type: object
+    chargingProfileResult:
+      properties:
+        result:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - UNKNOWN
+          type: string
+      required:
+      - result
+      type: object
+    clearProfileResult:
+      properties:
+        result:
+          enum:
+          - ACCEPTED
+          - REJECTED
+          - UNKNOWN
+          type: string
+      required:
+      - result
+      type: object
+    genericResponse:
+      example:
+        status_message: "Missing required field: type"
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 2001
+      properties:
+        status_code:
+          example: 2001
+          type: number
+        status_message:
+          example: "Missing required field: type"
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timeStamp
+      type: object
+    activeChargingProfile:
+      properties:
+        start_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        charging_profile:
+          $ref: '#/components/schemas/chargingProfile'
+      required:
+      - charging_profile
+      - start_date_time
+      type: object
+    cancelReservation:
+      properties:
+        response_url:
+          type: string
+        reservation_id:
+          type: string
+      required:
+      - reservation_id
+      - response_url
+      type: object
+    reserveNow:
+      properties:
+        response_url:
+          type: string
+        token:
+          $ref: '#/components/schemas/token'
+        expiry_date:
+          type: string
+        reservation_id:
+          type: string
+        location_id:
+          example: "1234"
+          type: string
+        evse_uid:
+          example: "3256"
+          type: string
+        authorization_reference:
+          example: "567890"
+          type: string
+      required:
+      - expiry_date
+      - location_id
+      - reservation_id
+      - response_url
+      - token
+      type: object
+    startSession:
+      properties:
+        response_url:
+          type: string
+        token:
+          $ref: '#/components/schemas/token'
+        location_id:
+          type: string
+        evse_uid:
+          example: "3256"
+          type: string
+        connector_id:
+          example: "1"
+          type: string
+        authorization_reference:
+          example: "567890"
+          type: string
+      required:
+      - location_id
+      - response_url
+      - token
+      type: object
+    stopSession:
+      properties:
+        response_url:
+          type: string
+        session_id:
+          type: string
+      required:
+      - response_url
+      - sessions_id
+      type: object
+    unlockConnector:
+      properties:
+        response_url:
+          type: string
+        location_id:
+          type: string
+        evse_uid:
+          example: "3256"
+          type: string
+        connector_id:
+          example: "1"
+          type: string
+      required:
+      - connector_id
+      - evse_uid
+      - location_id
+      - response_url
+      type: object
+    commandResponse:
+      example:
+        result: NOT_SUPPORTED
+        message:
+          language: en
+          text: text
+        timeout: 0
+      properties:
+        result:
+          enum:
+          - NOT_SUPPORTED
+          - REJECTED
+          - ACCEPTED
+          - UNKNOWN_SESSION
+          type: string
+        timeout:
+          example: 0
+          type: integer
+        message:
+          $ref: '#/components/schemas/commandResponse_message'
+      required:
+      - result
+      - timeout
+      type: object
+    commandResult:
+      properties:
+        result:
+          enum:
+          - ACCEPTED
+          - CANCELED_RESERVATION
+          - EVSE_OCCUPIED
+          - EVSE_INOPERATIVE
+          - FAILED
+          - NOT_SUPPORTED
+          - REJECTED
+          - TIMEOUT
+          - UNKNOWN_RESERVATION
+          type: string
+        message:
+          $ref: '#/components/schemas/commandResponse_message'
+      required:
+      - result
+      type: object
+    credentials:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        data:
+          roles:
+            country_code: CZ
+            business_details:
+              website: http://example.com
+              name: Example Operator
+              logo:
+                thumbnail: https://example.com/img/logo_thumb.jpg
+                width: 512
+                category: CHARGER
+                type: jpeg
+                url: https://example.com/img/logo.jpg
+                height: 512
+            role: CPO
+            party_id: EXA
+          url: https://example.com/ocpi/versions/
+          token: ebf3b399-779f-4497-9b9d-ac6ad3cc44d2
+      properties:
+        data:
+          $ref: '#/components/schemas/credentials_data'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    clientsInfoResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        client_info:
+          country_code: DE
+          last_updated: 2019-06-23T08:16:02Z
+          role: CPO
+          party_id: TNM
+          status: CONNECTED
+        status_code: 1000
+      properties:
+        client_info:
+          $ref: '#/components/schemas/clientInfo'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - client_info
+      - status_code
+      - timestamp
+      type: object
+    clientInfoResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        clients_info:
+          country_code: DE
+          last_updated: 2019-06-23T08:16:02Z
+          role: CPO
+          party_id: TNM
+          status: CONNECTED
+      properties:
+        clients_info:
+          $ref: '#/components/schemas/clientInfo'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    clientInfo:
+      example:
+        country_code: DE
+        last_updated: 2019-06-23T08:16:02Z
+        role: CPO
+        party_id: TNM
+        status: CONNECTED
+      properties:
+        party_id:
+          example: TNM
+          type: string
+        country_code:
+          example: DE
+          type: string
+        role:
+          enum:
+          - CPO
+          - EMSP
+          - HUB
+          - NAP
+          - NSP
+          - OTHER
+          - SCSP
+          type: string
+        status:
+          enum:
+          - CONNECTED
+          - OFFLINE
+          - PLANNED
+          - SUSPENDED
+          type: string
+        last_updated:
+          example: 2019-06-23T08:16:02Z
+          type: string
+      required:
+      - country_code
+      - last_updated
+      - party_id
+      - role
+      - status
+      type: object
+    locations:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        data:
+          country: BEL
+          city: Gent
+          charging_when_closed: false
+          parking_type: ALONG_MOTORWAY
+          suboperator:
+            website: http://example.com
+            name: Example Operator
+            logo:
+              thumbnail: https://example.com/img/logo_thumb.jpg
+              width: 512
+              category: CHARGER
+              type: jpeg
+              url: https://example.com/img/logo.jpg
+              height: 512
+          operator:
+            website: http://example.com
+            name: Example Operator
+            logo:
+              thumbnail: https://example.com/img/logo_thumb.jpg
+              width: 512
+              category: CHARGER
+              type: jpeg
+              url: https://example.com/img/logo.jpg
+              height: 512
+          evses:
+            physical_reference: "1"
+            evse_id: BE*BEC*E041503001
+            connectors:
+              standard: CHADEMO
+              max_amperage: 16
+              terms_and_conditions: https://example.com/terms_and_conditions
+              last_updated: 2015-03-16T10:10:02Z
+              format: SOCKET
+              max_voltage: 220
+              id: "1"
+              max_electric_power: 0
+              power_type: AC_1_PHASE
+              tariff_ids: "11"
+            images:
+              thumbnail: https://example.com/img/logo_thumb.jpg
+              width: 512
+              category: CHARGER
+              type: jpeg
+              url: https://example.com/img/logo.jpg
+              height: 512
+            last_updated: 2015-03-18T08:12:01Z
+            capabilities: CHARGING_PROFILE_CAPABLE
+            status_schedule:
+              period_begin: 07:00
+              period_end: 1080
+              status: AVAILABLE
+            coordinates:
+              latitude: "51.047599"
+              longitude: "3.729944"
+            uid: "3256"
+            directions:
+              language: en
+              text: 2.00 euro p/hour including VAT.
+            parking_restrictions: EV_ONLY
+            floor_level: "-1"
+            status: AVAILABLE
+          id: LOC1
+          state: Slovenia
+          owner:
+            website: http://example.com
+            name: Example Operator
+            logo:
+              thumbnail: https://example.com/img/logo_thumb.jpg
+              width: 512
+              category: CHARGER
+              type: jpeg
+              url: https://example.com/img/logo.jpg
+              height: 512
+          images:
+            thumbnail: https://example.com/img/logo_thumb.jpg
+            width: 512
+            category: CHARGER
+            type: jpeg
+            url: https://example.com/img/logo.jpg
+            height: 512
+          last_updated: 2015-06-29T20:39:09Z
+          address: F.Rooseveltlaan 3A
+          coordinates:
+            latitude: "51.047599"
+            longitude: "3.729944"
+          opening_times:
+            twentyfourseven: true
+            regular_hours:
+              period_begin: 07:00
+              period_end: 1080
+              weekday: 1
+            exceptional_closings:
+              period_begin: 07:00
+              period_end: 1080
+            exceptional_openings:
+              period_begin: 07:00
+              period_end: 1080
+          publish_allowed_to:
+            uid: "012345678"
+            group_id: DF000-2001-8999
+            type: AD_HOC_USER
+            visual_number: DF000-2001-8999
+            issuer: TheNewMotion
+          time_zone: Europe/Brussels
+          country_code: CZ
+          related_locations:
+            latitude: "51.047599"
+            name:
+              language: en
+              text: 2.00 euro p/hour including VAT.
+            longitude: "3.729944"
+          energy_mix:
+            energy_product_name: E.ON DirektStrom eco
+            is_green_energy: true
+            supplier_name: E.ON Energy Deutschland
+            energy_sources:
+              percentage: 21.7
+              source: NUCLEAR
+            environ_impact:
+              amount: 372
+              category: NUCLEAR_WASTE
+          directions:
+            language: en
+            text: 2.00 euro p/hour including VAT.
+          party_id: BEC
+          publish: true
+          name: Gent Zuid
+          postal_code: "9000"
+          facilities: HOTEL
+      properties:
+        data:
+          $ref: '#/components/schemas/locations_data'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    image:
+      example:
+        thumbnail: https://example.com/img/logo_thumb.jpg
+        width: 512
+        category: CHARGER
+        type: jpeg
+        url: https://example.com/img/logo.jpg
+        height: 512
+      properties:
+        url:
+          example: https://example.com/img/logo.jpg
+          type: string
+        thumbnail:
+          example: https://example.com/img/logo_thumb.jpg
+          type: string
+        category:
+          enum:
+          - CHARGER
+          - ENTRANCE
+          - LOCATION
+          - NETWORK
+          - OPERATOR
+          - OTHER
+          - OWNER
+          type: string
+        type:
+          example: jpeg
+          type: string
+        width:
+          example: 512
+          type: number
+        height:
+          example: 512
+          type: number
+      required:
+      - category
+      - type
+      - url
+      type: object
+    evse:
+      example:
+        physical_reference: "1"
+        evse_id: BE*BEC*E041503001
+        connectors:
+          standard: CHADEMO
+          max_amperage: 16
+          terms_and_conditions: https://example.com/terms_and_conditions
+          last_updated: 2015-03-16T10:10:02Z
+          format: SOCKET
+          max_voltage: 220
+          id: "1"
+          max_electric_power: 0
+          power_type: AC_1_PHASE
+          tariff_ids: "11"
+        images:
+          thumbnail: https://example.com/img/logo_thumb.jpg
+          width: 512
+          category: CHARGER
+          type: jpeg
+          url: https://example.com/img/logo.jpg
+          height: 512
+        last_updated: 2015-03-18T08:12:01Z
+        capabilities: CHARGING_PROFILE_CAPABLE
+        status_schedule:
+          period_begin: 07:00
+          period_end: 1080
+          status: AVAILABLE
+        coordinates:
+          latitude: "51.047599"
+          longitude: "3.729944"
+        uid: "3256"
+        directions:
+          language: en
+          text: 2.00 euro p/hour including VAT.
+        parking_restrictions: EV_ONLY
+        floor_level: "-1"
+        status: AVAILABLE
+      properties:
+        uid:
+          example: "3256"
+          type: string
+        evse_id:
+          example: BE*BEC*E041503001
+          type: string
+        status:
+          enum:
+          - AVAILABLE
+          - BLOCKED
+          - CHARGING
+          - INOPERATIVE
+          - OUTOFORDER
+          - PLANNED
+          - REMOVED
+          - RESERVED
+          - UNKNOWN
+          type: string
+        status_schedule:
+          $ref: '#/components/schemas/evse_status_schedule'
+        capabilities:
+          enum:
+          - CHARGING_PROFILE_CAPABLE
+          - CHARGING_PREFERENCES_CAPABLE
+          - CHIP_CARD_SUPPORT
+          - CONTACTLESS_CARD_SUPPORT
+          - CREDIT_CARD_PAYABLE
+          - DEBIT_CARD_PAYABLE
+          - PED_TERMINAL
+          - REMOTE_START_STOP_CAPABLE
+          - RESERVABLE
+          - RFID_READER
+          - START_SESSION_CONNECTOR_REQUIRED
+          - TOKEN_GROUP_CAPABLE
+          - UNLOCK_CAPABLE
+          type: string
+        connectors:
+          $ref: '#/components/schemas/connector'
+        floor_level:
+          example: "-1"
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/cdrBody_cdr_location_coordinates'
+        physical_reference:
+          example: "1"
+          type: string
+        directions:
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
+        parking_restrictions:
+          enum:
+          - EV_ONLY
+          - PLUGGED
+          - DISABLED
+          - CUSTOMERS
+          - MOTORCYCLES
+          type: string
+        images:
+          $ref: '#/components/schemas/image'
+        last_updated:
+          example: 2015-03-18T08:12:01Z
+          type: string
+      required:
+      - last_updated
+      - status
+      - uid
+      type: object
+    connector:
+      example:
+        standard: CHADEMO
+        max_amperage: 16
+        terms_and_conditions: https://example.com/terms_and_conditions
+        last_updated: 2015-03-16T10:10:02Z
+        format: SOCKET
+        max_voltage: 220
+        id: "1"
+        max_electric_power: 0
+        power_type: AC_1_PHASE
+        tariff_ids: "11"
+      properties:
+        id:
+          example: "1"
+          type: string
+        standard:
+          enum:
+          - CHADEMO
+          - CHAOJI
+          - DOMESTIC_A
+          - DOMESTIC_B
+          - DOMESTIC_C
+          - DOMESTIC_D
+          - DOMESTIC_E
+          - DOMESTIC_F
+          - DOMESTIC_G
+          - DOMESTIC_H
+          - DOMESTIC_J
+          - DOMESTIC_K
+          - DOMESTIC_L
+          - DOMESTIC_M
+          - DOMESTIC_N
+          - DOMESTIC_O
+          - GBT_AC
+          - GBT_DC
+          - IEC_60309_2_single_16
+          - IEC_60309_2_three_16
+          - IEC_60309_2_three_32
+          - IEC_60309_2_three_64
+          - IEC_62196_T1
+          - IEC_62196_T1_COMBO
+          - IEC_62196_T2
+          - IEC_62196_T2_COMBO
+          - IEC_62196_T3A
+          - IEC_62196_T3C
+          - NEMA_5_20
+          - NEMA_6_30
+          - NEMA_6_50
+          - NEMA_10_30
+          - NEMA_10_50
+          - NEMA_14_30
+          - NEMA_14_50
+          - PANTOGRAPH_BOTTOM_UP
+          - PANTOGRAPH_TOP_DOWN
+          - TESLA_R
+          - TESLA_S
+          type: string
+        format:
+          enum:
+          - SOCKET
+          - CABLE
+          type: string
+        power_type:
+          enum:
+          - AC_1_PHASE
+          - AC_2_PHASE
+          - AC_2_PHASE_SPLIT
+          - AC_3_PHASE
+          - DC
+          type: string
+        max_voltage:
+          example: 220
+          type: integer
+        max_amperage:
+          example: 16
+          type: integer
+        max_electric_power:
+          example: 0
+          type: integer
+        tariff_ids:
+          example: "11"
+          type: string
+        terms_and_conditions:
+          example: https://example.com/terms_and_conditions
+          type: string
+        last_updated:
+          example: 2015-03-16T10:10:02Z
+          type: string
+      required:
+      - format
+      - id
+      - last_updated
+      - max_amperage
+      - max_voltage
+      - power_type
+      - standard
+      type: object
+    businessDetails:
+      example:
+        website: http://example.com
+        name: Example Operator
+        logo:
+          thumbnail: https://example.com/img/logo_thumb.jpg
+          width: 512
+          category: CHARGER
+          type: jpeg
+          url: https://example.com/img/logo.jpg
+          height: 512
+      properties:
+        name:
+          example: Example Operator
+          type: string
+        website:
+          example: http://example.com
+          type: string
+        logo:
+          $ref: '#/components/schemas/credentials_data_roles_business_details_logo'
+      required:
+      - name
+      type: object
+    sessionsResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        sessions:
+          last_updated: 2019-06-24T12:39:09Z
+          authorization_reference: ""
+          charging_periods:
+            tariff_id: "12"
+            start_date_time: 2019-06-23T08:16:02Z
+            dimensions:
+              volume: 120
+              type: AUTH_REQUEST
+          cdr_token:
+            country_code: CZ
+            uid: 123abc
+            contract_id: NL-TST-C12345678-S
+            party_id: STK
+            type: AD_HOC_USER
+          location_id: LOC1
+          country_code: CZ
+          end_date_time: 2020-04-09T10:17:09Z
+          auth_method: AUTH_REQUEST
+          party_id: STK
+          connector_id: "1"
+          total_costs:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          currency: EUR
+          id: "101"
+          evse_uid: "3256"
+          start_date_time: 2020-03-09T10:17:09Z
+          kwh: 0.0
+          meter_id: meter_id
+          status: ACTIVE
+        status_code: 1000
+      properties:
+        sessions:
+          $ref: '#/components/schemas/session'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    sessionResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        session:
+          last_updated: 2019-06-24T12:39:09Z
+          authorization_reference: ""
+          charging_periods:
+            tariff_id: "12"
+            start_date_time: 2019-06-23T08:16:02Z
+            dimensions:
+              volume: 120
+              type: AUTH_REQUEST
+          cdr_token:
+            country_code: CZ
+            uid: 123abc
+            contract_id: NL-TST-C12345678-S
+            party_id: STK
+            type: AD_HOC_USER
+          location_id: LOC1
+          country_code: CZ
+          end_date_time: 2020-04-09T10:17:09Z
+          auth_method: AUTH_REQUEST
+          party_id: STK
+          connector_id: "1"
+          total_costs:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          currency: EUR
+          id: "101"
+          evse_uid: "3256"
+          start_date_time: 2020-03-09T10:17:09Z
+          kwh: 0.0
+          meter_id: meter_id
+          status: ACTIVE
+      properties:
+        session:
+          $ref: '#/components/schemas/session'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - session
+      - status_code
+      - timestamp
+      type: object
+    session:
+      example:
+        last_updated: 2019-06-24T12:39:09Z
+        authorization_reference: ""
+        charging_periods:
+          tariff_id: "12"
+          start_date_time: 2019-06-23T08:16:02Z
+          dimensions:
+            volume: 120
+            type: AUTH_REQUEST
+        cdr_token:
+          country_code: CZ
+          uid: 123abc
+          contract_id: NL-TST-C12345678-S
+          party_id: STK
+          type: AD_HOC_USER
+        location_id: LOC1
+        country_code: CZ
+        end_date_time: 2020-04-09T10:17:09Z
+        auth_method: AUTH_REQUEST
+        party_id: STK
+        connector_id: "1"
+        total_costs:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        currency: EUR
+        id: "101"
+        evse_uid: "3256"
+        start_date_time: 2020-03-09T10:17:09Z
+        kwh: 0.0
+        meter_id: meter_id
+        status: ACTIVE
+      properties:
+        country_code:
+          example: CZ
+          type: string
+        party_id:
+          example: STK
+          type: string
+        id:
+          example: "101"
+          type: string
+        start_date_time:
+          example: 2020-03-09T10:17:09Z
+          type: string
+        end_date_time:
+          example: 2020-04-09T10:17:09Z
+          type: string
+        kwh:
+          example: 0.0
+          type: number
+        cdr_token:
+          $ref: '#/components/schemas/cdrBody_cdr_token'
+        auth_method:
+          enum:
+          - AUTH_REQUEST
+          - COMMAND
+          - WHITELIST
+          type: string
+        authorization_reference:
+          example: ""
+          type: string
+        location_id:
+          example: LOC1
+          type: string
+        evse_uid:
+          example: "3256"
+          type: string
+        connector_id:
+          example: "1"
+          type: string
+        meter_id:
+          type: string
+        currency:
+          example: EUR
+          type: string
+        charging_periods:
+          $ref: '#/components/schemas/session_charging_periods'
+        total_costs:
+          $ref: '#/components/schemas/session_total_costs'
+        status:
+          enum:
+          - ACTIVE
+          - COMPLETED
+          - INVALID
+          - PENDING
+          - RESERVATION
+          type: string
+        last_updated:
+          example: 2019-06-24T12:39:09Z
+          type: string
+      required:
+      - auth_method
+      - cdr_token
+      - connector_id
+      - country_code
+      - currency
+      - evse_uid
+      - id
+      - kwh
+      - last_updated
+      - location_id
+      - party_id
+      - start_date_time
+      - status
+      type: object
+    chargingPreferences:
+      properties:
+        profile_type:
+          enum:
+          - CHEAP
+          - FAST
+          - GREEN
+          - REGULAR
+          type: string
+        departure_time:
+          example: 2015-06-30T21:59:59Z""
+          type: string
+        energy_need:
+          example: 1
+          type: number
+      required:
+      - profile_type
+      type: object
+    chargingPreferencesResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        charging_preferences: ACCEPTED
+      properties:
+        charging_preferences:
+          enum:
+          - ACCEPTED
+          - DEPARTURE_REQUIRED
+          - ENERGY_NEED_REQUIRED
+          - NOT_POSSIBLE
+          - PROFILE_TYPE_NOT_SUPPORTED
+          type: string
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - charging_preferences
+      - status_code
+      - timestamp
+      type: object
+    tariffsResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        tariffs:
+          tariff_alt_url: https://company.com/tariffs/14
+          last_updated: 2015-06-29T22:39:09Z
+          type: AD_HOC_PAYMENT
+          country_code: BE
+          end_date_time: 2019-06-23T08:16:02Z
+          energy_mix:
+            energy_product_name: E.ON DirektStrom eco
+            is_green_energy: true
+            supplier_name: E.ON Energy Deutschland
+            energy_sources:
+              percentage: 21.7
+              source: NUCLEAR
+            environ_impact:
+              amount: 372
+              category: null
+          max_price:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          min_price:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          tariff_alt_text:
+            language: en
+            text: 2.00 euro p/hour including VAT.
+          party_id: BEC
+          elements:
+            restrictions:
+              end_date: 2015-06-29T23:50:16Z
+              min_kwh: 1.0
+              end_time: 1080
+              min_duration: 0
+              min_current: 32.0
+              max_duration: 3600
+              start_time: 09:00
+              max_power: 32.0
+              max_kwh: 1.0
+              reservation: null
+              max_current: 30
+              start_date: 2019-06-23T08:16:02Z
+              min_power: 32.0
+              day_of_week: MONDAY
+            price_components: ENERGY
+          currency: EUR
+          id: "12"
+          start_date_time: 2019-06-23T08:16:02Z
+      properties:
+        tariffs:
+          $ref: '#/components/schemas/tariff'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    tariffResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        tariff:
+          tariff_alt_url: https://company.com/tariffs/14
+          last_updated: 2015-06-29T22:39:09Z
+          type: AD_HOC_PAYMENT
+          country_code: BE
+          end_date_time: 2019-06-23T08:16:02Z
+          energy_mix:
+            energy_product_name: E.ON DirektStrom eco
+            is_green_energy: true
+            supplier_name: E.ON Energy Deutschland
+            energy_sources:
+              percentage: 21.7
+              source: NUCLEAR
+            environ_impact:
+              amount: 372
+              category: null
+          max_price:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          min_price:
+            excl_vat: 2.5
+            incl_vat: 0.66
+          tariff_alt_text:
+            language: en
+            text: 2.00 euro p/hour including VAT.
+          party_id: BEC
+          elements:
+            restrictions:
+              end_date: 2015-06-29T23:50:16Z
+              min_kwh: 1.0
+              end_time: 1080
+              min_duration: 0
+              min_current: 32.0
+              max_duration: 3600
+              start_time: 09:00
+              max_power: 32.0
+              max_kwh: 1.0
+              reservation: null
+              max_current: 30
+              start_date: 2019-06-23T08:16:02Z
+              min_power: 32.0
+              day_of_week: MONDAY
+            price_components: ENERGY
+          currency: EUR
+          id: "12"
+          start_date_time: 2019-06-23T08:16:02Z
+      properties:
+        tariff:
+          $ref: '#/components/schemas/tariff'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - tariff
+      - timestamp
+      type: object
+    tariff:
+      example:
+        tariff_alt_url: https://company.com/tariffs/14
+        last_updated: 2015-06-29T22:39:09Z
+        type: AD_HOC_PAYMENT
+        country_code: BE
+        end_date_time: 2019-06-23T08:16:02Z
+        energy_mix:
+          energy_product_name: E.ON DirektStrom eco
+          is_green_energy: true
+          supplier_name: E.ON Energy Deutschland
+          energy_sources:
+            percentage: 21.7
+            source: NUCLEAR
+          environ_impact:
+            amount: 372
+            category: null
+        max_price:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        min_price:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        tariff_alt_text:
+          language: en
+          text: 2.00 euro p/hour including VAT.
+        party_id: BEC
+        elements:
+          restrictions:
+            end_date: 2015-06-29T23:50:16Z
+            min_kwh: 1.0
+            end_time: 1080
+            min_duration: 0
+            min_current: 32.0
+            max_duration: 3600
+            start_time: 09:00
+            max_power: 32.0
+            max_kwh: 1.0
+            reservation: null
+            max_current: 30
+            start_date: 2019-06-23T08:16:02Z
+            min_power: 32.0
+            day_of_week: MONDAY
+          price_components: ENERGY
+        currency: EUR
+        id: "12"
+        start_date_time: 2019-06-23T08:16:02Z
+      properties:
+        country_code:
+          example: BE
+          type: string
+        party_id:
+          example: BEC
+          type: string
+        id:
+          example: "12"
+          type: string
+        currency:
+          example: EUR
+          type: string
+        type:
+          enum:
+          - AD_HOC_PAYMENT
+          - PROFILE_CHEAP
+          - PROFILE_FAST
+          - PROFILE_GREEN
+          - REGULAR
+          type: string
+        tariff_alt_text:
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
+        tariff_alt_url:
+          example: https://company.com/tariffs/14
+          type: string
+        min_price:
+          $ref: '#/components/schemas/price'
+        max_price:
+          $ref: '#/components/schemas/price'
+        elements:
+          $ref: '#/components/schemas/tariff_elements'
+        start_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        end_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        energy_mix:
+          $ref: '#/components/schemas/tariff_energy_mix'
+        last_updated:
+          example: 2015-06-29T22:39:09Z
+          type: string
+      required:
+      - country_code
+      - currency
+      - id
+      - last_updated
+      - party_id
+      type: object
+    price:
+      example:
+        excl_vat: 2.5
+        incl_vat: 0.66
+      properties:
+        excl_vat:
+          example: 2.5
+          type: number
+        incl_vat:
+          example: 0.66
+          type: number
+      required:
+      - excl_vat
+      type: object
+    reservationRestrictionType:
+      enum:
+      - RESERVATION
+      - RESERVATION_EXPIRES
+      type: string
+    environmentalImpactCategoryType:
+      description: Categories of environmental impact values
+      enum:
+      - NUCLEAR_WASTE
+      - CARBON_DIOXIDE
+      type: string
+    tariffDeleteResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+      properties:
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timeStamp
+      type: object
+    tokensResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        tokens:
+          last_updated: 2018-12-10T17:25:10Z
+          contract_id: DE8ACC12E46L89
+          language: en
+          whitelist: ALWAYS
+          type: AD_HOC_USER
+          visual_number: DF000-2001-8999-1
+          issuer: TheNewMotion
+          valid: true
+          country_code: DE
+          uid: bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1
+          default_profile_type: CHEAP
+          group_id: DF000-2001-8999
+          energy_contract:
+            contract_id: "0123456789"
+            supplier_name: Greenpeace Energy eG
+          party_id: TNM
+      properties:
+        tokens:
+          $ref: '#/components/schemas/token'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    tokenResponse:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        token:
+          last_updated: 2018-12-10T17:25:10Z
+          contract_id: DE8ACC12E46L89
+          language: en
+          whitelist: ALWAYS
+          type: AD_HOC_USER
+          visual_number: DF000-2001-8999-1
+          issuer: TheNewMotion
+          valid: true
+          country_code: DE
+          uid: bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1
+          default_profile_type: CHEAP
+          group_id: DF000-2001-8999
+          energy_contract:
+            contract_id: "0123456789"
+            supplier_name: Greenpeace Energy eG
+          party_id: TNM
+      properties:
+        token:
+          $ref: '#/components/schemas/token'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      - token
+      type: object
+    token:
+      example:
+        last_updated: 2018-12-10T17:25:10Z
+        contract_id: DE8ACC12E46L89
+        language: en
+        whitelist: ALWAYS
+        type: AD_HOC_USER
+        visual_number: DF000-2001-8999-1
+        issuer: TheNewMotion
+        valid: true
+        country_code: DE
+        uid: bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1
+        default_profile_type: CHEAP
+        group_id: DF000-2001-8999
+        energy_contract:
+          contract_id: "0123456789"
+          supplier_name: Greenpeace Energy eG
+        party_id: TNM
+      properties:
+        country_code:
+          example: DE
+          type: string
+        party_id:
+          example: TNM
+          type: string
+        uid:
+          example: bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1
+          type: string
+        type:
+          enum:
+          - AD_HOC_USER
+          - APP_USER
+          - OTHER
+          - RFID
+          type: string
+        contract_id:
+          example: DE8ACC12E46L89
+          type: string
+        visual_number:
+          example: DF000-2001-8999-1
+          type: string
+        issuer:
+          example: TheNewMotion
+          type: string
+        group_id:
+          example: DF000-2001-8999
+          type: string
+        valid:
+          example: true
+          type: boolean
+        whitelist:
+          enum:
+          - ALWAYS
+          - ALLOWED
+          - ALLOWED_OFFLINE
+          - NEVER
+          type: string
+        language:
+          example: en
+          type: string
+        default_profile_type:
+          enum:
+          - CHEAP
+          - FAST
+          - GREEN
+          - REGULAR
+          type: string
+        energy_contract:
+          $ref: '#/components/schemas/token_energy_contract'
+        last_updated:
+          example: 2018-12-10T17:25:10Z
+          type: string
+      required:
+      - contract_id
+      - country_code
+      - issuer
+      - last_updated
+      - party_id
+      - type
+      - uid
+      - valid
+      - whitelist
+      type: object
+    locationReferences:
+      example:
+        evse_uids: evse_uids
+        location_id: LOC1
+      properties:
+        location_id:
+          example: LOC1
+          type: string
+        evse_uids:
+          type: string
+      required:
+      - location_id
+      type: object
+    authorization:
+      description: Changed name of the object from official docs due to colliding
+        naming of info property
+      example:
+        authorization_reference: "567890"
+        allowed: ALLOWED
+        location:
+          evse_uids: evse_uids
+          location_id: LOC1
+        token:
+          last_updated: 2018-12-10T17:25:10Z
+          contract_id: DE8ACC12E46L89
+          language: en
+          whitelist: ALWAYS
+          type: AD_HOC_USER
+          visual_number: DF000-2001-8999-1
+          issuer: TheNewMotion
+          valid: true
+          country_code: DE
+          uid: bdf21bce-fc97-11e8-8eb2-f2801f1b9fd1
+          default_profile_type: CHEAP
+          group_id: DF000-2001-8999
+          energy_contract:
+            contract_id: "0123456789"
+            supplier_name: Greenpeace Energy eG
+          party_id: TNM
+        info:
+          language: en
+          text: text
+      properties:
+        allowed:
+          enum:
+          - ALLOWED
+          - BLOCKED
+          - EXPIRED
+          - NO_CREDIT
+          - NOT_ALLOWED
+          type: string
+        token:
+          $ref: '#/components/schemas/token'
+        location:
+          $ref: '#/components/schemas/locationReferences'
+        authorization_reference:
+          example: "567890"
+          type: string
+        info:
+          $ref: '#/components/schemas/commandResponse_message'
+      required:
+      - allowed
+      - token
+      type: object
+    versions:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        data:
+          version: "2.0"
+          url: https://www.server.com/ocpi/2.2.1/
+      properties:
+        data:
+          $ref: '#/components/schemas/versions_data'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    details:
+      example:
+        status_message: Success
+        timeStamp: 2015-06-30T21:59:59Z
+        status_code: 1000
+        data:
+          endpoints:
+            identifier: null
+            role: null
+            url: https://example.com/ocpi/2.2.1/cdrs/
+          version: "2.0"
+      properties:
+        data:
+          $ref: '#/components/schemas/details_data'
+        status_code:
+          example: 1000
+          type: number
+        status_message:
+          example: Success
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timestamp
+      type: object
+    moduleIDType:
+      description: OCPI 2.2.1 modules
+      enum:
+      - cdrs
+      - chargingprofiles
+      - commands
+      - credentials
+      - hubclientinfo
+      - locations
+      - sessions
+      - tariffs
+      - tokens
+      type: string
+    interfaceRoleType:
+      description: Interface role endpoint implements.
+      enum:
+      - SENDER
+      - RECEIVER
+      type: string
+    genericError:
+      properties:
+        status_code:
+          example: 2001
+          type: number
+        status_message:
+          example: "Missing required field: type"
+          type: string
+        timeStamp:
+          example: 2015-06-30T21:59:59Z
+          type: string
+      required:
+      - status_code
+      - timeStamp
+      type: object
+    _ocpi_chargingprofile_post_request:
+      oneOf:
+      - $ref: '#/components/schemas/activeChargingProfileResult'
+      - $ref: '#/components/schemas/chargingProfileResult'
+      - $ref: '#/components/schemas/clearProfileResult'
+    _ocpi_commands__command__post_request:
+      oneOf:
+      - $ref: '#/components/schemas/cancelReservation'
+      - $ref: '#/components/schemas/reserveNow'
+      - $ref: '#/components/schemas/startSession'
+      - $ref: '#/components/schemas/stopSession'
+      - $ref: '#/components/schemas/unlockConnector'
+    _ocpi_locations__location_id__get_200_response:
+      oneOf:
+      - $ref: '#/components/schemas/locations'
+      - $ref: '#/components/schemas/evse'
+      - $ref: '#/components/schemas/connector'
+    cdrBody_cdr_token:
+      example:
+        country_code: CZ
+        uid: 123abc
+        contract_id: NL-TST-C12345678-S
+        party_id: STK
+        type: AD_HOC_USER
+      properties:
+        country_code:
+          example: CZ
+          type: string
+        party_id:
+          example: STK
+          type: string
+        uid:
+          example: 123abc
+          type: string
+        type:
+          enum:
+          - AD_HOC_USER
+          - APP_USER
+          - OTHER
+          - RFID
+          type: string
+        contract_id:
+          example: NL-TST-C12345678-S
+          type: string
+      required:
+      - contract_id
+      - country_code
+      - party_id
+      - type
+      - uid
+      type: object
+    cdrBody_cdr_location_coordinates:
+      example:
+        latitude: "51.047599"
+        longitude: "3.729944"
+      properties:
+        latitude:
+          example: "51.047599"
+          type: string
+        longitude:
+          example: "3.729944"
+          type: string
+      required:
+      - latitude
+      - longitude
+      type: object
+    cdrBody_cdr_location:
+      example:
+        country: BEL
+        evse_id: BE*BEC*E041503003
+        address: F.Rooseveltlaan 3A
+        city: Gent
+        coordinates:
+          latitude: "51.047599"
+          longitude: "3.729944"
+        name: Gent Zuid
+        connector_id: "1"
+        id: LOC1
+        state: state
+        evse_uid: "3256"
+        postal_code: "9000"
+        connector_power_type: AC_1_PHASE
+        connector_standard: CHADEMO
+        connector_format: SOCKET
+      properties:
+        id:
+          example: LOC1
+          type: string
+        name:
+          example: Gent Zuid
+          type: string
+        address:
+          example: F.Rooseveltlaan 3A
+          type: string
+        city:
+          example: Gent
+          type: string
+        postal_code:
+          example: "9000"
+          type: string
+        state:
+          type: string
+        country:
+          example: BEL
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/cdrBody_cdr_location_coordinates'
+        evse_uid:
+          example: "3256"
+          type: string
+        evse_id:
+          example: BE*BEC*E041503003
+          type: string
+        connector_id:
+          example: "1"
+          type: string
+        connector_standard:
+          enum:
+          - CHADEMO
+          - CHAOJI
+          - DOMESTIC_A
+          - DOMESTIC_B
+          - DOMESTIC_C
+          - DOMESTIC_D
+          - DOMESTIC_E
+          - DOMESTIC_F
+          - DOMESTIC_G
+          - DOMESTIC_H
+          - DOMESTIC_J
+          - DOMESTIC_K
+          - DOMESTIC_L
+          - DOMESTIC_M
+          - DOMESTIC_N
+          - DOMESTIC_O
+          - GBT_AC
+          - GBT_DC
+          - IEC_60309_2_single_16
+          - IEC_60309_2_three_16
+          - IEC_60309_2_three_32
+          - IEC_60309_2_three_64
+          - IEC_62196_T1
+          - IEC_62196_T1_COMBO
+          - IEC_62196_T2
+          - IEC_62196_T2_COMBO
+          - IEC_62196_T3A
+          - IEC_62196_T3C
+          - NEMA_5_20
+          - NEMA_6_30
+          - NEMA_6_50
+          - NEMA_10_30
+          - NEMA_10_50
+          - NEMA_14_30
+          - NEMA_14_50
+          - PANTOGRAPH_BOTTOM_UP
+          - PANTOGRAPH_TOP_DOWN
+          - TESLA_R
+          - TESLA_S
+          type: string
+        connector_format:
+          enum:
+          - SOCKET
+          - CABLE
+          type: string
+        connector_power_type:
+          enum:
+          - AC_1_PHASE
+          - AC_2_PHASE
+          - AC_2_PHASE_SPLIT
+          - AC_3_PHASE
+          - DC
+          type: string
+      type: object
+    cdrBody_tariffs_tariff_alt_text:
+      example:
+        language: en
+        text: 2.00 euro p/hour including VAT.
+      properties:
+        language:
+          example: en
+          type: string
+        text:
+          example: 2.00 euro p/hour including VAT.
+          type: string
+      required:
+      - language
+      - text
+      type: object
+    cdrBody_tariffs_elements_restrictions:
+      example:
+        end_date: 2015-06-29T23:50:16Z
+        min_kwh: 1.0
+        end_time: 1080
+        min_duration: 0
+        min_current: 32.0
+        max_duration: 3600
+        start_time: 09:00
+        max_power: 32.0
+        max_kwh: 1.0
+        reservation: RESERVATION
+        max_current: 30
+        start_date: 2019-06-23T08:16:02Z
+        min_power: 32.0
+        day_of_week: MONDAY
+      properties:
+        start_time:
+          example: 09:00
+          type: string
+        end_time:
+          example: "1080"
+          type: string
+        start_date:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        end_date:
+          example: 2015-06-29T23:50:16Z
+          type: string
+        min_kwh:
+          example: 1.0
+          type: number
+        max_kwh:
+          example: 1.0
+          type: number
+        min_current:
+          example: 32.0
+          type: number
+        max_current:
+          example: 30
+          type: number
+        min_power:
+          example: 32.0
+          type: number
+        max_power:
+          example: 32.0
+          type: number
+        min_duration:
+          example: 0
+          type: integer
+        max_duration:
+          example: 3600
+          type: integer
+        day_of_week:
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          type: string
+        reservation:
+          enum:
+          - RESERVATION
+          - RESERVATION_EXPIRES
+          type: string
+      type: object
+    cdrBody_tariffs_elements:
+      example:
+        restrictions:
+          end_date: 2015-06-29T23:50:16Z
+          min_kwh: 1.0
+          end_time: 1080
+          min_duration: 0
+          min_current: 32.0
+          max_duration: 3600
+          start_time: 09:00
+          max_power: 32.0
+          max_kwh: 1.0
+          reservation: RESERVATION
+          max_current: 30
+          start_date: 2019-06-23T08:16:02Z
+          min_power: 32.0
+          day_of_week: MONDAY
+        price_components: ENERGY
+      properties:
+        price_components:
+          enum:
+          - ENERGY
+          - FLAT
+          - PARKING_TIME
+          - TIME
+          type: string
+        restrictions:
+          $ref: '#/components/schemas/cdrBody_tariffs_elements_restrictions'
+      type: object
+    cdrBody_tariffs_energy_mix_energy_sources:
+      example:
+        percentage: 21.7
+        source: NUCLEAR
+      properties:
+        source:
+          enum:
+          - NUCLEAR
+          - GENERAL_FOSSIL
+          - COAL
+          - GAS
+          - GENERAL_GREEN
+          - SOLAR
+          - WIND
+          - WATER
+          type: string
+        percentage:
+          example: 21.7
+          type: number
+      required:
+      - percentage
+      - source
+      type: object
+    cdrBody_tariffs_energy_mix_environ_impact:
+      example:
+        amount: 372
+        category: NUCLEAR_WASTE
+      properties:
+        category:
+          enum:
+          - NUCLEAR_WASTE
+          - CARBON_DIOXIDE
+          type: string
+        amount:
+          example: 372
+          type: number
+      required:
+      - amount
+      - category
+      type: object
+    cdrBody_tariffs_energy_mix:
+      example:
+        energy_product_name: E.ON DirektStrom eco
+        is_green_energy: true
+        supplier_name: E.ON Energy Deutschland
+        energy_sources:
+          percentage: 21.7
+          source: NUCLEAR
+        environ_impact:
+          amount: 372
+          category: NUCLEAR_WASTE
+      properties:
+        is_green_energy:
+          example: true
+          type: boolean
+        energy_sources:
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix_energy_sources'
+        environ_impact:
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix_environ_impact'
+        supplier_name:
+          example: E.ON Energy Deutschland
+          type: string
+        energy_product_name:
+          example: E.ON DirektStrom eco
+          type: string
+      required:
+      - is_green_energy
+      type: object
+    cdrBody_tariffs:
+      example:
+        tariff_alt_url: https://company.com/tariffs/14
+        last_updated: 2015-06-29T22:39:09Z
+        type: AD_HOC_PAYMENT
+        country_code: BE
+        end_date_time: 2019-06-23T08:16:02Z
+        energy_mix:
+          energy_product_name: E.ON DirektStrom eco
+          is_green_energy: true
+          supplier_name: E.ON Energy Deutschland
+          energy_sources:
+            percentage: 21.7
+            source: NUCLEAR
+          environ_impact:
+            amount: 372
+            category: NUCLEAR_WASTE
+        max_price:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        min_price:
+          excl_vat: 2.5
+          incl_vat: 0.66
+        tariff_alt_text:
+          language: en
+          text: 2.00 euro p/hour including VAT.
+        party_id: BEC
+        elements:
+          restrictions:
+            end_date: 2015-06-29T23:50:16Z
+            min_kwh: 1.0
+            end_time: 1080
+            min_duration: 0
+            min_current: 32.0
+            max_duration: 3600
+            start_time: 09:00
+            max_power: 32.0
+            max_kwh: 1.0
+            reservation: RESERVATION
+            max_current: 30
+            start_date: 2019-06-23T08:16:02Z
+            min_power: 32.0
+            day_of_week: MONDAY
+          price_components: ENERGY
+        currency: EUR
+        id: "12"
+        start_date_time: 2019-06-23T08:16:02Z
+      properties:
+        country_code:
+          example: BE
+          type: string
+        party_id:
+          example: BEC
+          type: string
+        id:
+          example: "12"
+          type: string
+        currency:
+          example: EUR
+          type: string
+        type:
+          enum:
+          - AD_HOC_PAYMENT
+          - PROFILE_CHEAP
+          - PROFILE_FAST
+          - PROFILE_GREEN
+          - REGULAR
+          type: string
+        tariff_alt_text:
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
+        tariff_alt_url:
+          example: https://company.com/tariffs/14
+          type: string
+        min_price:
+          $ref: '#/components/schemas/price'
+        max_price:
+          $ref: '#/components/schemas/price'
+        elements:
+          $ref: '#/components/schemas/cdrBody_tariffs_elements'
+        start_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        end_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        energy_mix:
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix'
+        last_updated:
+          example: 2015-06-29T22:39:09Z
+          type: string
+      required:
+      - country_code
+      - currency
+      - id
+      - last_updated
+      - party_id
+      type: object
+    cdrBody_charging_periods_dimensions:
+      example:
+        volume: 2200
+        type: CURRENT
+      properties:
+        type:
+          enum:
+          - CURRENT
+          - ENERGY
+          - ENERGY_EXPORT
+          - ENERGY_IMPORT
+          - MAX_CURRENT
+          - MIN_CURRENT
+          - MAX_POWER
+          - MIN_POWER
+          - PARKING_TIME
+          - POWER
+          - RESERVATION_TIME
+          - STATE_OF_CHARGE
+          - TIME
+          type: string
+        volume:
+          example: 2200
+          type: number
+      required:
+      - type
+      - volume
+      type: object
+    cdrBody_charging_periods:
+      example:
+        tariff_id: "12"
+        start_date_time: 2019-06-23T08:16:02Z
+        dimensions:
+          volume: 2200
+          type: CURRENT
+      properties:
+        start_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        dimensions:
+          $ref: '#/components/schemas/cdrBody_charging_periods_dimensions'
+        tariff_id:
+          example: "12"
+          type: string
+      required:
+      - start_date_time
+      type: object
+    cdrBody_signed_data_signed_values:
+      example:
+        plain_data: plain_data
+        signed_data: signed_data
+        nature: nature
+      properties:
+        nature:
+          type: string
+        plain_data:
+          type: string
+        signed_data:
+          type: string
+      required:
+      - nature
+      - plain_data
+      - signed_data
+      type: object
+    cdrBody_signed_data:
+      example:
+        public_key: public_key
+        signed_values:
+          plain_data: plain_data
+          signed_data: signed_data
+          nature: nature
+        encoding_method: encoding_method
+        encoding_method_version: 0
+        url: https://example.com
+      properties:
+        encoding_method:
+          type: string
+        encoding_method_version:
+          type: integer
+        public_key:
+          type: string
+        signed_values:
+          $ref: '#/components/schemas/cdrBody_signed_data_signed_values'
+        url:
+          example: https://example.com
+          type: string
+      required:
+      - encoding_method
+      type: object
+    chargingProfile_charging_profile_period:
+      properties:
+        start_period:
+          type: integer
+        limit:
+          type: number
+      required:
+      - limit
+      - start_period
+      type: object
+    activeChargingProfileResult_profile:
+      properties:
+        start_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        charging_profile:
+          $ref: '#/components/schemas/chargingProfile'
+      required:
+      - charging_profile
+      - start_date_time
+      type: object
+    commandResponse_message:
+      example:
+        language: en
+        text: text
+      properties:
+        language:
+          example: en
+          type: string
+        text:
+          type: string
+      required:
+      - language
+      - text
+      type: object
+    credentials_data_roles_business_details_logo:
+      example:
+        thumbnail: https://example.com/img/logo_thumb.jpg
+        width: 512
+        category: CHARGER
+        type: jpeg
+        url: https://example.com/img/logo.jpg
+        height: 512
+      properties:
+        url:
+          example: https://example.com/img/logo.jpg
+          type: string
+        thumbnail:
+          example: https://example.com/img/logo_thumb.jpg
+          type: string
+        category:
+          enum:
+          - CHARGER
+          - ENTRANCE
+          - LOCATION
+          - NETWORK
+          - OPERATOR
+          - OTHER
+          - OWNER
+          type: string
+        type:
+          example: jpeg
+          type: string
+        width:
+          example: 512
+          type: number
+        height:
+          example: 512
+          type: number
+      required:
+      - category
+      - type
+      - url
+      type: object
+    credentials_data_roles_business_details:
+      example:
+        website: http://example.com
+        name: Example Operator
+        logo:
+          thumbnail: https://example.com/img/logo_thumb.jpg
+          width: 512
+          category: CHARGER
+          type: jpeg
+          url: https://example.com/img/logo.jpg
+          height: 512
+      properties:
+        name:
+          example: Example Operator
+          type: string
+        website:
+          example: http://example.com
+          type: string
+        logo:
+          $ref: '#/components/schemas/credentials_data_roles_business_details_logo'
+      required:
+      - name
+      type: object
+    credentials_data_roles:
+      example:
+        country_code: CZ
+        business_details:
+          website: http://example.com
+          name: Example Operator
+          logo:
+            thumbnail: https://example.com/img/logo_thumb.jpg
+            width: 512
+            category: CHARGER
+            type: jpeg
+            url: https://example.com/img/logo.jpg
+            height: 512
+        role: CPO
+        party_id: EXA
+      properties:
+        role:
+          enum:
+          - CPO
+          - EMSP
+          - HUB
+          - NAP
+          - NSP
+          - OTHER
+          - SCSP
+          type: string
+        business_details:
+          $ref: '#/components/schemas/credentials_data_roles_business_details'
+        party_id:
+          example: EXA
+          type: string
+        country_code:
+          example: CZ
+          type: string
+      required:
+      - business_details
+      - country_code
+      - party_id
+      - role
+      type: object
+    credentials_data:
+      example:
+        roles:
+          country_code: CZ
+          business_details:
+            website: http://example.com
+            name: Example Operator
+            logo:
+              thumbnail: https://example.com/img/logo_thumb.jpg
+              width: 512
+              category: CHARGER
+              type: jpeg
+              url: https://example.com/img/logo.jpg
+              height: 512
+          role: CPO
+          party_id: EXA
+        url: https://example.com/ocpi/versions/
+        token: ebf3b399-779f-4497-9b9d-ac6ad3cc44d2
+      properties:
+        token:
+          example: ebf3b399-779f-4497-9b9d-ac6ad3cc44d2
+          type: string
+        url:
+          example: https://example.com/ocpi/versions/
+          type: string
+        roles:
+          $ref: '#/components/schemas/credentials_data_roles'
+      required:
+      - token
+      - url
+      type: object
+    locations_data_publish_allowed_to:
+      example:
+        uid: "012345678"
+        group_id: DF000-2001-8999
+        type: AD_HOC_USER
+        visual_number: DF000-2001-8999
+        issuer: TheNewMotion
+      properties:
+        uid:
+          example: "012345678"
+          type: string
+        type:
+          enum:
+          - AD_HOC_USER
+          - APP_USER
+          - OTHER
+          - RFID
+          type: string
+        visual_number:
+          example: DF000-2001-8999
+          type: string
+        issuer:
+          example: TheNewMotion
+          type: string
+        group_id:
+          example: DF000-2001-8999
+          type: string
+      type: object
+    locations_data_related_locations:
+      example:
+        latitude: "51.047599"
+        name:
+          language: en
+          text: 2.00 euro p/hour including VAT.
+        longitude: "3.729944"
+      properties:
+        latitude:
+          example: "51.047599"
+          type: string
+        longitude:
+          example: "3.729944"
+          type: string
+        name:
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
+      required:
+      - latitude
+      - longitude
+      type: object
+    locations_data_opening_times_regular_hours:
+      example:
+        period_begin: 07:00
+        period_end: 1080
+        weekday: 1
+      properties:
+        weekday:
+          example: 1
+          type: integer
+        period_begin:
+          example: 07:00
+          type: string
+        period_end:
+          example: "1080"
+          type: string
+      required:
+      - period_begin
+      - period_end
+      - weekday
+      type: object
+    locations_data_opening_times_exceptional_openings:
+      example:
+        period_begin: 07:00
+        period_end: 1080
+      properties:
+        period_begin:
+          example: 07:00
+          type: string
+        period_end:
+          example: "1080"
+          type: string
+      required:
+      - period_begin
+      - period_end
+      type: object
+    locations_data_opening_times:
+      example:
+        twentyfourseven: true
+        regular_hours:
+          period_begin: 07:00
+          period_end: 1080
+          weekday: 1
+        exceptional_closings:
+          period_begin: 07:00
+          period_end: 1080
+        exceptional_openings:
+          period_begin: 07:00
+          period_end: 1080
+      properties:
+        twentyfourseven:
+          example: true
+          type: boolean
+        regular_hours:
+          $ref: '#/components/schemas/locations_data_opening_times_regular_hours'
+        exceptional_openings:
+          $ref: '#/components/schemas/locations_data_opening_times_exceptional_openings'
+        exceptional_closings:
+          $ref: '#/components/schemas/locations_data_opening_times_exceptional_openings'
+      required:
+      - twentyfourseven
+      type: object
+    locations_data:
+      example:
+        country: BEL
+        city: Gent
+        charging_when_closed: false
+        parking_type: ALONG_MOTORWAY
+        suboperator:
+          website: http://example.com
+          name: Example Operator
+          logo:
+            thumbnail: https://example.com/img/logo_thumb.jpg
+            width: 512
+            category: CHARGER
+            type: jpeg
+            url: https://example.com/img/logo.jpg
+            height: 512
+        operator:
+          website: http://example.com
+          name: Example Operator
+          logo:
+            thumbnail: https://example.com/img/logo_thumb.jpg
+            width: 512
+            category: CHARGER
+            type: jpeg
+            url: https://example.com/img/logo.jpg
+            height: 512
+        evses:
+          physical_reference: "1"
+          evse_id: BE*BEC*E041503001
+          connectors:
+            standard: CHADEMO
+            max_amperage: 16
+            terms_and_conditions: https://example.com/terms_and_conditions
+            last_updated: 2015-03-16T10:10:02Z
+            format: SOCKET
+            max_voltage: 220
+            id: "1"
+            max_electric_power: 0
+            power_type: AC_1_PHASE
+            tariff_ids: "11"
+          images:
+            thumbnail: https://example.com/img/logo_thumb.jpg
+            width: 512
+            category: CHARGER
+            type: jpeg
+            url: https://example.com/img/logo.jpg
+            height: 512
+          last_updated: 2015-03-18T08:12:01Z
+          capabilities: CHARGING_PROFILE_CAPABLE
+          status_schedule:
+            period_begin: 07:00
+            period_end: 1080
+            status: AVAILABLE
+          coordinates:
+            latitude: "51.047599"
+            longitude: "3.729944"
+          uid: "3256"
+          directions:
+            language: en
+            text: 2.00 euro p/hour including VAT.
+          parking_restrictions: EV_ONLY
+          floor_level: "-1"
+          status: AVAILABLE
+        id: LOC1
+        state: Slovenia
+        owner:
+          website: http://example.com
+          name: Example Operator
+          logo:
+            thumbnail: https://example.com/img/logo_thumb.jpg
+            width: 512
+            category: CHARGER
+            type: jpeg
+            url: https://example.com/img/logo.jpg
+            height: 512
+        images:
+          thumbnail: https://example.com/img/logo_thumb.jpg
+          width: 512
+          category: CHARGER
+          type: jpeg
+          url: https://example.com/img/logo.jpg
+          height: 512
+        last_updated: 2015-06-29T20:39:09Z
+        address: F.Rooseveltlaan 3A
+        coordinates:
+          latitude: "51.047599"
+          longitude: "3.729944"
+        opening_times:
+          twentyfourseven: true
+          regular_hours:
+            period_begin: 07:00
+            period_end: 1080
+            weekday: 1
+          exceptional_closings:
+            period_begin: 07:00
+            period_end: 1080
+          exceptional_openings:
+            period_begin: 07:00
+            period_end: 1080
+        publish_allowed_to:
+          uid: "012345678"
+          group_id: DF000-2001-8999
+          type: AD_HOC_USER
+          visual_number: DF000-2001-8999
+          issuer: TheNewMotion
+        time_zone: Europe/Brussels
+        country_code: CZ
+        related_locations:
+          latitude: "51.047599"
+          name:
+            language: en
+            text: 2.00 euro p/hour including VAT.
+          longitude: "3.729944"
+        energy_mix:
+          energy_product_name: E.ON DirektStrom eco
+          is_green_energy: true
+          supplier_name: E.ON Energy Deutschland
+          energy_sources:
+            percentage: 21.7
+            source: NUCLEAR
+          environ_impact:
+            amount: 372
+            category: NUCLEAR_WASTE
+        directions:
+          language: en
+          text: 2.00 euro p/hour including VAT.
+        party_id: BEC
+        publish: true
+        name: Gent Zuid
+        postal_code: "9000"
+        facilities: HOTEL
+      properties:
+        country_code:
+          example: CZ
+          type: string
+        party_id:
+          example: BEC
+          type: string
+        id:
+          example: LOC1
+          type: string
+        publish:
+          example: true
+          type: boolean
+        publish_allowed_to:
+          $ref: '#/components/schemas/locations_data_publish_allowed_to'
+        name:
+          example: Gent Zuid
+          type: string
+        address:
+          example: F.Rooseveltlaan 3A
+          type: string
+        city:
+          example: Gent
+          type: string
+        postal_code:
+          example: "9000"
+          type: string
+        state:
+          example: Slovenia
+          type: string
+        country:
+          example: BEL
+          type: string
+        coordinates:
+          $ref: '#/components/schemas/cdrBody_cdr_location_coordinates'
+        related_locations:
+          $ref: '#/components/schemas/locations_data_related_locations'
+        parking_type:
+          enum:
+          - ALONG_MOTORWAY
+          - PARKING_GARAGE
+          - PARKING_LOT
+          - ON_DRIVEWAY
+          - ON_STREET
+          - UNDERGROUND_GARAGE
+          type: string
+        evses:
+          $ref: '#/components/schemas/evse'
+        directions:
+          $ref: '#/components/schemas/cdrBody_tariffs_tariff_alt_text'
+        operator:
+          $ref: '#/components/schemas/businessDetails'
+        suboperator:
+          $ref: '#/components/schemas/businessDetails'
+        owner:
+          $ref: '#/components/schemas/businessDetails'
+        facilities:
+          enum:
+          - HOTEL
+          - RESTAURANT
+          - CAFE
+          - MALL
+          - SUPERMARKET
+          - SPORT
+          - RECREATION_AREA
+          - NATURE
+          - MUSEUM
+          - BIKE_SHARING
+          - BUS_STOP
+          - TAXI_STAND
+          - TRAM_STOP
+          - METRO_STATION
+          - TRAIN_STATION
+          - AIRPORT
+          - PARKING_LOT
+          - CARPOOL_PARKING
+          - FUEL_STATION
+          - WIFI
+          type: string
+        time_zone:
+          example: Europe/Brussels
+          type: string
+        opening_times:
+          $ref: '#/components/schemas/locations_data_opening_times'
+        charging_when_closed:
+          example: false
+          type: boolean
+        images:
+          $ref: '#/components/schemas/image'
+        energy_mix:
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix'
+        last_updated:
+          example: 2015-06-29T20:39:09Z
+          type: string
+      required:
+      - address
+      - city
+      - coordinates
+      - country
+      - last_updated
+      - time_zone
+      type: object
+    evse_status_schedule:
+      example:
+        period_begin: 07:00
+        period_end: 1080
+        status: AVAILABLE
+      properties:
+        period_begin:
+          example: 07:00
+          type: string
+        period_end:
+          example: "1080"
+          type: string
+        status:
+          enum:
+          - AVAILABLE
+          - BLOCKED
+          - CHARGING
+          - INOPERATIVE
+          - OUTOFORDER
+          - PLANNED
+          - REMOVED
+          - RESERVED
+          - UNKNOWN
+          type: string
+      required:
+      - period_begin
+      - status
+      type: object
+    session_charging_periods_dimensions:
+      example:
+        volume: 120
+        type: AUTH_REQUEST
+      properties:
+        type:
+          enum:
+          - AUTH_REQUEST
+          - COMMAND
+          - WHITELIST
+          type: string
+        volume:
+          example: 120
+          type: number
+      required:
+      - type
+      - volume
+      type: object
+    session_charging_periods:
+      example:
+        tariff_id: "12"
+        start_date_time: 2019-06-23T08:16:02Z
+        dimensions:
+          volume: 120
+          type: AUTH_REQUEST
+      properties:
+        start_date_time:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        dimensions:
+          $ref: '#/components/schemas/session_charging_periods_dimensions'
+        tariff_id:
+          example: "12"
+          type: string
+      required:
+      - start_date_time
+      type: object
+    session_total_costs:
+      example:
+        excl_vat: 2.5
+        incl_vat: 0.66
+      properties:
+        excl_vat:
+          example: 2.5
+          type: number
+        incl_vat:
+          example: 0.66
+          type: number
+      required:
+      - excl_vat
+      type: object
+    tariff_elements_restrictions:
+      example:
+        end_date: 2015-06-29T23:50:16Z
+        min_kwh: 1.0
+        end_time: 1080
+        min_duration: 0
+        min_current: 32.0
+        max_duration: 3600
+        start_time: 09:00
+        max_power: 32.0
+        max_kwh: 1.0
+        reservation: null
+        max_current: 30
+        start_date: 2019-06-23T08:16:02Z
+        min_power: 32.0
+        day_of_week: MONDAY
+      properties:
+        start_time:
+          example: 09:00
+          type: string
+        end_time:
+          example: "1080"
+          type: string
+        start_date:
+          example: 2019-06-23T08:16:02Z
+          type: string
+        end_date:
+          example: 2015-06-29T23:50:16Z
+          type: string
+        min_kwh:
+          example: 1.0
+          type: number
+        max_kwh:
+          example: 1.0
+          type: number
+        min_current:
+          example: 32.0
+          type: number
+        max_current:
+          example: 30
+          type: number
+        min_power:
+          example: 32.0
+          type: number
+        max_power:
+          example: 32.0
+          type: number
+        min_duration:
+          example: 0
+          type: integer
+        max_duration:
+          example: 3600
+          type: integer
+        day_of_week:
+          enum:
+          - MONDAY
+          - TUESDAY
+          - WEDNESDAY
+          - THURSDAY
+          - FRIDAY
+          - SATURDAY
+          - SUNDAY
+          type: string
+        reservation:
+          $ref: '#/components/schemas/reservationRestrictionType'
+      type: object
+    tariff_elements:
+      example:
+        restrictions:
+          end_date: 2015-06-29T23:50:16Z
+          min_kwh: 1.0
+          end_time: 1080
+          min_duration: 0
+          min_current: 32.0
+          max_duration: 3600
+          start_time: 09:00
+          max_power: 32.0
+          max_kwh: 1.0
+          reservation: null
+          max_current: 30
+          start_date: 2019-06-23T08:16:02Z
+          min_power: 32.0
+          day_of_week: MONDAY
+        price_components: ENERGY
+      properties:
+        price_components:
+          enum:
+          - ENERGY
+          - FLAT
+          - PARKING_TIME
+          - TIME
+          type: string
+        restrictions:
+          $ref: '#/components/schemas/tariff_elements_restrictions'
+      type: object
+    tariff_energy_mix_environ_impact:
+      example:
+        amount: 372
+        category: null
+      properties:
+        category:
+          $ref: '#/components/schemas/environmentalImpactCategoryType'
+        amount:
+          example: 372
+          type: number
+      required:
+      - amount
+      - category
+      type: object
+    tariff_energy_mix:
+      example:
+        energy_product_name: E.ON DirektStrom eco
+        is_green_energy: true
+        supplier_name: E.ON Energy Deutschland
+        energy_sources:
+          percentage: 21.7
+          source: NUCLEAR
+        environ_impact:
+          amount: 372
+          category: null
+      properties:
+        is_green_energy:
+          example: true
+          type: boolean
+        energy_sources:
+          $ref: '#/components/schemas/cdrBody_tariffs_energy_mix_energy_sources'
+        environ_impact:
+          $ref: '#/components/schemas/tariff_energy_mix_environ_impact'
+        supplier_name:
+          example: E.ON Energy Deutschland
+          type: string
+        energy_product_name:
+          example: E.ON DirektStrom eco
+          type: string
+      required:
+      - is_green_energy
+      type: object
+    token_energy_contract:
+      example:
+        contract_id: "0123456789"
+        supplier_name: Greenpeace Energy eG
+      properties:
+        supplier_name:
+          example: Greenpeace Energy eG
+          type: string
+        contract_id:
+          example: "0123456789"
+          type: string
+      required:
+      - supplier_name
+      type: object
+    versions_data:
+      example:
+        version: "2.0"
+        url: https://www.server.com/ocpi/2.2.1/
+      properties:
+        version:
+          enum:
+          - "2.0"
+          - "2.1"
+          - "2.1.1"
+          - "2.2"
+          - "2.2.1"
+          type: string
+        url:
+          example: https://www.server.com/ocpi/2.2.1/
+          type: string
+      required:
+      - url
+      - version
+      type: object
+    details_data_endpoints:
+      example:
+        identifier: null
+        role: null
+        url: https://example.com/ocpi/2.2.1/cdrs/
+      properties:
+        identifier:
+          $ref: '#/components/schemas/moduleIDType'
+        role:
+          $ref: '#/components/schemas/interfaceRoleType'
+        url:
+          description: URL to the endpoint.
+          example: https://example.com/ocpi/2.2.1/cdrs/
+          type: string
+      required:
+      - identifier
+      - role
+      - url
+      type: object
+    details_data:
+      example:
+        endpoints:
+          identifier: null
+          role: null
+          url: https://example.com/ocpi/2.2.1/cdrs/
+        version: "2.0"
+      properties:
+        version:
+          enum:
+          - "2.0"
+          - "2.1"
+          - 2.1.1
+          - "2.2"
+          - 2.2.1
+          type: string
+        endpoints:
+          $ref: '#/components/schemas/details_data_endpoints'
+      required:
+      - version
+      type: object
