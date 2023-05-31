@@ -1,4 +1,4 @@
-module github.com/GLCharge/2.1.1
+module github.com/GLCharge/ocpi/2.2.1
 
 go 1.20
 
