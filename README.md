@@ -20,7 +20,7 @@ import OCPI "https://github.com/GLCharge/ocpi/<ocpi-version>"
 
 ## Generation
 
-This code base, was generated using [opai-codegen](https://github.com/deepmap/oapi-codegen).
+This code base, was generated using [oapi-codegen](https://github.com/deepmap/oapi-codegen).
 For further instructions, please follow READMEs for each client. New version can be generated
 after creating or adjusting the OpenAPI specification. Please do not modify the clients, running
 generation will overwrite them.

@@ -17,5 +17,4 @@ Steps to generate changes for the client
 4) Regenerate the client using this command
 ```shell
 oapi-codegen -package OCPI api/2.2.1.spec.yml > client.go
-
 ```
