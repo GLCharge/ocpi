@@ -1,0 +1,43 @@
+name: "Validate OCPI OpenAPI specification"
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - v*
+    paths-ignore:
+      - "**.md"
+
+  pull_request:
+    types: [ opened, synchronize ]
+    paths-ignore:
+      - "**.md"
+
+jobs:
+  validate-ocpi-v221-specification:
+    name: "Validate the OCPI 2.2.1 OpenAPI specification"
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Swagger Editor Validator
+        uses: char0n/swagger-editor-validate@v1.3.2
+        with:
+          definition-file: ./2.2.1/2.2.1.spec.yml
+
+  fmt:
+    name: Format Go code
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.19
+
+      - name: Format Go code
+        run: go fmt ./2.2.1/...
