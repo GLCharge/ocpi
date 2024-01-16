@@ -25,7 +25,7 @@ jobs:
       - name: Swagger Editor Validator
         uses: char0n/swagger-editor-validate@v1.3.2
         with:
-          definition-file: ./2.2.1/2.2.1.spec.yml
+          definition-file: ./2.2.1/api/2.2.1.spec.yml
 
   fmt:
     name: Format Go code
