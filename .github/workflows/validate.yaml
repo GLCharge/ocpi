@@ -39,5 +39,8 @@ jobs:
         with:
           go-version: 1.19
 
+      - name: Download Go modules
+        run: go mod download
+
       - name: Format Go code
         run: go fmt ./2.2.1/...
